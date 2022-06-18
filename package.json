@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "run-p build-only",
+    "build": "vite build",
     "preview": "vite preview --port 4173",
     "build-only": "vite build"
   },
