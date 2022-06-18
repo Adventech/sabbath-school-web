@@ -1,3 +1,13 @@
 # sabbath-school-web
 
-Web version located in the `web` folder of our [lessons repo](https://github.com/Adventech/sabbath-school-lessons)
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
