@@ -18,7 +18,7 @@ jobs:
           node-version: '16'
           check-latest: true
       - run: npm install
-      - run: vite build `[[ "${{ steps.extract_branch.outputs.branch }}" = "stage" ]] && echo '--mode stage'`
+      - run: npx vite build `[[ "${{ steps.extract_branch.outputs.branch }}" = "stage" ]] && echo '--mode stage'`
       - run: curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
       - run: unzip awscli-bundle.zip
       - run: ./awscli-bundle/install -b ~/bin/aws
