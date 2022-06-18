@@ -32,6 +32,7 @@ export default {
         initialViewState: new PSPDFKit.ViewState({
           zoom: PSPDFKit.ZoomMode.FIT_TO_WIDTH
         }),
+        licenseKey: import.meta.env.VITE_APP_PSPDF_KEY,
         styleSheets: [ "/assets/css/pspdfkit-css.css" ],
         document: this.pdfUrl,
         container: ".pdf-container",
