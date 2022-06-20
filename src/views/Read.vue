@@ -33,10 +33,10 @@
     <div class="mt-4 ml-0 md:ml-6 md:mt-0 mb-4 md:mb-0 grow order-0 md:order-1 md:w-3/12 lg:w-9/12 xl:w-10/12">
       <div v-if="lesson" class="rounded border border-1 border-gray-150 h-full">
         <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t h-ss-cover bg-center bg-cover flex flex-col">
-          <div class="flex justify-end p-2">
+          <div v-if="audio.length || video.length" class="flex justify-end p-2">
             <div class="pb-4 pt-5 px-5 bg-black/[.6] flex rounded-lg">
-              <button @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
-              <button @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
+              <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
+              <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
             </div>
           </div>
           <div class="grow"></div>
@@ -149,12 +149,23 @@ export default {
       }
     },
     loadAudio: async function () {
-      const audio = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/audio.json`)
-      this.audio = audio.data.filter((item) => item.target.startsWith(`${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}`))
+      try {
+        const audio = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/audio.json`)
+        const contentType = audio.headers["content-type"]
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          this.audio = audio.data.filter((item) => item.target.startsWith(`${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}`))
+        }
+      } catch (e) {}
+
     },
     loadVideo: async function () {
-      const video = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/video.json`)
-      this.video = video.data
+      try {
+        const video = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/video.json`)
+        const contentType = video.headers["content-type"]
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          this.video = video.data
+        }
+      } catch (e) {}
     }
   }
 }
