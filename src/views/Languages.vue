@@ -367,6 +367,11 @@ export default {
           "en": "Mizo",
           "code": "lus"
         },
+        {
+          "native": "मराठी",
+          "en": "Marathi",
+          "code": "mr",
+        },
       ]
     }
   },

@@ -413,6 +413,12 @@ const locales = [
         "code": "lus",
         "flag": "🇮🇳",
     },
+    {
+        "native": "मराठी",
+        "en": "Marathi",
+        "code": "mr",
+        "flag": "🇮🇳",
+    },
 ]
 
 export default locales
