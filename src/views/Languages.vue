@@ -38,6 +38,11 @@ export default {
           "code": "ru"
         },
         {
+          "native": "Português",
+          "en": "Portugese",
+          "code": "pt"
+        },
+        {
           "native": "Українська",
           "en": "Ukrainian",
           "code": "uk"

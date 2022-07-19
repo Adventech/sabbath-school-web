@@ -18,6 +18,12 @@ const locales = [
         "flag": "🇷🇺",
     },
     {
+        "native": "Português",
+        "en": "Portugese",
+        "code": "pt",
+        "flag": "🇧🇷"
+    },
+    {
         "native": "Українська",
         "en": "Ukrainian",
         "code": "uk",
@@ -400,7 +406,12 @@ const locales = [
         "en": "Tedim Chin",
         "code": "ctd",
         "flag": "🇲🇲"
-    }
+    },
+    {
+        "native": "Mizo ṭawng",
+        "en": "Mizo",
+        "code": "lus"
+    },
 ]
 
 export default locales
