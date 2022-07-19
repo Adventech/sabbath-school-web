@@ -38,6 +38,11 @@ export default {
           "code": "ru"
         },
         {
+          "native": "Português",
+          "en": "Portugese",
+          "code": "pt"
+        },
+        {
           "native": "Українська",
           "en": "Ukrainian",
           "code": "uk"
@@ -356,7 +361,17 @@ export default {
           "native": "Tedim Chin",
           "en": "Tedim Chin",
           "code": "ctd"
-        }
+        },
+        {
+          "native": "Mizo ṭawng",
+          "en": "Mizo",
+          "code": "lus"
+        },
+        {
+          "native": "मराठी",
+          "en": "Marathi",
+          "code": "mr",
+        },
       ]
     }
   },
