@@ -356,7 +356,12 @@ export default {
           "native": "Tedim Chin",
           "en": "Tedim Chin",
           "code": "ctd"
-        }
+        },
+        {
+          "native": "Mizo ṭawng",
+          "en": "Mizo",
+          "code": "lus"
+        },
       ]
     }
   },
