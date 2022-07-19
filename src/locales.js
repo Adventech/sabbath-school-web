@@ -249,19 +249,19 @@ const locales = [
         "native": "Slovenščina",
         "en": "Slovenian",
         "code": "sl",
-        "flag": "",
+        "flag": "🇸🇮",
     },
     {
         "native": "Монгол хэл",
         "en": "Mongolian",
         "code": "mn",
-        "flag": "",
+        "flag": "🇲🇳",
     },
     {
         "native": "ქართული ენა",
         "en": "Georgian",
         "code": "ka",
-        "flag": "",
+        "flag": "🇬🇪",
     },
     {
         "native": "Slovenčina",
@@ -405,12 +405,13 @@ const locales = [
         "native": "Tedim Chin",
         "en": "Tedim Chin",
         "code": "ctd",
-        "flag": "🇲🇲"
+        "flag": "🇲🇲",
     },
     {
         "native": "Mizo ṭawng",
         "en": "Mizo",
-        "code": "lus"
+        "code": "lus",
+        "flag": "🇮🇳",
     },
 ]
 
