@@ -372,6 +372,11 @@ export default {
           "en": "Marathi",
           "code": "mr",
         },
+        {
+          "native": "ଓଡ଼ିଆ",
+          "en": "Odia",
+          "code": "or",
+        },
       ]
     }
   },
