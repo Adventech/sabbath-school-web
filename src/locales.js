@@ -419,6 +419,12 @@ const locales = [
         "code": "mr",
         "flag": "🇮🇳",
     },
+    {
+        "native": "ଓଡ଼ିଆ",
+        "en": "Odia",
+        "code": "or",
+        "flag": "🇮🇳",
+    },
 ]
 
 export default locales
