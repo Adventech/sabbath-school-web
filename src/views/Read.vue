@@ -96,7 +96,10 @@ export default {
     await this.loadVideo()
   },
   methods: {
-    slugify: function (dayIndex, readId, title) {
+    slugify: function (dayIndex, readId, title, simple) {
+      if (simple) {
+        return title.toLowerCase().replace(/ /g, "-")
+      }
       const DAYS_MAP = new Map([
         ['01', 'Saturday'],
         ['02', 'Sunday'],
@@ -135,6 +138,16 @@ export default {
         if (/^\d{2}-?/g.test(day)) {
           if (this.lesson.days.length && this.lesson.days[Number(day.substring(0, 2))-1]) {
             day = this.lesson.days[Number(day.substring(0, 2))-1].id
+          }
+        } else {
+          let daySlug = this.slugify(null, null, day, true)
+          for (let lessonDayIndex = 1; lessonDayIndex <= this.lesson.days.length; lessonDayIndex++) {
+            let lessonDay = this.lesson.days[lessonDayIndex-1]
+            if (this.slugify(null, null, lessonDay.title, true) === daySlug) {
+              day = String(lessonDayIndex).padStart(2, '0')
+              console.log(day)
+              break
+            }
           }
         }
         const read = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/lessons/${this.$route.params.lesson}/days/${day}/read/index.json`)
