@@ -377,6 +377,11 @@ export default {
           "en": "Odia",
           "code": "or",
         },
+        {
+          "native": "বাংলা",
+          "en": "Bengali",
+          "code": "bn",
+        },
       ]
     }
   },

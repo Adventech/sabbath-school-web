@@ -425,6 +425,12 @@ const locales = [
         "code": "or",
         "flag": "🇮🇳",
     },
+    {
+        "native": "বাংলা",
+        "en": "Bengali",
+        "code": "bn",
+        "flag": "🇮🇳",
+    },
 ]
 
 export default locales
