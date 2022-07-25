@@ -382,6 +382,11 @@ export default {
           "en": "Bengali",
           "code": "bn",
         },
+        {
+          "native": "Ka Ktien Khasi",
+          "en": "Khasi",
+          "code": "kha",
+        },
       ]
     }
   },
