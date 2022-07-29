@@ -432,9 +432,15 @@ const locales = [
         "flag": "🇧🇩",
     },
     {
-        "native": "Ka Ktien Khasi",
+        "native": "Khasi",
         "en": "Khasi",
         "code": "kha",
+        "flag": "🇮🇳",
+    },
+    {
+        "native": "ગુજરાતી",
+        "en": "Gujarathi",
+        "code": "gu",
         "flag": "🇮🇳",
     },
 ]

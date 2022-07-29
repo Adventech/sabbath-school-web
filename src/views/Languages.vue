@@ -383,9 +383,14 @@ export default {
           "code": "bn",
         },
         {
-          "native": "Ka Ktien Khasi",
+          "native": "Khasi",
           "en": "Khasi",
           "code": "kha",
+        },
+        {
+          "native": "ગુજરાતી",
+          "en": "Gujarathi",
+          "code": "gu",
         },
       ]
     }
