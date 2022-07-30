@@ -392,6 +392,11 @@ export default {
           "en": "Gujarathi",
           "code": "gu",
         },
+        {
+          "native": "Garo",
+          "en": "Garo",
+          "code": "grt",
+        },
       ]
     }
   },
