@@ -443,6 +443,12 @@ const locales = [
         "code": "gu",
         "flag": "🇮🇳",
     },
+    {
+        "native": "Garo",
+        "en": "Garo",
+        "code": "grt",
+        "flag": "🇮🇳",
+    },
 ]
 
 export default locales
