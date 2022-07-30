@@ -397,6 +397,11 @@ export default {
           "en": "Garo",
           "code": "grt",
         },
+        {
+          "native": "S'gaw Karen",
+          "en": "Karen",
+          "code": "kar",
+        },
       ]
     }
   },

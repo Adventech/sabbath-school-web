@@ -449,6 +449,13 @@ const locales = [
         "code": "grt",
         "flag": "🇮🇳",
     },
+    {
+        "native": "S'gaw Karen",
+        "en": "Karen",
+        "code": "kar",
+        "flag": "🇲🇲",
+    },
+
 ]
 
 export default locales
