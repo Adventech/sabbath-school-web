@@ -461,7 +461,12 @@ const locales = [
         "code": "kjp",
         "flag": "🇲🇲",
     },
-
+    {
+        "native": "Jaku Iban",
+        "en": "Iban",
+        "code": "iba",
+        "flag": "🇮🇩🇲🇾",
+    },
 ]
 
 export default locales
