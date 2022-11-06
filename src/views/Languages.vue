@@ -407,6 +407,11 @@ export default {
           "en": "Pwo Karen",
           "code": "kjp",
         },
+        {
+          "native": "Jaku Iban",
+          "en": "Iban",
+          "code": "iba",
+        },
       ]
     }
   },
