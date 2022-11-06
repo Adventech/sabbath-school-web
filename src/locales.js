@@ -450,9 +450,15 @@ const locales = [
         "flag": "🇮🇳",
     },
     {
-        "native": "S'gaw Karen",
-        "en": "Karen",
+        "native": "ကညီကျိာ်",
+        "en": "S'gaw Karen",
         "code": "kar",
+        "flag": "🇲🇲",
+    },
+    {
+        "native": "အရှေ့ပိုးကရင်",
+        "en": "Pwo Karen",
+        "code": "kjp",
         "flag": "🇲🇲",
     },
 
