@@ -398,9 +398,14 @@ export default {
           "code": "grt",
         },
         {
-          "native": "S'gaw Karen",
-          "en": "Karen",
+          "native": "ကညီကျိာ်",
+          "en": "S'gaw Karen",
           "code": "kar",
+        },
+        {
+          "native": "အရှေ့ပိုးကရင်",
+          "en": "Pwo Karen",
+          "code": "kjp",
         },
       ]
     }
