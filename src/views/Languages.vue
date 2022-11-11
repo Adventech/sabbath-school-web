@@ -417,6 +417,11 @@ export default {
           "en": "Falam Chin",
           "code": "cfm",
         },
+        {
+          "native": "Ikinyarwanda",
+          "en": "Kinyarwanda",
+          "code": "kin",
+        },
       ]
     }
   },
