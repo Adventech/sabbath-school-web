@@ -412,6 +412,11 @@ export default {
           "en": "Iban",
           "code": "iba",
         },
+        {
+          "native": "Lai ṭong",
+          "en": "Falam Chin",
+          "code": "cfm",
+        },
       ]
     }
   },

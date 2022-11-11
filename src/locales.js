@@ -467,6 +467,12 @@ const locales = [
         "code": "iba",
         "flag": "🇮🇩🇲🇾",
     },
+    {
+        "native": "Lai ṭong",
+        "en": "Falam Chin",
+        "code": "cfm",
+        "flag": "🇲🇲🇮🇳",
+    },
 ]
 
 export default locales
