@@ -18,6 +18,14 @@
     @apply mb-4;
   }
 
+  ol {
+    @apply list-decimal list-inside mb-3;
+  }
+
+  ul {
+    @apply list-disc list-inside mb-3;
+  }
+
   #ss-wrapper, #ss-wrapper-font, #ss-wrapper-size, #ss-wrapper-theme {
 
   }
@@ -28,7 +36,7 @@
   }
 
   .ss-wrapper-andada {
-    font-family: 'andada', 'Lora', serif;
+    font-family: 'lora', 'Lora', serif;
   }
 
   .ss-wrapper-lato {
@@ -36,7 +44,7 @@
   }
 
   .ss-wrapper-pt-serif {
-    font-family: 'pt serif', 'PTSerif', sans-serif;
+    font-family: 'pt serif', 'PTSerif', serif;
   }
 
   .ss-wrapper-pt-sans {
@@ -306,6 +314,7 @@
 
   .ss-donation-appeal {
     display: block !important;
+    @apply mb-3;
   }
 
   .ss-donation-appeal-title {

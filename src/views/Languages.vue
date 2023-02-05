@@ -1,10 +1,10 @@
 <template>
   <div class="mt-10">
     <div class="flex">
-      <router-link :to="'/'" class="flex items-center rounded hover:bg-ss-primary hover:text-white text-ss-primary pr-2 pl-1 py-1.5 ">
+      <button @click="hasHistory ? $router.go(-1) : $router.push('/')" class="flex items-center rounded hover:bg-ss-primary hover:text-white text-ss-primary pr-2 pl-1 py-1.5">
         <ChevronLeftIcon class="shrink-0 w-3 h-3 mr-1" />
         <span>Go back</span>
-      </router-link>
+      </button>
     </div>
 
     <div class="my-10 grid grid-cols-2 lg:grid-cols-4 gap-1">
@@ -426,6 +426,9 @@ export default {
     }
   },
   components: { ChevronLeftIcon },
+  computed: {
+    hasHistory: function () { return window.history.length > 2 }
+  },
   async mounted() {
     // TODO: fetch API languages, given it has native language value
     // const languages = await this.$api.get('/languages/index.json')

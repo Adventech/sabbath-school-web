@@ -11,7 +11,7 @@
               <button type="button" class="fixed outline-none top-5 right-5" ref="cancelButtonRef" @click="closed()">
                 <XIcon class="h-6 w-6 text-gray-600 hover:rotate-90 transition-all" aria-hidden="true" />
               </button>
-              <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div :class="noPadding ? '' : 'px-4 pt-5 pb-4 sm:p-6 sm:pb-4'">
                 <div class="mt-3 text-left sm:mt-0">
                   <div class="mt-2">
                     <slot></slot>
@@ -32,7 +32,7 @@ import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessu
 import { XIcon } from '@heroicons/vue/outline'
 
 export default {
-  props: ['open', 'large'],
+  props: ['open', 'large', 'noPadding'],
   components: {
     Markdown, Dialog, DialogPanel, TransitionChild, TransitionRoot, XIcon
   },

@@ -1,5 +1,8 @@
 <template>
-  <div class="my-10 md:flex" v-if="quarterly">
+  <template v-if="loading">
+    <LoadingDetail></LoadingDetail>
+  </template>
+  <div class="my-10 md:flex" v-else-if="quarterly">
     <div class="shrink-0 flex justify-center md:justify-start md:flex-col md:items-end">
       <div :style="`background-image:url(${quarterly.quarterly.cover})`" class="shrink-0 w-32 h-48 md:min-w-ss-cover md:max-w-ss-cover md:max-h-ss-cover md:min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
       <div class="ml-4 md:m-0 md:text-right">
@@ -60,36 +63,45 @@ import Popup from '@/components/Popup.vue'
 import Markdown from '@/components/Markdown.vue'
 import ct from 'countries-and-timezones'
 import { ChevronRightIcon } from '@heroicons/vue/solid'
+import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
 DayJS.extend(customParseFormat)
 export default {
-  components: { Popup, Markdown, ChevronRightIcon },
+  components: { Popup, Markdown, ChevronRightIcon, LoadingDetail },
   data () {
     return {
       DayJS,
+      loading: false,
       quarterly: null,
       open: false,
       publishingInfo: null
     }
   },
-  async mounted() {
-    const quarterly = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/index.json`)
-    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const timezone = ct.getTimezone(browserTimezone)
-    if (timezone) {
-      if (timezone.countries.length) {
-        const publishingInfo = await this.$api.post(`/misc/publishing/info`, {
-          "country": timezone.countries[0].toLowerCase(),
-          "language": this.$route.params.lang
-        })
-        this.publishingInfo = publishingInfo.data
+  methods: {
+    getQuarterly: async function () {
+      this.loading = true
+
+      const quarterly = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/index.json`)
+      const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const timezone = ct.getTimezone(browserTimezone)
+      if (timezone) {
+        if (timezone.countries.length) {
+          const publishingInfo = await this.$api.post(`/misc/publishing/info`, {
+            "country": timezone.countries[0].toLowerCase(),
+            "language": this.$route.params.lang
+          })
+          this.publishingInfo = publishingInfo.data
+        }
       }
+
+      this.quarterly = quarterly.data
+      this.loading = false
+      const title = useTitle()
+      title.value = `${this.quarterly.quarterly.title} - Sabbath School`
     }
-
-    this.quarterly = quarterly.data
-
-    const title = useTitle()
-    title.value = `${this.quarterly.quarterly.title} - Sabbath School`
+  },
+  async mounted() {
+    this.getQuarterly()
   }
 }
 </script>

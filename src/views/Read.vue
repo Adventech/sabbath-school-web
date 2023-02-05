@@ -1,5 +1,8 @@
 <template>
-  <div class="my-10 flex flex-col md:flex-row">
+  <template v-if="loading">
+    <LoadingDetail></LoadingDetail>
+  </template>
+  <div v-else class="my-10 flex flex-col md:flex-row">
     <div v-if="quarterly" class="flex md:flex-col order-1 md:order-0 md:w-3/12 lg:w-3/12 xl:w-2/12">
       <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}`" class="w-4/12 mx-auto md:w-auto">
           <img :src="quarterly.quarterly.cover" class="rounded shadow-gray-400 shadow-lg md:mr-4" />
@@ -34,7 +37,9 @@
       <div v-if="lesson" class="rounded border border-1 border-gray-150 h-full">
         <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t h-ss-cover bg-center bg-cover flex flex-col">
           <div v-if="audio.length || video.length" class="flex justify-end p-2">
-            <div class="pb-4 pt-5 px-5 bg-black/[.6] flex rounded-lg">
+            <div class="pb-2 pt-3 px-5 bg-black/[.6] flex rounded-lg">
+<!--              <button @click="readerOptionsOpen = true"><ReaderOptionsIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4 mb-2" /></button>-->
+              <ReaderOptions class="mt-1"></ReaderOptions>
               <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
               <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
             </div>
@@ -70,12 +75,15 @@ import { useTitle } from "@vueuse/core"
 import Popup from '@/components/Popup.vue'
 import Audio from '@/components/Audio.vue'
 import Video from '@/components/Video.vue'
+import ReaderOptions from '@/components/Reader/ReaderOptions.vue'
+import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
 export default {
-  components: { Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video },
+  components: { Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video, LoadingDetail, ReaderOptions },
   data () {
     return {
       DayJS,
+      loading: true,
       quarterly: null,
       lesson: null,
       days: [],
@@ -131,6 +139,7 @@ export default {
       await this.loadDay()
     },
     loadDay: async function () {
+      this.loading = true
       let day = this.$route.params.day.toString()
       const title = useTitle()
 
@@ -160,6 +169,7 @@ export default {
         }
         title.value = `${this.lesson.lesson.title} - Sabbath School`
       }
+      this.loading = false
     },
     loadAudio: async function () {
       try {
