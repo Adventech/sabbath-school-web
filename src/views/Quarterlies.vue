@@ -41,7 +41,7 @@
 
 <script>
 import { useTitle } from "@vueuse/core"
-import { ChevronRightIcon } from '@heroicons/vue/solid'
+import { ChevronRightIcon } from '@heroicons/vue/24/solid'
 import LoadingList from '@/components/Shimmer/LoadingList.vue'
 
 export default {

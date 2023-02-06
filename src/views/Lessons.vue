@@ -62,7 +62,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import Popup from '@/components/Popup.vue'
 import Markdown from '@/components/Markdown.vue'
 import ct from 'countries-and-timezones'
-import { ChevronRightIcon } from '@heroicons/vue/solid'
+import { ChevronRightIcon } from '@heroicons/vue/24/solid'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
 DayJS.extend(customParseFormat)

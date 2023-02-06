@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { ChevronLeftIcon } from '@heroicons/vue/outline'
+import { ChevronLeftIcon } from '@heroicons/vue/24/outline'
 export default {
   data () {
     return {

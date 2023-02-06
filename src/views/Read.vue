@@ -38,8 +38,7 @@
         <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t h-ss-cover bg-center bg-cover flex flex-col">
           <div v-if="audio.length || video.length" class="flex justify-end p-2">
             <div class="pb-2 pt-3 px-5 bg-black/[.6] flex rounded-lg">
-<!--              <button @click="readerOptionsOpen = true"><ReaderOptionsIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4 mb-2" /></button>-->
-              <ReaderOptions class="mt-1"></ReaderOptions>
+              <ReaderOptions class="mt-2"></ReaderOptions>
               <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
               <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
             </div>
@@ -51,7 +50,7 @@
           </div>
         </div>
         <PDF v-if="lesson.lesson.pdfOnly && pdfUrl" :pdfUrl="pdfUrl"></PDF>
-        <Reader v-if="read" :read="read"></Reader>
+        <Reader ref="reader" v-if="read" :read="read" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
 
         <Popup :open="audioOpen" @closed="audioOpen = false">
           <Audio :audio="audio" :target="read ? read.index : null" />
@@ -77,6 +76,7 @@ import Audio from '@/components/Audio.vue'
 import Video from '@/components/Video.vue'
 import ReaderOptions from '@/components/Reader/ReaderOptions.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
+import { authStore } from '@/stores/auth'
 
 export default {
   components: { Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video, LoadingDetail, ReaderOptions },
@@ -97,11 +97,24 @@ export default {
       video: [],
     }
   },
+  computed: {
+    readIndex: function () {
+      let day = this.$route.params.day.toString()
+      if (/^\d{2}-?/g.test(day)) {
+        day = day.substring(0, 2)
+      }
+      return `${this.$route.params.lang}-${this.$route.params.quarter}-${this.$route.params.lesson}-${day}`
+    }
+  },
   async mounted() {
+
     await this.loadQuarterly()
     await this.loadLesson()
     await this.loadAudio()
     await this.loadVideo()
+
+    await this.loadComments()
+    await this.loadHighlights()
   },
   methods: {
     slugify: function (dayIndex, readId, title, simple) {
@@ -154,7 +167,6 @@ export default {
             let lessonDay = this.lesson.days[lessonDayIndex-1]
             if (this.slugify(null, null, lessonDay.title, true) === daySlug) {
               day = String(lessonDayIndex).padStart(2, '0')
-              console.log(day)
               break
             }
           }
@@ -188,6 +200,41 @@ export default {
         if (contentType && contentType.indexOf("application/json") !== -1) {
           this.video = video.data
         }
+      } catch (e) {}
+    },
+    loadHighlights: async function () {
+      if (!authStore().isLoggedIn) return
+      try {
+        let r = await this.$apiAuth.get(`http://localhost:3001/api/v2/highlights/${this.readIndex}`)
+        this.$refs.reader.setHighlights(r.data.highlights)
+      } catch (e) {}
+    },
+    saveHighlights: async function (highlights) {
+      if (!authStore().isLoggedIn) return
+      try {
+        await this.$apiAuth.post(`http://localhost:3001/api/v2/highlights`, {
+          readIndex: this.readIndex,
+          highlights
+        })
+      } catch (e) {}
+    },
+    loadComments: async function () {
+      if (!authStore().isLoggedIn) return
+      try {
+        let r = await this.$apiAuth.get(`http://localhost:3001/api/v2/comments/${this.readIndex}`)
+        this.$refs.reader.setComments(r.data.comments)
+      } catch (e) {}
+    },
+    saveComments: async function (comment, elementId) {
+      if (!authStore().isLoggedIn) return
+      try {
+        await this.$apiAuth.post(`http://localhost:3001/api/v2/comments`, {
+          readIndex: this.readIndex,
+          comments: [{
+            comment,
+            elementId
+          }]
+        })
       } catch (e) {}
     }
   }
