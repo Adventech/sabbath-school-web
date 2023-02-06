@@ -5,6 +5,12 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
+    listStyleType: {
+      none: 'none',
+      decimal: 'decimal',
+      disc: 'disc'
+    },
+
     fontFamily: {
       sans: ['lato', 'sans-serif'],
     },

@@ -5,6 +5,6 @@
 </template>
 
 <script setup>
-import { ChevronDownIcon } from '@heroicons/vue/solid'
+import { ChevronDownIcon } from '@heroicons/vue/24/solid'
 import { useLanguageStore } from '@/stores/language'
 </script>

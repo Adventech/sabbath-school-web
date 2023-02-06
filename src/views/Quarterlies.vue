@@ -1,6 +1,9 @@
 <template>
   <div class="my-10">
-    <div v-if="groupedQuarterlies.length">
+    <template v-if="loading">
+      <LoadingList></LoadingList>
+    </template>
+    <div v-else-if="groupedQuarterlies.length">
       <div v-for="group in groupedQuarterlies" class="mb-10 last:mb-10">
         <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
           <p class="text-sm font-bold uppercase text-ss-primary mb-4 sm:md-0">{{group.name}}</p>
@@ -33,17 +36,19 @@
         </router-link>
       </div>
     </template>
-
   </div>
 </template>
 
 <script>
 import { useTitle } from "@vueuse/core"
-import { ChevronRightIcon } from '@heroicons/vue/solid'
+import { ChevronRightIcon } from '@heroicons/vue/24/solid'
+import LoadingList from '@/components/Shimmer/LoadingList.vue'
+
 export default {
-  components: { ChevronRightIcon },
+  components: { ChevronRightIcon, LoadingList },
   data () {
     return {
+      loading: false,
       selectedGroup: null,
 
       quarterlies: [],
@@ -52,60 +57,64 @@ export default {
     }
   },
   methods: {
+    getQuarterlies: async function () {
+      this.loading = true
+
+      const quarterlies = await this.$api.get(`${this.$route.params.lang}/quarterlies/index.json`)
+      this.quarterlies = quarterlies.data
+
+      let emptyGroup = []
+      for (let quarterly of this.quarterlies) {
+        if (quarterly.quarterly_group) {
+          let quarterlyGroup = JSON.parse(JSON.stringify(quarterly.quarterly_group))
+          let quarterlyGroupIndex = this.groupedQuarterlies.findIndex(item => item.name === quarterlyGroup.name)
+          if (quarterlyGroupIndex < 0) {
+            quarterlyGroup.quarterlies = [quarterly]
+            this.groupedQuarterlies.push(quarterlyGroup)
+          } else {
+            this.groupedQuarterlies[quarterlyGroupIndex].quarterlies.push(quarterly)
+          }
+        } else {
+          if (this.groupedQuarterlies.length) {
+            this.groupedQuarterlies[0].quarterlies.push(quarterly)
+          } else {
+            emptyGroup.push(quarterly)
+          }
+        }
+      }
+
+      if (this.groupedQuarterlies.length) {
+        this.groupedQuarterlies[0].quarterlies = [...this.groupedQuarterlies[0].quarterlies, ...emptyGroup]
+        this.groupedQuarterlies = this.groupedQuarterlies.sort((a, b) => a.order - b.order)
+      } else {
+        this.groupedQuarterlies = []
+      }
+
+      if (this.$route.query.group) {
+        let self = this
+        this.quarterlies = this.quarterlies.filter(function (item) {
+          if (item.quarterly_group && self.slugify(item.quarterly_group.name) === self.$route.query.group) {
+            if (!self.selectedGroup) {
+              self.selectedGroup = item.quarterly_group
+            }
+            return true
+          }
+          return false
+        })
+        if (!this.quarterlies.length) {
+          this.quarterlies = quarterlies.data
+        } else {
+          this.groupedQuarterlies = []
+        }
+      }
+      this.loading = false
+    },
     slugify: function (str) {
       return str.toLowerCase().replace(/ /g, "-")
     }
   },
   async mounted() {
-    const quarterlies = await this.$api.get(`${this.$route.params.lang}/quarterlies/index.json`)
-    this.quarterlies = quarterlies.data
-
-    let emptyGroup = []
-    for (let quarterly of this.quarterlies) {
-
-      if (quarterly.quarterly_group) {
-        let quarterlyGroup = JSON.parse(JSON.stringify(quarterly.quarterly_group))
-        let quarterlyGroupIndex = this.groupedQuarterlies.findIndex(item => item.name === quarterlyGroup.name)
-        if (quarterlyGroupIndex < 0) {
-          quarterlyGroup.quarterlies = [quarterly]
-          this.groupedQuarterlies.push(quarterlyGroup)
-        } else {
-          this.groupedQuarterlies[quarterlyGroupIndex].quarterlies.push(quarterly)
-        }
-      } else {
-        if (this.groupedQuarterlies.length) {
-          this.groupedQuarterlies[0].quarterlies.push(quarterly)
-        } else {
-          emptyGroup.push(quarterly)
-        }
-      }
-    }
-
-    if (this.groupedQuarterlies.length) {
-      this.groupedQuarterlies[0].quarterlies = [...this.groupedQuarterlies[0].quarterlies, ...emptyGroup]
-      this.groupedQuarterlies = this.groupedQuarterlies.sort((a, b) => a.order - b.order)
-    } else {
-      this.groupedQuarterlies = []
-    }
-
-    if (this.$route.query.group) {
-      let self = this
-      this.quarterlies = this.quarterlies.filter(function (item) {
-        if (item.quarterly_group && self.slugify(item.quarterly_group.name) === self.$route.query.group) {
-          if (!self.selectedGroup) {
-            self.selectedGroup = item.quarterly_group
-          }
-          return true
-        }
-        return false
-      })
-      if (!this.quarterlies.length) {
-        this.quarterlies = quarterlies.data
-      } else {
-        this.groupedQuarterlies = []
-      }
-    }
-
+    this.getQuarterlies()
     const title = useTitle()
     title.value = `Sabbath School`
   }

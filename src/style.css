@@ -9,6 +9,34 @@ body {
 }
 
 @font-face {
+    font-family: 'lora';
+    src: url('@/assets/fonts/Lora-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('@/assets/fonts/Lora-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('@/assets/fonts/Lora-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('@/assets/fonts/Lora-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'lato';
     src: url('@/assets/fonts/Lato-Bold.ttf') format('truetype');
     font-weight: bold;
@@ -36,3 +64,59 @@ body {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'pt serif';
+    src: url('@/assets/fonts/PT_Serif-Web-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt serif';
+    src: url('@/assets/fonts/PT_Serif-Web-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'pt serif';
+    src: url('@/assets/fonts/PT_Serif-Web-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'pt serif';
+    src: url('@/assets/fonts/PT_Serif-Web-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'pt sans';
+    src: url('@/assets/fonts/PT_Sans-Web-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt sans';
+    src: url('@/assets/fonts/PT_Sans-Web-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'pt sans';
+    src: url('@/assets/fonts/PT_Sans-Web-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt sans';
+    src: url('@/assets/fonts/PT_Sans-Web-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}

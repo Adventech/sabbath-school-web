@@ -473,6 +473,12 @@ const locales = [
         "code": "cfm",
         "flag": "🇲🇲🇮🇳",
     },
+    {
+        "native": "Ikinyarwanda",
+        "en": "Kinyarwanda",
+        "code": "kin",
+        "flag": "🇷🇼",
+    },
 ]
 
 export default locales
