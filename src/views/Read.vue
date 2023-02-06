@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     readIndex: function () {
-      let day = this.$route.params.day.toString()
+      let day = this.$route.params.day ? this.$route.params.day.toString() : '01'
       if (/^\d{2}-?/g.test(day)) {
         day = day.substring(0, 2)
       }
@@ -153,7 +153,7 @@ export default {
     },
     loadDay: async function () {
       this.loading = true
-      let day = this.$route.params.day.toString()
+      let day = this.$route.params.day ? this.$route.params.day.toString() : '01'
       const title = useTitle()
 
       if (!this.lesson.lesson.pdfOnly) {

@@ -17,12 +17,12 @@ const router = createRouter({
       component: () => import('../views/Quarterlies.vue')
     },
     {
-      path: '/:lang/:quarter+',
+      path: '/:lang/:quarter',
       name: 'lessons',
       component: () => import('../views/Lessons.vue')
     },
     {
-      path: '/:lang/:quarter/:lesson/:day+',
+      path: '/:lang/:quarter/:lesson/:day?',
       name: 'read',
       component: () => import('../views/Read.vue')
     },
