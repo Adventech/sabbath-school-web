@@ -17,7 +17,7 @@
     </button>
   </header>
   <Popup :open="loginWindow" @closed="loginWindow=false">
-    <Login></Login>
+    <Login @logged-in="loginWindow=false"></Login>
   </Popup>
 </template>
 

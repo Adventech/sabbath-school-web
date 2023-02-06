@@ -205,14 +205,14 @@ export default {
     loadHighlights: async function () {
       if (!authStore().isLoggedIn) return
       try {
-        let r = await this.$apiAuth.get(`http://localhost:3001/api/v2/highlights/${this.readIndex}`)
+        let r = await this.$apiAuth.get(`/highlights/${this.readIndex}`)
         this.$refs.reader.setHighlights(r.data.highlights)
       } catch (e) {}
     },
     saveHighlights: async function (highlights) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`http://localhost:3001/api/v2/highlights`, {
+        await this.$apiAuth.post(`/highlights`, {
           readIndex: this.readIndex,
           highlights
         })
@@ -221,14 +221,14 @@ export default {
     loadComments: async function () {
       if (!authStore().isLoggedIn) return
       try {
-        let r = await this.$apiAuth.get(`http://localhost:3001/api/v2/comments/${this.readIndex}`)
+        let r = await this.$apiAuth.get(`/comments/${this.readIndex}`)
         this.$refs.reader.setComments(r.data.comments)
       } catch (e) {}
     },
     saveComments: async function (comment, elementId) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`http://localhost:3001/api/v2/comments`, {
+        await this.$apiAuth.post(`/comments`, {
           readIndex: this.readIndex,
           comments: [{
             comment,
