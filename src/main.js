@@ -35,9 +35,10 @@ axiosInstanceAuth.interceptors.response.use(function (response) {
         try {
             let r = await axiosInstance.post('/auth/refresh', authStore().userObject)
             authStore().setAccount(r.data)
+            error.config.headers['x-ss-auth-access-token'] = authStore().stsTokenManager.accessToken
             return axios.request(error.config)
         } catch (e) {
-            console.log('test')
+            console.log('auth error aborting')
         }
     }
     return Promise.reject(error);
