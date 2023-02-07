@@ -225,7 +225,6 @@ export default {
       this.bibleVersion = version
     },
     onMouseup () {
-      return
       const selection = window.getSelection()
       const startNode = selection.getRangeAt(0).startContainer
       const endNode = selection.getRangeAt(0).endContainer
