@@ -66,6 +66,8 @@
 
 <script>
 import DayJS from 'dayjs'
+import DayJSIsBetween from 'dayjs/plugin/isBetween'
+import DayJSCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import Reader from '@/components/Reader.vue'
 import PDF from '@/components/PDF.vue'
 import AudioIcon from '@/assets/img/audio-icon.svg'
@@ -77,6 +79,9 @@ import Video from '@/components/Video.vue'
 import ReaderOptions from '@/components/Reader/ReaderOptions.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 import { authStore } from '@/stores/auth'
+
+DayJS.extend(DayJSIsBetween)
+DayJS.extend(DayJSCustomParseFormat)
 
 export default {
   components: { Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video, LoadingDetail, ReaderOptions },
@@ -149,6 +154,19 @@ export default {
     loadLesson: async function () {
       const lesson = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/lessons/${this.$route.params.lesson}/index.json`)
       this.lesson = lesson.data
+
+      let day = this.$route.params.day
+
+      if (!day) {
+        let today = DayJS().startOf("day")
+        let dayTarget = this.lesson.days.find(x => {
+          let dayDate = DayJS(x.date, "DD/MM/YYYY").startOf("day")
+          return DayJS(today).isSame(dayDate)
+        })
+        if (dayTarget) {
+          this.$router.push(`/${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}/${dayTarget.id}`)
+        }
+      }
       await this.loadDay()
     },
     loadDay: async function () {

@@ -33,6 +33,9 @@
       <Popup :open="open" @closed="open = false">
         <Markdown v-if="quarterly.quarterly.introduction" :markdown="quarterly.quarterly.introduction"></Markdown>
       </Popup>
+      <div v-if="lessonTarget">
+        <router-link :to="`${lessonTarget}`" class="rounded-full text-white px-6 tracking-wider text-xs font-bold uppercase py-2 bg-ss-primary active:bg-blue-500 hover:drop-shadow-lg ease-in duration-200">Read</router-link>
+      </div>
       <div class="mt-6 mb-4">
         <div class="flex items-center" v-for="(lesson, i) in quarterly.lessons" :key="`quarterly_${quarterly.quarterly.path}_lessons_${i}`">
           <span class="text-2xl font-bold text-gray-400 mr-4">{{i+1}}</span>
@@ -58,14 +61,17 @@
 <script>
 import { useTitle } from '@vueuse/core'
 import DayJS from 'dayjs'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
+import DayJSIsBetween from 'dayjs/plugin/isBetween'
+import DayJSCustomParseFormat from 'dayjs/plugin/customParseFormat'
 import Popup from '@/components/Popup.vue'
 import Markdown from '@/components/Markdown.vue'
 import ct from 'countries-and-timezones'
 import { ChevronRightIcon } from '@heroicons/vue/24/solid'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
-DayJS.extend(customParseFormat)
+DayJS.extend(DayJSIsBetween)
+DayJS.extend(DayJSCustomParseFormat)
+
 export default {
   components: { Popup, Markdown, ChevronRightIcon, LoadingDetail },
   data () {
@@ -75,6 +81,19 @@ export default {
       quarterly: null,
       open: false,
       publishingInfo: null
+    }
+  },
+  computed: {
+    lessonTarget: function () {
+      if (!this.quarterly || !this.quarterly.lessons.length) { return null }
+      let now = DayJS().startOf("day")
+      let lesson = this.quarterly.lessons.find(x => {
+        let startDate = DayJS(x.start_date, "DD/MM/YYYY").startOf("day")
+        let endDate = DayJS(x.end_date, "DD/MM/YYYY").endOf("day")
+        return DayJS(now).isBetween(startDate, endDate, "day")
+      }) || this.quarterly.lessons[0]
+
+      return `/${this.$route.params.lang}/${this.$route.params.quarter}/${lesson.id}`
     }
   },
   methods: {
@@ -100,8 +119,11 @@ export default {
       title.value = `${this.quarterly.quarterly.title} - Sabbath School`
     }
   },
-  async mounted() {
-    this.getQuarterly()
+  async created () {
+
+  },
+  async mounted () {
+    await this.getQuarterly()
   }
 }
 </script>
