@@ -41,6 +41,7 @@
               <ReaderOptions class="mt-2"></ReaderOptions>
               <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
               <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
+              <button v-if="pdfs.length" @click="showPdf = !showPdf"><DocumentTextIcon class="w-6 h-6 mb-2 ml-4" :class="{'text-blue-300 hover:text-blue-200': showPdf, 'text-white hover:text-gray-400': !showPdf}"></DocumentTextIcon></button>
             </div>
           </div>
           <div class="grow"></div>
@@ -49,8 +50,8 @@
             <p class="text-white font-bold text-4xl">{{read.title}}</p>
           </div>
         </div>
-        <PDF v-if="lesson.lesson.pdfOnly && pdfUrl" :pdfUrl="pdfUrl"></PDF>
-        <Reader ref="reader" v-if="read" :read="read" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
+        <PDF v-if="(lesson.lesson.pdfOnly || showPdf) && pdfs" :pdfs="pdfs" :lessonIndex="lesson.lesson.index"></PDF>
+        <Reader ref="reader" v-if="read && !showPdf" :read="read" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
 
         <Popup :open="audioOpen" @closed="audioOpen = false">
           <Audio :audio="audio" :target="read ? read.index : null" />
@@ -79,12 +80,13 @@ import Video from '@/components/Video.vue'
 import ReaderOptions from '@/components/Reader/ReaderOptions.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 import { authStore } from '@/stores/auth'
+import { DocumentTextIcon } from '@heroicons/vue/24/outline'
 
 DayJS.extend(DayJSIsBetween)
 DayJS.extend(DayJSCustomParseFormat)
 
 export default {
-  components: { Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video, LoadingDetail, ReaderOptions },
+  components: { DocumentTextIcon, Reader, AudioIcon, VideoIcon, PDF, Popup, Audio, Video, LoadingDetail, ReaderOptions },
   data () {
     return {
       DayJS,
@@ -93,7 +95,9 @@ export default {
       lesson: null,
       days: [],
       read: null,
-      pdfUrl: null,
+
+      pdfs: null,
+      showPdf: false,
 
       audioOpen: false,
       audio: [],
@@ -192,11 +196,14 @@ export default {
         const read = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/lessons/${this.$route.params.lesson}/days/${day}/read/index.json`)
         this.read = read.data
         title.value = `${this.read.title} - Sabbath School`
+
+        this.pdfs = this.lesson.pdfs.filter((pdf) => {
+          return pdf.target === `${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}`
+        })
       } else {
-        if (/^\d{2}-?/g.test(day)) {
-          let pdfIndex = Number(day.substring(0, 2))-1
-          this.pdfUrl = this.lesson.pdfs[pdfIndex].src
-        }
+        this.pdfs = this.lesson.pdfs.filter((pdf) => {
+          return pdf.target === `${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}`
+        })
         title.value = `${this.lesson.lesson.title} - Sabbath School`
       }
       this.loading = false
