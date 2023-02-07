@@ -1,10 +1,15 @@
 <template>
   <div v-if="showContextMenu" class="z-10 absolute bg-white shadow drop-shadow-lg rounded p-2 items-center flex" :style="`top: ${y}px; left: ${x}px`">
-    <button @click="highlightSelection('green')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-green-500"></div></button>
-    <button @click="highlightSelection('blue')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-blue-500"></div></button>
-    <button @click="highlightSelection('yellow')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-yellow-500"></div></button>
-    <button @click="highlightSelection('orange')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-orange-500"></div></button>
-    <button @click="unHighlightSelection()" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6"><XCircleIcon class="w-4 h-4"></XCircleIcon></button>
+    <template v-if="authStore().isLoggedIn">
+      <button @click="highlightSelection('green')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-green-500"></div></button>
+      <button @click="highlightSelection('blue')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-blue-500"></div></button>
+      <button @click="highlightSelection('yellow')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-yellow-500"></div></button>
+      <button @click="highlightSelection('orange')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-orange-500"></div></button>
+      <button @click="unHighlightSelection()" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6"><XCircleIcon class="w-4 h-4"></XCircleIcon></button>
+    </template>
+    <template v-else>
+      <span class="italic text-gray-500">Log in to save highlights</span>
+    </template>
   </div>
   <div class="reader">
     <div class="ss-wrapper">
@@ -47,6 +52,7 @@ import Bible from '@/components/Reader/Bible.vue'
 import BibleVersion from '@/components/Reader/BibleVersion.vue'
 import { READER_THEME, READER_FONT, READER_SIZE, readerOptionsStore } from '@/components/Reader/ReaderOptionsStore'
 import { XCircleIcon } from '@heroicons/vue/24/solid'
+import { authStore } from '@/stores/auth'
 
 export default {
   props: ['read'],
@@ -54,6 +60,7 @@ export default {
   components: { Popup, Bible, BibleVersion, XCircleIcon },
   data () {
     return {
+      authStore,
       READER_THEME, READER_FONT, READER_SIZE, readerOptionsStore,
       bibleVersion: null,
       bibleVersions: [],
