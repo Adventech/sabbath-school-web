@@ -52,6 +52,7 @@ export default {
       if (!authStore().isLoggedIn) return
       let data = await this.instances[pdfId].exportInstantJSON()
       let annotations = []
+      if (!data || !data.annotations) { return }
       data.annotations.forEach((a) => {
         annotations.push(JSON.stringify(a))
       })
