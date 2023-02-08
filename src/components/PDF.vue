@@ -52,9 +52,11 @@ export default {
       if (!authStore().isLoggedIn) return
       let data = await this.instances[pdfId].exportInstantJSON()
       let annotations = []
-      data.annotations.forEach((a) => {
-        annotations.push(JSON.stringify(a))
-      })
+      if (data && data.annotations) {
+        data.annotations.forEach((a) => {
+          annotations.push(JSON.stringify(a))
+        })
+      }
       try {
         await this.$apiAuth.post(`/annotations/${this.lessonIndex}/${pdfId}`, {
           data: [ { annotations, pageIndex: 0 } ]

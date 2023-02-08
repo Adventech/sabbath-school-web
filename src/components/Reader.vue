@@ -8,7 +8,7 @@
       <button @click="unHighlightSelection()" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6"><XCircleIcon class="w-4 h-4"></XCircleIcon></button>
     </template>
     <template v-else>
-      <span class="italic text-gray-500">Log in to save highlights</span>
+      <span class="italic text-gray-500"><button class="text-ss-primary underline" @click="emitter.emit('auth-login')">Log in</button> to save highlights</span>
     </template>
   </div>
   <div class="reader">
@@ -56,7 +56,7 @@ import { authStore } from '@/stores/auth'
 
 export default {
   props: ['read'],
-  emits: ['saveComments', 'saveHighlights'],
+  emits: ['saveComments', 'saveHighlights', 'mounted'],
   components: { Popup, Bible, BibleVersion, XCircleIcon },
   data () {
     return {
@@ -202,13 +202,14 @@ export default {
       let border = $("<div class='textarea-border' />");
       let container = $("<div class='textarea-container' />");
 
-      $(textarea).appendTo(container);
-      $(border).appendTo(container);
+      $(textarea).appendTo(container)
+      $(border).appendTo(container)
 
-      $(this).after(container);
+      $(this).after(container)
     });
+    this.$emit('mounted')
   },
-  beforeDestroy () {
+  beforeUnmount () {
     window.removeEventListener('mouseup', this.onMouseup)
   },
   methods: {
@@ -228,12 +229,16 @@ export default {
       const selection = window.getSelection()
       const startNode = selection.getRangeAt(0).startContainer
       const endNode = selection.getRangeAt(0).endContainer
+
+      if (!this.$refs.readerContent) { return }
+
       if (!this.$refs.readerContent.contains(startNode) || !this.$refs.readerContent.contains(endNode)) {
         this.showContextMenu = false
         return
       }
       const { x, y, width } = selection.getRangeAt(0).getBoundingClientRect()
-      if (!width) {
+
+      if (width < 1) {
         this.showContextMenu = false
         return
       }

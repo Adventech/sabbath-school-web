@@ -16,13 +16,12 @@ export default {
       loaded: false
     }
   },
-  emits: ['loggedIn'],
   methods: {
     handleCredentialResponse: async function(response) {
       try {
         let r = await this.$api.post(`/auth/signin/google`, { id_token: response.credential })
         authStore().setAccount(r.data)
-        this.$emit('loggedIn')
+        this.emitter.emit('auth-logged-in')
       } catch (err) {}
     },
     loadGSIClient: function () {

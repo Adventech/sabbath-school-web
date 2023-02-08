@@ -51,7 +51,7 @@
           </div>
         </div>
         <PDF v-if="(lesson.lesson.pdfOnly || showPdf) && pdfs" :pdfs="pdfs" :lessonIndex="lesson.lesson.index"></PDF>
-        <Reader ref="reader" v-if="read && !showPdf" :read="read" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
+        <Reader ref="reader" v-if="read && !showPdf" :read="read" @mounted="readerMounted" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
 
         <Popup :open="audioOpen" @closed="audioOpen = false">
           <Audio :audio="audio" :target="read ? read.index : null" />
@@ -115,15 +115,19 @@ export default {
       return `${this.$route.params.lang}-${this.$route.params.quarter}-${this.$route.params.lesson}-${day}`
     }
   },
+  async created() {
+    this.emitter.on('auth-logged-in', () => {
+      this.readerMounted()
+    })
+    this.emitter.on('auth-logged-out', () => {
+      this.$router.go()
+    })
+  },
   async mounted() {
-
     await this.loadQuarterly()
     await this.loadLesson()
     await this.loadAudio()
     await this.loadVideo()
-
-    await this.loadComments()
-    await this.loadHighlights()
   },
   methods: {
     slugify: function (dayIndex, readId, title, simple) {
@@ -150,7 +154,6 @@ export default {
 
       return slug.toLowerCase().replace(/ /g, "-")
     },
-
     loadQuarterly: async function () {
       const quarterly = await this.$api.get(`${this.$route.params.lang}/quarterlies/${this.$route.params.quarter}/index.json`)
       this.quarterly = quarterly.data
@@ -261,6 +264,10 @@ export default {
           }]
         })
       } catch (e) {}
+    },
+    readerMounted: async function () {
+      await this.loadComments()
+      await this.loadHighlights()
     }
   }
 }

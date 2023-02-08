@@ -34,6 +34,7 @@ export default {
   methods: {
     logOut: function () {
       authStore().logOut()
+      this.emitter.emit('auth-logged-out')
     }
   }
 }
