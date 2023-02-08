@@ -17,7 +17,7 @@
     </button>
   </header>
   <Popup :open="loginWindow" @closed="loginWindow=false">
-    <Login @logged-in="loginWindow=false"></Login>
+    <Login></Login>
   </Popup>
 </template>
 
@@ -35,6 +35,14 @@ export default {
       authStore,
       loginWindow: false,
     }
+  },
+  created () {
+    this.emitter.on('auth-login', () => {
+      this.loginWindow = true
+    })
+    this.emitter.on('auth-logged-in', () => {
+      this.loginWindow = false
+    })
   }
 }
 </script>

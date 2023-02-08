@@ -8,6 +8,7 @@ import router from './router'
 import DayJS from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { authStore } from '@/stores/auth'
+import mitt from 'mitt'
 
 DayJS.extend(customParseFormat)
 
@@ -46,6 +47,7 @@ axiosInstanceAuth.interceptors.response.use(function (response) {
 
 const app = createApp(App)
 const pinia = createPinia()
+const emitter = mitt()
 
 pinia.use(piniaPluginPersistedstate)
 
@@ -54,5 +56,6 @@ app.use(router)
 
 app.config.globalProperties.$api = { ...axiosInstance }
 app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
+app.config.globalProperties.emitter = emitter
 
 app.mount('#app')
