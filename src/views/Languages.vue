@@ -433,6 +433,11 @@ export default {
           "en": "Kinyarwanda",
           "code": "kin",
         },
+        {
+          "native": "ChiShona",
+          "en": "Shona",
+          "code": "sn",
+        },
       ]
     }
   },
