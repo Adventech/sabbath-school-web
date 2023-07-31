@@ -480,6 +480,12 @@ const locales = [
         "flag": "🇷🇼",
     },
     {
+        "native": "ChiShona",
+        "en": "Shona",
+        "code": "sn",
+        "flag": "🇿🇼",
+    },
+    {
         "native": "Ikirundi",
         "en": "Kirundi",
         "code": "run",

@@ -434,6 +434,11 @@ export default {
           "code": "kin",
         },
         {
+          "native": "ChiShona",
+          "en": "Shona",
+          "code": "sn",
+        },
+        {
           "native": "Ikirundi",
           "en": "Ikirundi",
           "code": "run",
