@@ -479,6 +479,18 @@ const locales = [
         "code": "kin",
         "flag": "🇷🇼",
     },
+    {
+        "native": "ChiShona",
+        "en": "Shona",
+        "code": "sn",
+        "flag": "🇿🇼",
+    },
+    {
+        "native": "Ikirundi",
+        "en": "Kirundi",
+        "code": "run",
+        "flag": "🇧🇮",
+    },
 ]
 
 export default locales
