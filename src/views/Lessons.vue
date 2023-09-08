@@ -3,7 +3,7 @@
     <LoadingDetail></LoadingDetail>
   </template>
   <div class="my-10 md:flex" v-else-if="quarterly">
-    <div class="shrink-0 flex justify-center md:justify-start md:flex-col md:items-end">
+    <div class="shrink-1 flex justify-center md:justify-start md:flex-col md:items-end md:w-3/12">
       <div :style="`background-image:url(${quarterly.quarterly.cover})`" class="shrink-0 w-32 h-48 md:min-w-ss-cover md:max-w-ss-cover md:max-h-ss-cover md:min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
       <div class="ml-4 md:m-0 md:text-right">
         <p class="md:mt-4 uppercase text-gray-400 text-xs">{{quarterly.quarterly.human_date}}</p>
