@@ -19,8 +19,8 @@ const axiosInstance = axios.create({
 })
 
 const axiosInstanceAuth = axios.create({
-    baseURL: "http://localhost:3001/api/v2"
-    // baseURL: import.meta.env.VITE_APP_API_HOST
+    // baseURL: "http://localhost:3001/api/v2"
+    baseURL: import.meta.env.VITE_APP_API_HOST
 })
 
 axiosInstanceAuth.interceptors.request.use(function (config) {
