@@ -38,7 +38,9 @@
       </div>
       <div class="mt-6 mb-4">
         <div class="flex items-center" v-for="(lesson, i) in quarterly.lessons" :key="`quarterly_${quarterly.quarterly.path}_lessons_${i}`">
-          <span class="text-2xl font-bold text-gray-400 mr-4">{{i+1}}</span>
+          <span v-if="/^\d*$/.test(lesson.id)" class="text-2xl font-bold text-gray-400 mr-4">{{ parseInt(lesson.id) }}</span>
+          <span v-else class="text-5xl font-bold text-gray-400 mr-4 align-middle -mt-3">{{ 'ꞏ' }}</span>
+
           <div class="mb-4">
             <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${lesson.id}/01`" class="text-xl font-bold text-ss-primary hover:underline">{{lesson.title}}</router-link>
             <p class="text-gray-500 text-sm">{{DayJS(lesson.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(lesson.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>

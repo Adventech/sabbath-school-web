@@ -18,7 +18,8 @@
               <div class="shrink-0 text-gray-100 inline-flex rounded-full w-5 h-5 justify-center items-center mr-2"
                    :class="quarterlyLesson.id === lesson.lesson.id ? 'bg-ss-primary text-white': 'bg-gray-400'"
               >
-                <span class="text-xs text-center">{{i+1}}</span>
+                <span v-if="/^\d*$/.test(quarterlyLesson.id)" class="text-xs text-center">{{ parseInt(quarterlyLesson.id) }}</span>
+
               </div>
               <span class="stretchgrow overflow-hidden text-sm">{{quarterlyLesson.title}}</span>
             </router-link>

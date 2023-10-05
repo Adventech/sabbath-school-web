@@ -121,6 +121,14 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
+.PSPDFKit-Container {
+  height: 600px !important;
+}
 
+@screen md {
+  .PSPDFKit-Container {
+    height: 100% !important;
+  }
+}
 </style>
