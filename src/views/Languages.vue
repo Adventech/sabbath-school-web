@@ -443,6 +443,11 @@ export default {
           "en": "Ikirundi",
           "code": "run",
         },
+        {
+          "native": "Català",
+          "en": "Catalan",
+          "code": "ca",
+        },
       ]
     }
   },
