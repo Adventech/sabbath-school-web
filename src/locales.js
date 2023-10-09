@@ -491,6 +491,12 @@ const locales = [
         "code": "run",
         "flag": "🇧🇮",
     },
+    {
+        "native": "Català",
+        "en": "Catalan",
+        "code": "ca",
+        "flag": "🇪🇸",
+    },
 ]
 
 export default locales
