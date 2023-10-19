@@ -51,11 +51,15 @@
             <p class="text-white font-bold text-4xl">{{read.title}}</p>
           </div>
         </div>
+        <div v-else class="pt-4 px-4 flex justify-end">
+          <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-black mr-4" /></button>
+          <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-black" /></button>
+        </div>
         <PDF v-if="(lesson.lesson.pdfOnly || showPdf) && pdfs" :pdfs="pdfs" :lessonIndex="lesson.lesson.index"></PDF>
         <Reader ref="reader" v-if="read && !showPdf" :read="read" @mounted="readerMounted" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
 
-        <Popup :open="audioOpen" @closed="audioOpen = false">
-          <Audio :audio="audio" :target="read ? read.index : null" />
+        <Popup :minimizeable="true" :open="audioOpen" @closed="audioOpen = false" @expanded="audioMinimized = false" @minimized="audioMinimized = true">
+          <Audio :audio="audio" :target="read ? read.index : null" :minimized="audioMinimized" />
         </Popup>
 
         <Popup :open="videoOpen" @closed="videoOpen = false" :large="true">
@@ -102,6 +106,7 @@ export default {
 
       audioOpen: false,
       audio: [],
+      audioMinimized: false,
 
       videoOpen: false,
       video: [],
