@@ -1,8 +1,8 @@
 <template>
-  <h3 class="text-3xl font-bold mb-6">Audio</h3>
-  <audio class="ss-audio w-3/12" controls></audio>
+  <h3 :class="{'text-3xl mb-6': !minimized, 'text-xl mb-2': minimized}" class="font-bold">Audio</h3>
+  <audio class="ss-audio w-9/12" controls></audio>
 
-  <ul class="flex flex-col mt-4">
+  <ul v-if="!minimized" class="flex flex-col mt-4">
     <li @click="selectedAudio = a" v-for="(a, i) in audio" :key="`audio_${audio.id}`" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded hover:cursor-pointer">
       <div class="grow">
         <div class="font-bold">{{ a.title }}</div>
@@ -23,7 +23,7 @@
 import Plyr from 'plyr'
 
 export default {
-  props: ['audio', 'target'],
+  props: ['audio', 'target', 'minimized'],
   data () {
     return {
       player: null,
@@ -44,7 +44,7 @@ export default {
     }
   },
   beforeUnmount () {
-    this.player.destroy()
+    if (this.player) this.player.destroy()
   },
   watch: {
     selectedAudio(newAudio) {
