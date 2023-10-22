@@ -275,6 +275,16 @@ export default {
       await this.loadComments()
       await this.loadHighlights()
     }
+  },
+  head () {
+    return {
+      meta: [
+        {
+          name: 'theme-color',
+          content: () => this.quarterly ? this.quarterly.quarterly.color_primary : '',
+        },
+      ],
+    }
   }
 }
 </script>

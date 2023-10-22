@@ -9,6 +9,7 @@ import DayJS from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { authStore } from '@/stores/auth'
 import mitt from 'mitt'
+import { VueHeadMixin, createHead } from '@unhead/vue'
 
 DayJS.extend(customParseFormat)
 
@@ -49,11 +50,14 @@ axiosInstanceAuth.interceptors.response.use(function (response) {
 const app = createApp(App)
 const pinia = createPinia()
 const emitter = mitt()
+const head = createHead()
 
 pinia.use(piniaPluginPersistedstate)
 
 app.use(pinia)
 app.use(router)
+app.mixin(VueHeadMixin)
+app.use(head)
 
 app.config.globalProperties.$api = { ...axiosInstance }
 app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
