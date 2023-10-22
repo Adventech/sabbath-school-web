@@ -8,6 +8,7 @@
     "build-only": "vite build"
   },
   "dependencies": {
+    "@unhead/vue": "^1.7.4",
     "mitt": "^3.0.0",
     "pinia": "^2.0.14",
     "pspdfkit": "^2022.2.3",

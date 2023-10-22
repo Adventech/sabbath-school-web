@@ -126,6 +126,16 @@ export default {
   },
   async mounted () {
     await this.getQuarterly()
+  },
+  head () {
+    return {
+      meta: [
+        {
+          name: 'theme-color',
+          content: () => this.quarterly ? this.quarterly.quarterly.color_primary : '',
+        },
+      ],
+    }
   }
 }
 </script>
