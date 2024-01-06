@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.resource_highlight_blue {
+    @apply bg-blue-200 rounded pointer-events-none text-black;
+}
+
+.resource_highlight_yellow {
+    @apply bg-yellow-200 rounded pointer-events-none text-black;
+}
+
+.resource_highlight_orange {
+    @apply bg-orange-200 rounded pointer-events-none text-black;
+}
+
+.resource_highlight_green {
+    @apply bg-green-200 rounded pointer-events-none text-black;
+}

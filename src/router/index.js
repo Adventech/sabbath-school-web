@@ -31,6 +31,31 @@ const router = createRouter({
       name: 'languages',
       component: () => import('../views/Languages.vue')
     },
+    {
+      path: '/resources/:lang/:resourceType',
+      name: 'resources',
+      component: () => import('../views/Resources.vue')
+    },
+    {
+      path: '/resources/:lang/:resourceType/:resourceName',
+      name: 'resource',
+      component: () => import('../views/Resource.vue')
+    },
+    {
+      path: '/resources/:lang/:resourceType/:resourceName/content/:sectionName/:documentName',
+      name: 'document',
+      component: () => import('../views/Document.vue')
+    },
+    {
+      path: '/resources/:lang/categories',
+      name: 'categories',
+      component: () => import('../views/Categories.vue')
+    },
+    {
+      path: '/resources/:lang/category/:category',
+      name: 'category',
+      component: () => import('../views/Category.vue')
+    },
   ]
 })
 
