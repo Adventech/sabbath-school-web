@@ -497,6 +497,13 @@ const locales = [
         "code": "ca",
         "flag": "🇪🇸",
     },
+
+    {
+        "native": "Twi",
+        "en": "Twi",
+        "code": "tw",
+        "flag": "🇬🇭",
+    },
 ]
 
 export default locales

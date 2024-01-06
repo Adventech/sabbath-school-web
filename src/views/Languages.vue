@@ -448,6 +448,11 @@ export default {
           "en": "Catalan",
           "code": "ca",
         },
+        {
+          "native": "Twi",
+          "en": "Twi",
+          "code": "tw",
+        },
       ]
     }
   },
