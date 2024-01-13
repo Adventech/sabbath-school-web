@@ -21,7 +21,7 @@
             'ss-wrapper-sepia': readerOptionsStore().theme === READER_THEME.SEPIA,
             'ss-wrapper-dark': readerOptionsStore().theme === READER_THEME.DARK || (readerOptionsStore().theme === READER_THEME.AUTO && darkMode),
           }" class="ss-wrapper-theme p-5">
-            <div v-html="content" />
+            <div :dir="dir" :class="[dir === 'rtl' ? 'text-right' : '']" v-html="content" />
           </div>
         </div>
       </div>
@@ -31,11 +31,30 @@
 
 <script>
 import { READER_THEME, READER_FONT, READER_SIZE, readerOptionsStore } from '@/components/Reader/ReaderOptionsStore'
+import { useLanguageStore } from '@/stores/language'
+import { storeToRefs } from 'pinia'
+import { watch } from 'vue'
 
 export default {
   data () {
     return {
-      READER_THEME, READER_FONT, READER_SIZE, readerOptionsStore
+      READER_THEME, READER_FONT, READER_SIZE, readerOptionsStore,
+      dir: 'ltr'
+    }
+  },
+  mounted () {
+    const languageStore = storeToRefs(useLanguageStore())
+    watch(languageStore, this.directionCalc)
+    this.directionCalc()
+  },
+  beforeUnmount () {
+    const languageStore = storeToRefs(useLanguageStore())
+
+  },
+  methods: {
+    directionCalc: function () {
+      let languageCode = useLanguageStore().locale.code
+      this.dir = ['ar', 'fa', 'he'].includes(languageCode) ? 'rtl' : 'ltr'
     }
   },
   computed: {
