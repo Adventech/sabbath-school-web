@@ -453,6 +453,11 @@ export default {
           "en": "Twi",
           "code": "tw",
         },
+        {
+          "native": "অসমীয়া",
+          "en": "Assamese",
+          "code": "as",
+        },
       ]
     }
   },
