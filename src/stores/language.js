@@ -10,5 +10,10 @@ export const useLanguageStore = defineStore({
       flag: "🇺🇸",
     }
   }),
+  getters: {
+    code(state) {
+      return state.locale.code
+    }
+  },
   persist: true
 })
