@@ -458,6 +458,11 @@ export default {
           "en": "Assamese",
           "code": "as",
         },
+        {
+          "native": "Papiamentu",
+          "en": "Papiamento",
+          "code": "pap",
+        },
       ]
     }
   },
