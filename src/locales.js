@@ -510,6 +510,12 @@ const locales = [
         "code": "as",
         "flag": "🇮🇳",
     },
+    {
+        "native": "Papiamentu",
+        "en": "Papiamento",
+        "code": "pap",
+        "flag": "🇨🇼",
+    },
 ]
 
 export default locales
