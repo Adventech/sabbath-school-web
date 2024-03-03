@@ -266,7 +266,6 @@ export default {
           comment: commentsArray[key],
           elementId: key
         }));
-        console.log('SEND>', comments);
         await this.$apiAuth.post(`/comments`, {
           readIndex: this.readIndex,
           comments: comments
