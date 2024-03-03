@@ -187,7 +187,7 @@ export default {
     $("code").each(function(i){
     let textarea = $("<textarea class='textarea'/>")
     .attr("id", "input-"+i)
-    .on("focusout", function() {
+    .on("input propertychange", function() {
       commentsArray[$(this).attr("id")] = $(this).val();
       
       if (timeout !== null) {
