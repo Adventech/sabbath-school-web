@@ -181,32 +181,34 @@ export default {
       }
     });
 
-    let timeout = null
+    let timeout = null;
+    let commentsArray = {};
 
     $("code").each(function(i){
-      let textarea = $("<textarea class='textarea'/>").attr("id", "input-"+i).on("input propertychange", function(event, isInit) {
-        $(this).css({'height': 'auto', 'overflow-y': 'hidden'}).height(this.scrollHeight);
-        $(this).next().css({'height': 'auto', 'overflow-y': 'hidden'}).height(this.scrollHeight);
-
-        if (!isInit) {
-          let that = this;
-          if (timeout !== null) {
-            clearTimeout(timeout);
-          }
-          timeout = setTimeout(function () {
-            self.saveComments($(that).val(), $(that).attr("id"))
-          }, 2000);
-        }
-      });
-
-      let border = $("<div class='textarea-border' />");
-      let container = $("<div class='textarea-container' />");
-
-      $(textarea).appendTo(container)
-      $(border).appendTo(container)
-
-      $(this).after(container)
+    let textarea = $("<textarea class='textarea'/>")
+    .attr("id", "input-"+i)
+    .on("focusout", function() {
+      commentsArray[$(this).attr("id")] = $(this).val();
+      
+      if (timeout !== null) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(function () {
+        self.saveComments(commentsArray);
+      }, 2000);
     });
+
+    textarea.css({'height': 'auto', 'overflow-y': 'hidden'}).height(textarea[0].scrollHeight);
+
+    let border = $("<div class='textarea-border' />");
+    let container = $("<div class='textarea-container' />");
+
+    textarea.appendTo(container);
+    border.appendTo(container);
+
+    $(this).after(container);
+  });
+
     this.$emit('mounted')
   },
   beforeUnmount () {
