@@ -259,15 +259,16 @@ export default {
         this.$refs.reader.setComments(r.data.comments)
       } catch (e) {}
     },
-    saveComments: async function (comment, elementId) {
+    saveComments: async function (commentsArray) {
       if (!authStore().isLoggedIn) return
       try {
+        const comments = Object.keys(commentsArray).map(key => ({
+          comment: commentsArray[key],
+          elementId: key
+        }));
         await this.$apiAuth.post(`/comments`, {
           readIndex: this.readIndex,
-          comments: [{
-            comment,
-            elementId
-          }]
+          comments: comments
         })
       } catch (e) {}
     },
