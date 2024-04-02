@@ -30,7 +30,7 @@ export default {
   },
   async mounted () {
     const resourceType = this.$route.params.resourceType
-    await this.getRecent()
+    // await this.getRecent()
     await this.getResources(resourceType)
   },
 }

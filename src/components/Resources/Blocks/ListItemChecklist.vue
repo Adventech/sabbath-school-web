@@ -2,7 +2,7 @@
   <li @click="selectChoice"
       :class="{'checklist-item-selected': selected}"
       class="checklist-item">
-    <CheckCircleIconSolid class="checklist-item-icon"></CheckCircleIconSolid>
+    <CheckCircleIconSolid class="checklist-item-icon flex-none"></CheckCircleIconSolid>
     <div class="select-none" v-html="listItemValue"></div>
   </li>
 </template>
