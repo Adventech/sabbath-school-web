@@ -363,7 +363,7 @@ const locales = [
         "native": "Malagasy",
         "en": "Malagasy",
         "code": "mg",
-        "flag": "🇮🇳",
+        "flag": "🇲🇬",
     },
     {
         "native": "മലയാളം",
