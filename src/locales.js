@@ -516,6 +516,12 @@ const locales = [
         "code": "pap",
         "flag": "🇨🇼",
     },
+    {
+        "native": "Lus Hmoob",
+        "en": "Hmong",
+        "code": "hmn",
+        "flag": "🇻🇳",
+    },
 ]
 
 export default locales
