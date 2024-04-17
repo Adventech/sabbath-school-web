@@ -463,6 +463,11 @@ export default {
           "en": "Papiamento",
           "code": "pap",
         },
+        {
+          "native": "Lus Hmoob",
+          "en": "Hmong",
+          "code": "hmn",
+        },
       ]
     }
   },
