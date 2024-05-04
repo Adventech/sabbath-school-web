@@ -90,11 +90,10 @@ export default {
       if (!this.quarterly || !this.quarterly.lessons.length) { return null }
       let now = DayJS().startOf("day")
       let lesson = this.quarterly.lessons.find(x => {
-        let startDate = DayJS(x.start_date, "DD/MM/YYYY").startOf("day")
-        let endDate = DayJS(x.end_date, "DD/MM/YYYY").endOf("day")
+        let startDate = x.start_date
+        let endDate = x.end_date
         return DayJS(now).isBetween(startDate, endDate, "day")
       }) || this.quarterly.lessons[0]
-
       return `/${this.$route.params.lang}/${this.$route.params.quarter}/${lesson.id}`
     }
   },
