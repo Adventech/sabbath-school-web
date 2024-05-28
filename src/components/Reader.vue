@@ -172,41 +172,45 @@ export default {
     });
 
     $("div.ss-donation-appeal-title").click(function (){
-      if ($(".ss-donation-appeal-text").is(":visible")) {
-        $(".ss-donation-appeal-title").removeClass("ss-donation-appeal-title-expanded");
-        $(".ss-donation-appeal-text").hide();
+      let content = $(this).parent().find(".ss-donation-appeal-text")
+
+      if (content.is(":visible")) {
+        $(this).removeClass("ss-donation-appeal-title-expanded");
+        content.hide();
       } else {
-        $(".ss-donation-appeal-title").addClass("ss-donation-appeal-title-expanded");
-        $(".ss-donation-appeal-text").show();
+        $(this).addClass("ss-donation-appeal-title-expanded");
+        content.show();
       }
     });
 
-    let timeout = null
+    let timeout = null;
+    let commentsArray = {};
 
     $("code").each(function(i){
-      let textarea = $("<textarea class='textarea'/>").attr("id", "input-"+i).on("input propertychange", function(event, isInit) {
-        $(this).css({'height': 'auto', 'overflow-y': 'hidden'}).height(this.scrollHeight);
-        $(this).next().css({'height': 'auto', 'overflow-y': 'hidden'}).height(this.scrollHeight);
-
-        if (!isInit) {
-          let that = this;
-          if (timeout !== null) {
-            clearTimeout(timeout);
-          }
-          timeout = setTimeout(function () {
-            self.saveComments($(that).val(), $(that).attr("id"))
-          }, 2000);
-        }
-      });
-
-      let border = $("<div class='textarea-border' />");
-      let container = $("<div class='textarea-container' />");
-
-      $(textarea).appendTo(container)
-      $(border).appendTo(container)
-
-      $(this).after(container)
+    let textarea = $("<textarea class='textarea'/>")
+    .attr("id", "input-"+i)
+    .on("input propertychange", function() {
+      commentsArray[$(this).attr("id")] = $(this).val();
+      
+      if (timeout !== null) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(function () {
+        self.saveComments(commentsArray);
+      }, 2000);
     });
+
+    textarea.css({'height': 'auto', 'overflow-y': 'hidden'}).height(textarea[0].scrollHeight);
+
+    let border = $("<div class='textarea-border' />");
+    let container = $("<div class='textarea-container' />");
+
+    textarea.appendTo(container);
+    border.appendTo(container);
+
+    $(this).after(container);
+  });
+
     this.$emit('mounted')
   },
   beforeUnmount () {
