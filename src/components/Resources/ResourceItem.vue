@@ -11,25 +11,46 @@
       </div>
     </div>
     <div class="flex-grow">
-      <p class="resource-item-title">{{ resource.title }}</p>
-      <p class="resource-item-subtitle">{{ resource.subtitle }}</p>
-      <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
-
-      <div @click="expanded=!expanded" v-if="!expanded && sections.collapsed.length" class="sections-collapsed transition-all relative pt-2 mt-10 cursor-pointer">
-        <div class="transition-all sections-collapsed-farthest absolute -top-2 bg-gray-100 left-7 right-7 h-2 border border-gray-200 rounded-t-lg"></div>
-        <div class="transition-all sections-collapsed-far absolute top-0 bg-gray-100 left-3 right-3 h-2 border border-gray-200 rounded-t-lg"></div>
-        <div class="transition-all sections-collapsed-near bg-gray-100 rounded-lg border border-gray-200 p-4">
-          <p class="text-sm text-gray-400">{{ sections.collapsed[sections.collapsed.length-1].documents.slice(-1)[0].subtitle }}</p>
-          <p>{{ sections.collapsed[sections.collapsed.length-1].documents.slice(-1)[0].title }}</p>
-        </div>
+      <div class="flex gap-2 flex-col">
+        <p class="resource-item-title">{{ resource.title }}</p>
+        <p class="resource-item-subtitle">{{ resource.subtitle }}</p>
+        <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
+        <Menu v-if="resource.sectionView === 'dropdown'" as="div" class="relative inline-block text-left">
+          <div>
+            <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 w-32 px-3 py-2  focus:outline-none">
+              <div class="flex items-center justify-between">
+                <span>{{selectedSection.title}}</span>
+                <span class="pointer-events-none flex items-center">
+                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              </div>
+            </MenuButton>
+          </div>
+          <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0">
+            <MenuItems class="absolute max-h-56 overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+              <div v-for="(section, index) in resource.sections" class="px-1 py-1">
+                <MenuItem v-slot="{ active }">
+                  <button @click="selectedSectionIndex = index" :class="'text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm'">
+                    {{ section.title }}
+                    <span v-if="selectedSection.name === section.name">Check</span>
+                  </button>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
       </div>
-
-      <div v-if="expanded" class="mt-4">
-        <SectionItem v-for="section in sections.collapsed" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
-      </div>
-
       <div class="mt-4">
-        <SectionItem v-for="section in sections.sections" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
+        <SectionItem v-if="resource.sectionView === 'dropdown'" :resourceId="resource.id" :kind="resource.kind" :section="selectedSection" :progress="progress"></SectionItem>
+        <SectionItem v-else v-for="section in resource.sections" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
       </div>
     </div>
   </div>
@@ -37,38 +58,20 @@
 
 <script>
 import SectionItem from './SectionItem.vue'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 export default {
-  components: { SectionItem },
+  components: { SectionItem, Menu, MenuButton, MenuItems, MenuItem },
   props: ['resource', 'progress'],
   data () {
     return {
       expanded: false,
+      selectedSectionIndex: 0,
     }
   },
   computed: {
-    sections: function () {
-      if (['magazine', 'book'].includes(this.resource.kind) || !this.progress || this.progress.length < 1 || !this.resource || this.resource.sections.length < 3) {
-        return { sections: this.resource.sections, collapsed: [] }
-      }
-
-      let allCompletedDocs = this.progress.map(p => p.completed ? p.documentId : false)
-      let sliceSectionIndex = this.resource.sections.length-1
-
-      for (let sectionIndex = this.resource.sections.length-1; sectionIndex >= 0; sectionIndex--) {
-        let section = this.resource.sections[sectionIndex]
-        if (section.documents.map(d => d.id).filter(d => allCompletedDocs.includes(d)).length > 0) {
-            if (sectionIndex < this.resource.sections.length-1
-                && section.documents.map(d => d.id).every(d => allCompletedDocs.includes(d))) {
-              sliceSectionIndex =  sectionIndex+1
-            } else {
-              sliceSectionIndex = sectionIndex
-            }
-            break
-        }
-      }
-
-      return { sections: this.resource.sections.slice(sliceSectionIndex), collapsed: this.resource.sections.slice(0, sliceSectionIndex) }
+    selectedSection: function () {
+      return this.resource.sections[this.selectedSectionIndex]
     },
     resourceCover: function () {
       const coverMap = {
@@ -81,23 +84,14 @@ export default {
       return coverMap[this.resource.kind]
     }
   },
+  created () {
+    // select default section based on the resource kind
+    // if sectionView === dropdown
+  },
 }
 </script>
 
 <style lang="scss">
-.sections-collapsed {
-  &:hover {
-    .sections-collapsed-farthest {
-      @apply h-3
-    }
-    .sections-collapsed-far {
-      @apply top-1 h-3
-    }
-    .sections-collapsed-near {
-      @apply mt-2
-    }
-  }
-}
 .resource-item {
   &-title {
     @apply text-3xl font-bold;

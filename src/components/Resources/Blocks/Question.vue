@@ -1,7 +1,7 @@
 <template>
   <div class="question-block">
     <div class="question-block-caption">
-      <p v-if="questionText" v-html="questionText"></p>
+      <p v-bible-links="{blockId: block.id}" v-if="questionText" v-html="questionText"></p>
     </div>
     <div class="relative">
       <div class="question-block-separator"></div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { marked } from "../Renderer.js"
+import { marked, renderer } from "@/components/Resources/Renderer.js"
 
 const debounce = function (fn, wait) {
   let timer
@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted () {
-    this.questionText = marked.parse(this.block.markdown)
+    this.questionText = marked.parse(this.block.markdown, { renderer })
   },
   methods: {
     debounce: debounce((emit, e) => { emit('answered', e) }, 1000)
@@ -55,7 +55,8 @@ export default {
   @apply shadow-lg;
   &-caption {
     @apply
-    theme-dark:bg-black theme-dark:border-gray-500
+    theme-sepia:bg-yellow-50
+    theme-dark:bg-black theme-dark:border-gray-800
     bg-gray-100 border-gray-200
     py-3 px-5 rounded-t-lg border;
     & > p {
@@ -64,13 +65,14 @@ export default {
   }
   &-separator {
     @apply
-    theme-dark:border-gray-500
+    theme-dark:border-gray-800
     border-red-400
     absolute top-0 bottom-0 left-10 border-l w-1;
   }
   &-answer {
     @apply
-    theme-dark:bg-black theme-dark:border-gray-500
+    theme-sepia:bg-yellow-50
+    theme-dark:bg-black theme-dark:border-gray-800
     bg-gray-100
     border resize-none font-mono rounded-b p-2 px-12 h-32 block outline-none w-full bg-local;
     background-image: linear-gradient(theme('colors.gray.200') 1px, theme('colors.transparent') 1px);

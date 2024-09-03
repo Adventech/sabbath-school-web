@@ -1,6 +1,6 @@
 <template>
   <div class="-mx-4">
-    <Feed v-if="feed && feed.length" :feed="feed"></Feed>
+    <Feed v-if="feed" :feed="feed"></Feed>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   components: { Feed },
   data () {
     return {
-      feed: [],
+      feed: null,
     }
   },
   methods: {
@@ -25,7 +25,7 @@ export default {
     },
     getResources: async function (resourceType) {
       const feed = await this.$apiResources.get(`${this.$route.params.lang}/${resourceType}/index.json`)
-      this.feed = this.feed.concat(feed.data)
+      this.feed = feed.data
     }
   },
   async mounted () {

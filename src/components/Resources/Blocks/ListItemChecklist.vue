@@ -1,9 +1,11 @@
 <template>
-  <li @click="selectChoice"
-      :class="{'checklist-item-selected': selected}"
-      class="checklist-item">
-    <CheckCircleIconSolid class="checklist-item-icon flex-none"></CheckCircleIconSolid>
-    <div class="select-none" v-html="listItemValue"></div>
+  <li>
+    <div @click="selectChoice"
+        :class="{'checklist-item-selected': selected}"
+        class="checklist-item">
+      <CheckCircleIconSolid class="checklist-item-icon flex-none"></CheckCircleIconSolid>
+      <div class="select-none" v-html="listItemValue"></div>
+    </div>
   </li>
 </template>
 
@@ -13,13 +15,8 @@ import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid
 import { marked } from "../Renderer.js"
 export default {
   components: { CheckCircleIcon, CheckCircleIconSolid },
-  props: ['block', 'userInput', 'blockData', 'documentId'],
-  watch: {
-    userInput: function (newValue, oldValue) {
-      const userInput = this.userInput?.find(i => i.inputType === "checklist")
-      this.selected = userInput?.checked?.at(this.block.index) ?? false
-    }
-  },
+  props: ['block', 'parent', 'userInput'],
+
   data () {
     return {
       listItemValue: null,
@@ -28,15 +25,16 @@ export default {
   },
   async mounted () {
     this.listItemValue = marked.parse(this.block.markdown)
+    this.emitter.on(`checklist-item-select-${this.parent.id}`, (index) => {
+      if (this.block.index === index) {
+        this.selected = true
+      }
+    })
   },
   methods: {
     selectChoice: function () {
       this.selected = !this.selected
-      this.$nextTick(() => {
-        if (this.$parent && this.$parent.$parent) {
-          this.$parent.$parent.selectChoice()
-        }
-      })
+      this.emitter.emit(`checklist-item-selected-${this.parent.id}`, { index: this.block.index, checked: this.selected })
     }
   }
 }
@@ -45,18 +43,26 @@ export default {
 <style lang="scss">
 .checklist-item {
   @apply
-  theme-sepia:border-amber-800
-  theme-dark:border-gray-600 theme-dark:hover:bg-gray-800 theme-dark:hover:text-white
-  select-none cursor-pointer
+  theme-sepia:border-none theme-sepia:bg-yellow-50 theme-sepia:hover:bg-yellow-100
+  theme-dark:border-none theme-dark:bg-gray-900 theme-dark:hover:bg-gray-800 theme-dark:hover:text-white
+  select-none
+  cursor-pointer
   hover:bg-gray-100 border-gray-200
   cursor-pointer border-x last:border-b border-t first:rounded-t-md last:rounded-b-md flex items-center gap-4 p-4;
+
   &-icon {
-    @apply w-6 h-6 text-gray-300;
+    @apply
+    theme-sepia:text-gray-200
+    theme-dark:text-gray-600
+    w-6 h-6 text-gray-300;
   }
 
   &-selected {
     .checklist-item-icon {
-      @apply text-blue-500;
+      @apply
+      theme-sepia:text-amber-500
+      theme-dark:text-gray-100
+      text-blue-500;
     }
   }
 }

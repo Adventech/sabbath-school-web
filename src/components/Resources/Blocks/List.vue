@@ -1,6 +1,14 @@
 <template>
-  <ul :class="{'list-decimal': block.ordered}" class="list-outside pl-3 resource-block-list">
-    <slot />
+  <ul :class="{'list-decimal': block.ordered}" class="list-inside resource-block-list">
+    <template
+        v-for="(item, index) in block.items"
+        :key="`${block.id}-${index}-${item.id || ''}`">
+      <Block
+          :block="item"
+          :parentBlockType="block.type"
+          :nested="true"
+      ></Block>
+    </template>
   </ul>
 </template>
 
@@ -12,7 +20,6 @@ export default {
       return parentBlockType && ['list', 'list-item'].includes(parentBlockType) ? {} : null
     }
   }
-
 }
 </script>
 

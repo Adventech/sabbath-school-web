@@ -1,34 +1,19 @@
 <template>
   <div class="excerpt-block flex flex-col">
-    <Menu as="div" class="select-none relative hover:bg-gray-500 p-2 rounded inline cursor-pointer bg-gray-600 text-white self-end">
-      <MenuButton>
-        {{ optionItem.option }}
-      </MenuButton>
-      <transition
-          enter-active-class="transition duration-100 ease-out"
-          enter-from-class="transform scale-95 opacity-0"
-          enter-to-class="transform scale-100 opacity-100"
-          leave-active-class="transition duration-75 ease-in"
-          leave-from-class="transform scale-100 opacity-100"
-          leave-to-class="transform scale-95 opacity-0">
-
-        <MenuItems class="absolute text-black right-0 mt-4 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <MenuItem @click="selectOption(key)" v-for="(option, key) in block.items" as="div" class="p-2 hover:bg-gray-200">
-            {{ option.option }}
-          </MenuItem>
-        </MenuItems>
-      </transition>
-    </Menu>
+    <div class="flex pb-5">
+      <button @click="selectOption(key)" v-for="(opt, key) in block.items"
+              :class="{'excerpt-block-version-selected': option === key}"
+              class="excerpt-block-version">
+        {{ opt.option }}
+      </button>
+    </div>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-
 export default {
-  props: ['block', 'userInput', 'blockData', 'documentId'],
-  components: { Menu, MenuButton, MenuItems, MenuItem },
+  props: ['block'],
   data () {
     return {
       excerptsReady: 0,
@@ -62,4 +47,17 @@ export default {
 </script>
 
 <style lang="scss">
+.excerpt-block-version {
+  @apply
+  theme-sepia:hover:bg-yellow-500 theme-sepia:border-yellow-800
+  theme-dark:hover:bg-gray-800 theme-dark:border-gray-600
+  py-2 px-3 hover:bg-gray-100 first:rounded-l-md last:rounded-r-md border-l border-t border-b last:border-r border-gray-200 shadow-sm;
+
+  &-selected {
+    @apply
+    theme-dark:bg-gray-900
+    theme-sepia:bg-yellow-600 theme-sepia:text-white
+    bg-gray-200;
+  }
+}
 </style>

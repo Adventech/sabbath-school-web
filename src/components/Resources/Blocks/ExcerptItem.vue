@@ -1,20 +1,22 @@
 <template>
   <div :class="{'excerpt-item-block-selected': selected}" class="excerpt-item-block">
-    <slot></slot>
+    <div class="flex flex-col gap-3">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['block', 'userInput', 'blockData', 'documentId'],
+  props: ['block', 'parent'],
   data () {
     return {
       selected: false,
     }
   },
   mounted () {
-    this.emitter.emit(`excerpt-mounted-${this.blockData.parentBlockId}`)
-    this.emitter.on(`excerpt-selected-${this.blockData.parentBlockId}`, (excerptId) => {
+    this.emitter.emit(`excerpt-mounted-${this.parent.id}`)
+    this.emitter.on(`excerpt-selected-${this.parent.id}`, (excerptId) => {
       this.selected = excerptId === this.block.id
     })
   },

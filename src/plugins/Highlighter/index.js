@@ -186,7 +186,7 @@ class Highlighter {
         if (range.containsNode(element.firstChild, true)) {
             const bookmarkRange = range.getBookmark(element.firstChild)
             if (bookmarkRange.end) {
-                return { startIndex: bookmarkRange.start, endIndex: bookmarkRange.end, ...opts }
+                return { startIndex: bookmarkRange.start, endIndex: bookmarkRange.end, length: bookmarkRange.end-bookmarkRange.start, ...opts }
             }
         }
 

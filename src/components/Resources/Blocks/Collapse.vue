@@ -5,7 +5,9 @@
       <ChevronDownIcon :class="{'rotate-180': opened}" class="w-4"/>
     </div>
     <div v-show="opened" class="collapse-block-content">
-      <slot />
+      <div class="flex flex-col gap-3">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -27,15 +29,17 @@ export default {
 .collapse-block {
   &-caption {
     @apply
+    theme-sepia:bg-yellow-50
     theme-dark:bg-gray-900
     bg-gray-200
     cursor-pointer select-none p-3 rounded-t-lg flex justify-between;
   }
   &-content {
     @apply
-    theme-dark:bg-gray-800
-    bg-gray-100
-    pt-1 pb-2 rounded-b-lg;
+    theme-sepia:border-amber-200 theme-sepia:border-t-0
+    theme-dark:bg-black theme-dark:border-gray-900
+    border border-gray-200
+    p-5 rounded-b-lg;
   }
 }
 </style>

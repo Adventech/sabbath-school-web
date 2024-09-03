@@ -4,8 +4,8 @@
 
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
-import { marked, renderer } from "../Renderer.js"
-import { getTextStyle } from "../../../plugins/Theme/TextStyle.js"
+import { marked, renderer } from "@/components/Resources/Renderer.js"
+import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
 
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
@@ -23,4 +23,8 @@ export default {
 </script>
 
 <style lang="scss">
+.resource-link-sspm-bible,
+.resource-link-sspm-egw {
+  @apply border-b border-ss-primary font-bold;
+}
 </style>

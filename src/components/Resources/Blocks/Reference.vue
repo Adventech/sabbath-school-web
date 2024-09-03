@@ -26,12 +26,18 @@ export default {
 <style lang="scss">
 .reference-block {
   @apply
-    theme-dark:bg-gray-900
-    bg-gray-200
+    theme-sepia:bg-yellow-800 theme-sepia:hover:bg-yellow-700 theme-sepia:text-gray-300
+    theme-dark:bg-gray-900 theme-dark:hover:bg-gray-800
+    bg-gray-300 hover:bg-gray-200
     flex justify-between w-full p-3 rounded-lg items-center gap-3;
-  &-title {}
+
+  &-title {
+
+  }
   &-subtitle {
-    @apply text-sm text-gray-400
+    @apply
+    theme-sepia:text-gray-400
+    text-sm text-gray-500
   }
 }
 </style>

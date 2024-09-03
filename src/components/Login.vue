@@ -64,26 +64,6 @@ export default {
     })
 
     return
-    this.loadSIWAClient().then(() => {
-      AppleID.auth.init({
-        clientId : 'com.cryart.sabbatschool.web',
-        scope : 'name email',
-        redirectURI: 'http://localhost:3000/login',
-        state : 'sabbath-school-web',
-        nonce : 'fdsafdsafs',
-      });
-      document.addEventListener('AppleIDSignInOnSuccess', (event) => {
-        // Handle successful response.
-        console.log(event.detail.data);
-      });
-
-      document.addEventListener('AppleIDSignInOnFailure', (event) => {
-        // Handle error.
-        console.log(event.detail.error);
-      });
-    }).catch((err) => {
-      console.log(err)
-    })
   }
 }
 </script>

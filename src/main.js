@@ -13,6 +13,7 @@ import { VueHeadMixin, createHead } from '@unhead/vue'
 import ContextMenu from '@/plugins/ContextMenu/'
 import Highlighter from '@/plugins/Highlighter/'
 import Bible from '@/plugins/Bible/'
+import Block from '@/components/Resources/Blocks/Block.vue';
 
 DayJS.extend(customParseFormat)
 
@@ -74,5 +75,7 @@ app.config.globalProperties.$api = { ...axiosInstance }
 app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
 app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
 app.config.globalProperties.emitter = emitter
+
+app.component('Block', Block);
 
 app.mount('#app')

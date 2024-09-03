@@ -1,10 +1,8 @@
 <template>
   <div class="blockquote-block">
     <div v-if="!block.callout" class="flex-none w-1 rounded-sm bg-ss-primary"></div>
-    <div :class="{'blockquote-block-callout': block.callout}" class="py-2">
-      <p class="blockquote-block-caption" v-if="block.memoryVerse">{{ block.caption }}</p>
+    <div :class="{'blockquote-block-callout': block.callout}">
       <slot />
-      <p class="blockquote-block-citation" v-if="block.citation">{{ block.caption }}</p>
     </div>
   </div>
 </template>
