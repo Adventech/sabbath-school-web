@@ -1,5 +1,5 @@
 <template>
-  <RouterLinkWithExternal class="select-none" :externalURL="block.resource.externalURL" :to="block.scope === 'resource' ? `/resources/${block.resource.index}` : `/resources/${block.document.index}`">
+  <RouterLinkWithExternal class="select-none" :externalURL="block.resource.externalURL" :to="`/resources/${block.target}`">
     <div class="reference-block">
       <div class="flex-none" v-if="block.resource">
         <img class="w-12 h-12 rounded object-cover" :src="block.resource.covers.square" />

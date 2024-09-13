@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import FeedResourceItem from './FeedResourceItem.vue'
-import FeedDocumentItem from './FeedDocumentItem.vue'
-import RouterLinkWithExternal from '../RouterLinkWithExternal.vue'
+import FeedResourceItem from '@/components/Resources/FeedResourceItem.vue'
+import FeedDocumentItem from '@/components/Resources/FeedDocumentItem.vue'
+import RouterLinkWithExternal from '@/components/RouterLinkWithExternal.vue'
 
 export default {
   components: { FeedResourceItem, FeedDocumentItem, RouterLinkWithExternal },

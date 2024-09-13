@@ -1,6 +1,9 @@
 <template>
   <div class="-mx-4 my-4">
-    <div class="px-4">
+    <template v-if="loading">
+      <LoadingDetail></LoadingDetail>
+    </template>
+    <div v-else class="px-4">
       <ResourceItem v-if="resource" :resource="resource" :progress="progress"></ResourceItem>
     </div>
   </div>
@@ -9,13 +12,15 @@
 <script>
 import { authStore } from '@/stores/auth'
 import ResourceItem from '../components/Resources/ResourceItem.vue'
+import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
 export default {
-  components: { ResourceItem },
+  components: { ResourceItem, LoadingDetail },
   data () {
     return {
+      loading: true,
       resource: null,
-      progress: null
+      progress: null,
     }
   },
   methods: {
@@ -27,6 +32,7 @@ export default {
     getResource: async function (resourceType, resourceName) {
       const resource = await this.$apiResources.get(`${this.$route.params.lang}/${resourceType}/${resourceName}/sections/index.json`)
       this.resource = resource.data
+      this.loading = false
     },
     setRecent: async function () {
       if (!authStore().isLoggedIn) return

@@ -1,7 +1,9 @@
 <template>
   <Menu as="div" class="relative">
     <MenuButton>
-      <ThemeIcon class="hover:fill-gray-400 w-6 h-6 fill-black" />
+      <div class="bg-black/10 p-2 rounded">
+        <ThemeIcon class="fill-white w-6 h-6" />
+      </div>
     </MenuButton>
     <transition
         enter-active-class="transition duration-100 ease-out"

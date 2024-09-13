@@ -8,7 +8,7 @@ import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
 
 export default {
-  props: ['block', 'userInput', 'blockData', 'documentId'],
+  props: ['block', 'userInput'],
   mixins: [HighlighterMixin],
   data () {
     return {
@@ -26,5 +26,11 @@ export default {
 .resource-link-sspm-bible,
 .resource-link-sspm-egw {
   @apply border-b border-ss-primary font-bold;
+}
+
+.paragraph-block {
+  a {
+    @apply text-ss-primary;
+  }
 }
 </style>

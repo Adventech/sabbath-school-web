@@ -42,7 +42,7 @@ const router = createRouter({
       component: () => import('../views/Resource.vue')
     },
     {
-      path: '/resources/:lang/:resourceType/:resourceName/content/:sectionName/:documentName',
+      path: '/resources/:lang/:resourceType/:resourceName/:sectionName/:documentName/:segmentName?',
       name: 'document',
       component: () => import('../views/Document.vue')
     },

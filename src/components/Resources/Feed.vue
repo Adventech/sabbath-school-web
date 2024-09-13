@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import FeedGroup from './FeedGroup.vue'
+import FeedGroup from '@/components/Resources/FeedGroup.vue'
 
 export default {
   components: { FeedGroup },

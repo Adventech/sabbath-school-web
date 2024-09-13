@@ -3,7 +3,6 @@
     <h3 class="text-3xl font-bold mb-6">Log in</h3>
     <div class="w-full flex flex-col items-center">
       <button class="w-52 max-w-52 mb-3" ref="googleLoginBtn"></button>
-<!--      <div id="appleid-signin" class="z-10 w-52 h-10 signin-button" data-color="black" data-border="true" data-type="sign-in"></div>-->
     </div>
   </div>
 </template>

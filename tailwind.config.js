@@ -12,13 +12,16 @@ module.exports = {
       pattern: /([pm])([tblr])?-[0-9.]+/,
     },
     {
-      pattern: /text-(3xs|2xs|xs|sm|base|lg|xl|start|end|center)+/,
+      pattern: /text-(3xs|2xs|xs|sm|base|lg|xl|2xl|3xl|4xl|start|end|center)+/,
     },
     {
       pattern: /align-(sub|super)+/,
     },
     {
       pattern: /(bg|theme)-(light|sepia|dark)+/,
+    },
+    {
+      pattern: /(bg)-(left|right|center|bottom|top)+/,
     },
   ],
   theme: {
@@ -40,6 +43,14 @@ module.exports = {
       fontSize: {
         '3xs': '.5rem',
         '2xs': '.625rem',
+        'xs': '0.8rem',
+        'sm': '1rem',
+        'base': '1.125rem',
+        'lg': '1.25rem',
+        'xl': '1.563rem',
+        '2xl': '1.953rem',
+        '3xl': '2.441rem',
+        '4xl': '3.052rem',
       },
       maxWidth: {
         'ss-cover': '250px',
@@ -64,7 +75,7 @@ module.exports = {
         ]
       },
       colors: {
-        'ss-primary': '#2E5797',
+        'ss-primary': 'var(--color-primary)',
         'light': 'var(--tw-color-gray-50)',
         'sepia': '#fbf0d9',
         'dark': '#000000',

@@ -53,6 +53,7 @@ import Checklist from '@/components/Resources/Blocks/Checklist.vue'
 import ListItemChecklist from '@/components/Resources/Blocks/ListItemChecklist.vue'
 import Excerpt from '@/components/Resources/Blocks/Excerpt.vue'
 import ExcerptItem from '@/components/Resources/Blocks/ExcerptItem.vue'
+import Story from '@/components/Resources/Blocks/Story.vue'
 
 export default {
   name: 'Block',
@@ -77,13 +78,13 @@ export default {
 
     blockClassesAndStyle () {
       let ret = { class: "", style: "" }
-      if (!this.block.id) return ret
+      if (!this.block.id || !this.defaultStyles) return ret
       return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "block") }
     },
 
     wrapperClassesAndStyle () {
       let ret = { class: "", style: "" }
-      if (!this.block.id) return ret
+      if (!this.block.id || !this.defaultStyles) return ret
       return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "wrapper") }
     },
   },
@@ -112,6 +113,7 @@ export default {
         'list-item-checklist': { component: shallowRef(ListItemChecklist), on: {}},
         'excerpt': { component: shallowRef(Excerpt), on: {}, data: { parentBlockId: this.block.id }},
         'excerpt-item': { component: shallowRef(ExcerptItem), on: {}},
+        'story': { component: shallowRef(Story), on: {}},
       }
     }
   },
@@ -175,8 +177,6 @@ export default {
         )
       } catch (e) {}
     }
-
-
   },
 }
 </script>

@@ -4,9 +4,6 @@
   </router-link>
 </template>
 
-<script>
+<script setup>
 import DevotionalsIcon from '@/assets/img/devotionals-icon.svg'
-export default {
-  components: { DevotionalsIcon }
-}
 </script>

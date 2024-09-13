@@ -1,5 +1,5 @@
 <template>
-  <ul :class="{'list-decimal': block.ordered}" class="list-inside resource-block-list">
+  <ul :class="{'list-decimal': block.ordered}" class="ml-5 resource-block-list">
     <template
         v-for="(item, index) in block.items"
         :key="`${block.id}-${index}-${item.id || ''}`">

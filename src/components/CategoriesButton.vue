@@ -4,9 +4,6 @@
   </router-link>
 </template>
 
-<script>
+<script setup>
 import CategoriesIcon from '@/assets/img/categories-icon.svg'
-export default {
-  components: { CategoriesIcon }
-}
 </script>

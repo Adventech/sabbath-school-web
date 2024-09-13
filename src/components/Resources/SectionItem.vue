@@ -6,13 +6,14 @@
       <router-link v-for="document in section.documents" :to="{name: 'document', params: {sectionName: section.name, documentName: document.name}}"
                    class="resource-item-document-item flex justify-between items-center">
         <div>
-          <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
+          <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
           <p class="resource-item-document-item-title">{{ document.title }}</p>
+          <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
         </div>
-        <div @click.prevent="saveDocumentProgress(document.id)">
-          <CheckCircleIcon v-if="!documentCompleted(document.id)" class="text-ss-primary w-6 h-6"></CheckCircleIcon>
-          <CheckCircleIconSolid v-else class="text-ss-primary w-6 h-6"></CheckCircleIconSolid>
-        </div>
+<!--        <div @click.prevent="saveDocumentProgress(document.id)">-->
+<!--          <CheckCircleIcon v-if="!documentCompleted(document.id)" class="text-ss-primary w-6 h-6"></CheckCircleIcon>-->
+<!--          <CheckCircleIconSolid v-else class="text-ss-primary w-6 h-6"></CheckCircleIconSolid>-->
+<!--        </div>-->
       </router-link>
     </div>
   </div>
@@ -21,11 +22,14 @@
 <script>
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid'
+import DayJS from 'dayjs'
+
 export default {
   props: ['resourceId', 'kind', 'section', 'progress'],
   components: { CheckCircleIcon, CheckCircleIconSolid },
   data () {
     return {
+      DayJS,
       CheckCircleIcon,
       CheckCircleIconSolid
     }
@@ -49,6 +53,9 @@ export default {
     .resource-item-document-item {
       @apply hover:bg-gray-200 first:rounded-t-lg last:rounded-b-lg;
       &-title {}
+      &-date {
+        @apply text-gray-400 text-sm
+      }
       &-subtitle {
         @apply text-gray-400 text-sm;
       }

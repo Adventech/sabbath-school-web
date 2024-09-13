@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --color-primary: #2E5797;
+}
+
+.aij-theme {
+    --color-primary: #FF5733;
+}
+
 @layer base {
     h1 {
         @apply text-4xl my-3;

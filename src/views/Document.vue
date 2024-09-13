@@ -1,45 +1,74 @@
 <template>
-  <div class="lg:mx-36 xl:mx-60">
-    <template v-if="document">
-      <div v-if="document.segments.length > 1" class="flex">
-        <button
-            @click="selectSegment(index)" v-for="(segment, index) in document.segments"
-            class=""
-        >{{ segment.title }}</button>
+  <template v-if="loading">
+    <LoadingDetail></LoadingDetail>
+  </template>
+  <div v-else-if="document" class="flex gap-5 my-10 flex-col md:flex-row">
+    <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right">
+      <div class="flex flex-col gap-5">
+        <div class="w-3/2 md:w-full items-start gap-2 flex md:flex-col">
+          <router-link tag="div" :to="`/resources/${resource.index}`">
+            <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" />
+          </router-link>
+          <div class="flex flex-col p-2 gap-2">
+            <router-link tag="div" :to="`/resources/${resource.index}`"  class="font-bold">{{ resource.title }}</router-link>
+            <p v-if="resource.subtitle" class="text-gray-400">{{ resource.subtitle }}</p>
+          </div>
+        </div>
+        <div v-if="document.segments.length && document.segments.length > 1" class="flex flex-wrap flex-row md:flex-col justify-start">
+          <router-link
+              v-for="(segment, index) in document.segments" :to="{name: 'document', params: {sectionName: section.name, documentName: document.name, segmentName: segment.name}}"
+              class="md:w-full hover:bg-gray-100 p-2 rounded">
+            <div class="flex flex-col">
+              <div class="text-gray-400 text-sm" v-if="segment.date">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
+              <div :class="{'text-ss-primary': selectedSegmentIndex === index}">{{ segment.title }}</div>
+              <div class="text-gray-400 text-sm" v-if="segment.subtitle">{{ segment.subtitle }}</div>
+            </div>
+          </router-link>
+        </div>
       </div>
-      <div>
-        <Segment v-if="selectedSegment" :segment="selectedSegment" :document="document" :documentUserInput="documentUserInput"></Segment>
+    </div>
+    <div class="md:w-9/12 lg:w-9/12 xl:w-10/12 border border-gray-100">
+      <div :style="`background-image:url('${document.background}')`" class="bg-top bg-no-repeat">
+        <div>
+          <Segment v-if="selectedSegment" :segment="selectedSegment"></Segment>
+        </div>
+
+        <Popup :open="bibleOpen" @closed="bibleOpen = false" :noPadding="true">
+          <Bible :bible="bibleData" :verse="bibleVerse"></Bible>
+        </Popup>
+
+        <Popup :open="egwOpen" @closed="egwOpen = false" :noPadding="true">
+          <EGW :egwData="egwData" :reference="egwReference"></EGW>
+        </Popup>
       </div>
-
-      <Popup :open="bibleOpen" @closed="bibleOpen = false" :noPadding="true">
-        <Bible :bible="bibleData" :verse="bibleVerse"></Bible>
-      </Popup>
-
-      <Popup :open="egwOpen" @closed="egwOpen = false" :noPadding="true">
-        <EGW :egwData="egwData" :reference="egwReference"></EGW>
-      </Popup>
-    </template>
+    </div>
   </div>
+
 </template>
 
 <script>
 import { authStore } from '@/stores/auth'
+import DayJS from 'dayjs'
 import Segment from '@/views/Segment.vue'
 import Popup from '@/components/Popup.vue'
 import Bible from '@/components/Resources/Bible.vue'
 import EGW from '@/components/Resources/EGW.vue'
+import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 
 export default {
-  components: { Segment, Popup, Bible, EGW },
+  components: { Segment, Popup, Bible, EGW, LoadingDetail },
   provide () {
     return {
       getDocument: () => this.document,
       getDocumentUserInput: () => this.documentUserInput,
-      getDefaultStyles: () => this.selectedSegment?.defaultStyles
+      getDefaultStyles: () => this.document?.defaultStyles
     }
   },
   data () {
     return {
+      loading: true,
+
+      DayJS,
       document: null,
       selectedSegmentIndex: 0,
       documentUserInput: [],
@@ -89,10 +118,6 @@ export default {
     });
   },
   methods: {
-    selectSegment (segmentIndex) {
-      this.selectedSegmentIndex = segmentIndex
-    },
-
     findBlockById (items, blockId) {
       for (const block of items) {
         if (block.id === blockId) {
@@ -120,7 +145,7 @@ export default {
     },
 
     async getResourceFonts () {
-      let response = await this.$apiResources.post(`${this.$route.params.lang}/${this.$route.params.resourceType}/${this.$route.params.resourceName}/sections/index.json`)
+      let response = await this.$apiResources.get(`${this.$route.params.lang}/${this.$route.params.resourceType}/${this.$route.params.resourceName}/sections/index.json`)
       this.resource = response.data
       if (this.resource.fonts) {
         for (let font of this.resource.fonts) {
@@ -137,10 +162,20 @@ export default {
       const documentName = this.$route.params.documentName
       const resource = await this.$apiResources.get(`${this.$route.params.lang}/${resourceType}/${resourceName}/content/${sectionName}/${documentName}/index.json`)
       this.document = resource.data
+
+
+      if (this.$route.params.segmentName) {
+        let segmentIndex = this.document.segments.findIndex((s) => s.name === this.$route.params.segmentName)
+        this.selectedSegmentIndex = segmentIndex >= 0 ? segmentIndex : 0
+      }
+
+      this.loading = false
     },
 
     async getDocumentUserInput () {
-      if (!authStore().isLoggedIn) return
+      if (!authStore().isLoggedIn) {
+        return
+      }
       try {
         const documentUserInput = await this.$apiAuth.get(`/resources/user/input/document/${this.document.id}`)
         this.documentUserInput = documentUserInput.data

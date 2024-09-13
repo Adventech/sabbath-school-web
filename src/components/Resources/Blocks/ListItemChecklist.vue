@@ -62,7 +62,7 @@ export default {
       @apply
       theme-sepia:text-amber-500
       theme-dark:text-gray-100
-      text-blue-500;
+      text-ss-primary;
     }
   }
 }

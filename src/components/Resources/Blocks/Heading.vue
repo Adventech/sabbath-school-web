@@ -18,6 +18,9 @@ export default {
 .resource-block {
   &-heading {
     @apply font-bold;
+    > p {
+      @apply mt-4;
+    }
   }
   &-heading-1 {
     @apply text-4xl;

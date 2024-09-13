@@ -1,20 +1,26 @@
 <template>
-  <!-- TODO: responsive design, mobile splash view -->
-  <div class="flex gap-8 flex-col md:flex-row">
-    <div :class="`resource-item-${resource.kind} flex-none`">
-      <img :src="resourceCover" class="resource-item-cover object-cover" />
-      <div v-if="resource.credits && resource.credits.length" class="flex gap-2 flex-col mt-4">
-        <div  v-for="credit in resource.credits">
-          <p class="text-gray-500 font-bold text-sm">{{ credit.name }}</p>
-          <p class="text-gray-500 text-sm">{{ credit.value }}</p>
+  <div class="flex gap-4 md:gap-8 flex-col md:flex-row">
+    <div class="flex flex-col items-center md:items-start">
+      <div :class="`resource-item-${resource.kind} flex-none`">
+        <img :src="resourceCover" class="resource-item-cover object-cover" />
+
+        <div class="hidden md:flex gap-2 flex-col mt-4"
+             v-if="resource.credits && resource.credits.length">
+          <div v-for="credit in resource.credits">
+            <p class="text-gray-500 font-bold text-sm">{{ credit.name }}</p>
+            <p class="text-gray-500 text-sm">{{ credit.value }}</p>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="flex-grow">
-      <div class="flex gap-2 flex-col">
-        <p class="resource-item-title">{{ resource.title }}</p>
+      <div class="w-full">
+        <p class="resource-item-title text-center md:text-start">{{ resource.title }}</p>
         <p class="resource-item-subtitle">{{ resource.subtitle }}</p>
         <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
+      </div>
+      <div class="flex gap-2 flex-col">
         <Menu v-if="resource.sectionView === 'dropdown'" as="div" class="relative inline-block text-left">
           <div>
             <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 w-32 px-3 py-2  focus:outline-none">
@@ -48,9 +54,17 @@
           </transition>
         </Menu>
       </div>
-      <div class="mt-4">
+      <div class="mt-4 flex flex-col gap-2 md:gap-4">
         <SectionItem v-if="resource.sectionView === 'dropdown'" :resourceId="resource.id" :kind="resource.kind" :section="selectedSection" :progress="progress"></SectionItem>
         <SectionItem v-else v-for="section in resource.sections" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
+      </div>
+    </div>
+
+    <div class="flex md:hidden gap-2 flex-col"
+         v-if="resource.credits && resource.credits.length">
+      <div v-for="credit in resource.credits">
+        <p class="text-gray-500 font-bold text-sm">{{ credit.name }}</p>
+        <p class="text-gray-500 text-sm">{{ credit.value }}</p>
       </div>
     </div>
   </div>

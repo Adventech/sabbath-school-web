@@ -10,7 +10,6 @@
         leave-active-class="transition duration-75 ease-in"
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0">
-
       <MenuItems class="absolute right-0 mt-4 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div>
           <MenuItem>
@@ -26,6 +25,7 @@
 import { authStore } from '@/stores/auth'
 import { PowerIcon, UserIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
 export default {
   props: {
     displayName: String
