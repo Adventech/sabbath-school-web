@@ -64,12 +64,12 @@ export default {
     @apply
     theme-sepia:border-amber-800 theme-sepia:bg-green-300
     theme-dark:text-black theme-dark:bg-green-400
-    bg-blue-100 hover:bg-blue-100 border border-blue-300;
+    bg-green-100 hover:bg-green-100 border border-green-300;
 
     .multiple-choice-item-radio {
       @apply
       theme-dark:border-green-700
-      border-4 border-blue-600;
+      border-4 border-green-600;
     }
   }
 

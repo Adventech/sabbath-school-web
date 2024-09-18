@@ -14,8 +14,8 @@
       </div>
     </div>
 
-    <div class="flex-grow">
-      <div class="w-full">
+    <div class="flex-grow flex flex-col gap-2">
+      <div class="w-full flex flex-col gap-2">
         <p class="resource-item-title text-center md:text-start">{{ resource.title }}</p>
         <p class="resource-item-subtitle">{{ resource.subtitle }}</p>
         <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
@@ -44,9 +44,11 @@
             <MenuItems class="absolute max-h-56 overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
               <div v-for="(section, index) in resource.sections" class="px-1 py-1">
                 <MenuItem v-slot="{ active }">
-                  <button @click="selectedSectionIndex = index" :class="'text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm'">
-                    {{ section.title }}
-                    <span v-if="selectedSection.name === section.name">Check</span>
+                  <button @click="selectedSectionIndex = index" class="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm justify-between text-start">
+                    <span>{{ section.title }}</span>
+                    <span v-if="selectedSection.name === section.name">
+                      <CheckIcon class="w-5" />
+                    </span>
                   </button>
                 </MenuItem>
               </div>
@@ -54,7 +56,7 @@
           </transition>
         </Menu>
       </div>
-      <div class="mt-4 flex flex-col gap-2 md:gap-4">
+      <div class="flex flex-col gap-2 md:gap-4">
         <SectionItem v-if="resource.sectionView === 'dropdown'" :resourceId="resource.id" :kind="resource.kind" :section="selectedSection" :progress="progress"></SectionItem>
         <SectionItem v-else v-for="section in resource.sections" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
       </div>
@@ -72,10 +74,11 @@
 
 <script>
 import SectionItem from './SectionItem.vue'
+import { CheckIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 export default {
-  components: { SectionItem, Menu, MenuButton, MenuItems, MenuItem },
+  components: { SectionItem, Menu, MenuButton, MenuItems, MenuItem, CheckIcon },
   props: ['resource', 'progress'],
   data () {
     return {
@@ -111,10 +114,7 @@ export default {
     @apply text-3xl font-bold;
   }
   &-subtitle {
-    @apply text-gray-500 mt-2;
-  }
-  &-description {
-    @apply mt-4;
+    @apply text-gray-500;
   }
 
   &-book, &-magazine {

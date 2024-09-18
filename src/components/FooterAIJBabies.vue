@@ -31,7 +31,7 @@ import { ref } from 'vue'
 const year = ref(new Date().getFullYear())
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer-aij {
   @apply relative w-full min-h-64 bg-cover bg-top bg-no-repeat;
 

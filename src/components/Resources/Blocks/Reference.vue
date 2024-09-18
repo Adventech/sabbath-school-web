@@ -1,5 +1,8 @@
 <template>
-  <RouterLinkWithExternal class="select-none" :externalURL="block.resource.externalURL" :to="`/resources/${block.target}`">
+  <RouterLinkWithExternal class="select-none"
+                          @click="click"
+                          :externalURL="block.resource?.externalURL || block.document?.externalURL"
+                          :to="!block.segment ? (block.resource?.documentIndex ? `/resources/${block.resource.documentIndex}` : `/resources/${block.target}`) : ''">
     <div class="reference-block">
       <div class="flex-none" v-if="block.resource">
         <img class="w-12 h-12 rounded object-cover" :src="block.resource.covers.square" />
@@ -8,7 +11,7 @@
         <p class="reference-block-title">{{ block.title }}</p>
         <p class="reference-block-subtitle">{{ block.subtitle }}</p>
       </div>
-      <LinkIcon class="flex-none w-4" />
+      <LinkIcon v-if="block.resource?.externalURL || block.document?.externalURL" class="flex-none w-4" />
     </div>
   </RouterLinkWithExternal>
 </template>
@@ -19,7 +22,14 @@ import RouterLinkWithExternal from '../../RouterLinkWithExternal.vue'
 
 export default {
   components: { LinkIcon, RouterLinkWithExternal },
-  props: ['block', 'userInput', 'blockData', 'documentId']
+  props: ['block', 'userInput', 'blockData', 'documentId'],
+  methods: {
+    click () {
+      if (this.block.segment) {
+        this.emitter.emit('segment-click', this.block.target)
+      }
+    }
+  }
 }
 </script>
 

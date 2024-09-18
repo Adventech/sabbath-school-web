@@ -53,6 +53,11 @@ export default {
 
 .question-block {
   @apply shadow-lg;
+
+  a {
+    @apply text-ss-primary;
+  }
+
   &-caption {
     @apply
     theme-sepia:bg-yellow-50

@@ -7,7 +7,10 @@
             'flex-col gap-5': feedGroup.direction === 'vertical'
          }" class="flex flex-wrap pb-5">
 
-        <RouterLinkWithExternal v-for="feedItem in feedGroup.resources" :externalURL="feedItem.externalURL" :to="`/resources/${feedItem.index}`">
+        <RouterLinkWithExternal
+            v-for="feedItem in feedGroup.resources"
+            :externalURL="feedItem.externalURL"
+            :to="feedItem.documentIndex ? `/resources/${feedItem.documentIndex}` :  `/resources/${feedItem.index}`">
           <FeedResourceItem :view="feedGroup.view" :feedItem="feedItem" :direction="feedGroup.direction" :id="feedItem.id"></FeedResourceItem>
         </RouterLinkWithExternal>
     </div>

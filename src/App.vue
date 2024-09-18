@@ -6,6 +6,7 @@ import Header from '@/components/Header.vue'
 import HeaderAIJBabies from '@/components/HeaderAIJBabies.vue'
 import FooterAIJBabies from '@/components/FooterAIJBabies.vue'
 import HeaderAIJBeginner from '@/components/HeaderAIJBeginner.vue'
+import FooterAIJBeginner from '@/components/FooterAIJBeginner.vue'
 
 let dir = ref('auto')
 
@@ -19,11 +20,12 @@ const directionCalc = function () {
 }
 
 const isAIJBabies = computed(() => {
-  return true
+
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BABIES_HOST) === 0
 })
 
 const isAIJBeginner = computed(() => {
+  return true
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BEGINNER_HOST) === 0
 })
 
@@ -41,5 +43,6 @@ directionCalc()
       <RouterView :key="$route.fullPath" />
     </div>
     <FooterAIJBabies  v-if="isAIJBabies" />
+    <FooterAIJBeginner  v-if="isAIJBeginner" />
   </div>
 </template>

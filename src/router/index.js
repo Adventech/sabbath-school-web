@@ -5,6 +5,9 @@ import { useLanguageStore } from '@/stores/language'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { top: 0, left: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -42,7 +45,7 @@ const router = createRouter({
       component: () => import('../views/Resource.vue')
     },
     {
-      path: '/resources/:lang/:resourceType/:resourceName/:sectionName/:documentName/:segmentName?',
+      path: '/resources/:lang/:resourceType/:resourceName/:documentName/:segmentName?',
       name: 'document',
       component: () => import('../views/Document.vue')
     },
@@ -73,5 +76,9 @@ router.beforeEach(async (to, from, next) => {
   }
   next()
 })
+
+router.scrollBehavior = () => {
+  return { x: 0, y: 0 }
+}
 
 export default router

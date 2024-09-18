@@ -3,30 +3,37 @@
     <p v-if="!section.isRoot" class="mt-4 mb-2 text-ss-primary text-sm uppercase font-bold">{{ section.title }}</p>
 
     <div class="resource-item-document-list">
-      <router-link v-for="document in section.documents" :to="{name: 'document', params: {sectionName: section.name, documentName: document.name}}"
+
+      <RouterLinkWithExternal v-for="document in section.documents"
+                   :externalURL="document.externalURL"
+                   :to="`/resources/${document.index}`"
                    class="resource-item-document-item flex justify-between items-center">
         <div>
           <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
           <p class="resource-item-document-item-title">{{ document.title }}</p>
           <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
         </div>
+        <div>
+          <ArrowTopRightOnSquareIcon class="w-4 text-gray-400" v-if="document.externalURL" />
+        </div>
 <!--        <div @click.prevent="saveDocumentProgress(document.id)">-->
 <!--          <CheckCircleIcon v-if="!documentCompleted(document.id)" class="text-ss-primary w-6 h-6"></CheckCircleIcon>-->
 <!--          <CheckCircleIconSolid v-else class="text-ss-primary w-6 h-6"></CheckCircleIconSolid>-->
 <!--        </div>-->
-      </router-link>
+      </RouterLinkWithExternal>
     </div>
   </div>
 </template>
 
 <script>
-import { CheckCircleIcon } from '@heroicons/vue/24/outline'
-import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid'
 import DayJS from 'dayjs'
+import { CheckCircleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
+import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid'
+import RouterLinkWithExternal from '@/components/RouterLinkWithExternal.vue'
 
 export default {
   props: ['resourceId', 'kind', 'section', 'progress'],
-  components: { CheckCircleIcon, CheckCircleIconSolid },
+  components: { CheckCircleIcon, CheckCircleIconSolid, ArrowTopRightOnSquareIcon, RouterLinkWithExternal },
   data () {
     return {
       DayJS,

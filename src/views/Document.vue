@@ -14,36 +14,68 @@
             <p v-if="resource.subtitle" class="text-gray-400">{{ resource.subtitle }}</p>
           </div>
         </div>
-        <div v-if="document.segments.length && document.segments.length > 1" class="flex flex-wrap flex-row md:flex-col justify-start">
-          <router-link
-              v-for="(segment, index) in document.segments" :to="{name: 'document', params: {sectionName: section.name, documentName: document.name, segmentName: segment.name}}"
-              class="md:w-full hover:bg-gray-100 p-2 rounded">
-            <div class="flex flex-col">
-              <div class="text-gray-400 text-sm" v-if="segment.date">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
-              <div :class="{'text-ss-primary': selectedSegmentIndex === index}">{{ segment.title }}</div>
-              <div class="text-gray-400 text-sm" v-if="segment.subtitle">{{ segment.subtitle }}</div>
+
+        <template v-if="document.segments.length && document.segments.length > 1">
+          <div class="hidden md:flex flex-wrap flex-row md:flex-col justify-start">
+            <router-link
+                v-for="(segment, index) in document.segments" :to="`/resources/${segment.index}`"
+                class="md:w-full hover:bg-gray-100 p-2 rounded">
+              <div class="flex flex-col">
+                <div class="text-gray-400 text-sm" v-if="segment.date">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
+                <div :class="{'text-ss-primary': selectedSegmentIndex === index}">{{ segment.title }}</div>
+                <div class="text-gray-400 text-sm" v-if="segment.subtitle">{{ segment.subtitle }}</div>
+              </div>
+            </router-link>
+          </div>
+          <Menu as="div" class="relative inline-block md:hidden text-left z-10">
+            <div>
+              <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2  focus:outline-none">
+                <div class="flex items-center justify-between">
+                  <span>{{ selectedSegment.title }}</span>
+                  <span class="pointer-events-none flex items-center">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                </div>
+              </MenuButton>
             </div>
-          </router-link>
-        </div>
+            <transition
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="transform scale-95 opacity-0"
+                enter-to-class="transform scale-100 opacity-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="transform scale-100 opacity-100"
+                leave-to-class="transform scale-95 opacity-0">
+              <MenuItems class="absolute max-h-56 overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                <div v-for="(segment, index) in document.segments" class="p-1">
+                  <MenuItem v-slot="{ active }">
+                    <button @click="selectedSegmentIndex = index" class="text-start text-gray-900 group flex w-full items-center px-2 py-2 text-sm justify-between">
+                      <span>{{ segment.title }}</span>
+                      <span>
+                      <CheckIcon v-if="selectedSegmentIndex === index" class="w-5" />
+                    </span>
+                    </button>
+                  </MenuItem>
+                </div>
+              </MenuItems>
+            </transition>
+          </Menu>
+        </template>
       </div>
     </div>
-    <div class="md:w-9/12 lg:w-9/12 xl:w-10/12 border border-gray-100">
-      <div :style="`background-image:url('${document.background}')`" class="bg-top bg-no-repeat">
+    <div class="md:w-9/12 lg:w-9/12 xl:w-10/12 border border-gray-100 bg-white shadow-xl">
+      <div :style="documentBackground" class="bg-left-top bg-no-repeat">
         <div>
           <Segment v-if="selectedSegment" :segment="selectedSegment"></Segment>
         </div>
 
-        <Popup :open="bibleOpen" @closed="bibleOpen = false" :noPadding="true">
-          <Bible :bible="bibleData" :verse="bibleVerse"></Bible>
-        </Popup>
-
-        <Popup :open="egwOpen" @closed="egwOpen = false" :noPadding="true">
-          <EGW :egwData="egwData" :reference="egwReference"></EGW>
+        <Popup :open="hiddenSegmentOpen" @closed="hiddenSegmentOpen = false" :noPadding="true">
+          <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
         </Popup>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -51,12 +83,12 @@ import { authStore } from '@/stores/auth'
 import DayJS from 'dayjs'
 import Segment from '@/views/Segment.vue'
 import Popup from '@/components/Popup.vue'
-import Bible from '@/components/Resources/Bible.vue'
-import EGW from '@/components/Resources/EGW.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
+import { CheckIcon } from '@heroicons/vue/24/solid'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 export default {
-  components: { Segment, Popup, Bible, EGW, LoadingDetail },
+  components: { Segment, Popup, LoadingDetail, CheckIcon, Menu, MenuButton, MenuItems, MenuItem },
   provide () {
     return {
       getDocument: () => this.document,
@@ -74,15 +106,14 @@ export default {
       documentUserInput: [],
       ready: false,
 
-      bibleOpen: false,
-      bibleVerse: null,
-      bibleData: null,
-      egwOpen: false,
-      egwReference: null,
-      egwData: null,
+      hiddenSegmentOpen: false,
+      hiddenSegmentIndex: null,
     }
   },
   computed: {
+    documentBackground: function () {
+      return this.selectedSegment.type === 'block' && this.document.background ? `background-image:url('${this.document.background}');` : ''
+    },
     selectedSegment: function () {
       if (!this.document) { return null }
       return this.document.segments[this.selectedSegmentIndex]
@@ -93,46 +124,12 @@ export default {
     await this.getDocument()
     await this.getDocumentUserInput()
 
-    this.emitter.on('bible-click', async (v) => {
-      if (!v.blockId || !v.verse) return
-      const block = this.findBlockById(this.selectedSegment?.blocks, v.blockId)
-      const verse = v.verse.replace(/sspmbible:\/\//i, '')
-
-      if (block && verse) {
-        this.bibleData = block?.data?.bible
-        this.bibleVerse = verse
-        this.bibleOpen = true
-      }
-    });
-
-    this.emitter.on('egw-click', async (v) => {
-      if (!v.blockId || !v.reference) return
-      const block = this.findBlockById(this.selectedSegment?.blocks, v.blockId)
-      const reference = v.reference.replace(/sspmEgw:\/\//i, '')
-
-      if (block) {
-        this.egwData = block?.data?.egw
-        this.egwReference = reference
-        this.egwOpen = true
-      }
+    this.emitter.on('segment-click', async (v) => {
+      this.hiddenSegmentIndex = v
+      this.hiddenSegmentOpen = true
     });
   },
   methods: {
-    findBlockById (items, blockId) {
-      for (const block of items) {
-        if (block.id === blockId) {
-          return block
-        }
-        if (block.items && block.items.length) {
-          const found = this.findBlockById(block.items, blockId)
-          if (found) {
-            return found
-          }
-        }
-      }
-      return null;
-    },
-
     loadFont (font) {
       let style = document.createElement('style');
       style.type = 'text/css';
@@ -158,9 +155,8 @@ export default {
     async getDocument () {
       const resourceType = this.$route.params.resourceType
       const resourceName = this.$route.params.resourceName
-      const sectionName = this.$route.params.sectionName
       const documentName = this.$route.params.documentName
-      const resource = await this.$apiResources.get(`${this.$route.params.lang}/${resourceType}/${resourceName}/content/${sectionName}/${documentName}/index.json`)
+      const resource = await this.$apiResources.get(`${this.$route.params.lang}/${resourceType}/${resourceName}/${documentName}/index.json`)
       this.document = resource.data
 
 

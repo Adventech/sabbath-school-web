@@ -8,7 +8,7 @@ import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
 
 export default {
-  props: ['block', 'userInput'],
+  props: ['block', 'userInput', 'parent'],
   mixins: [HighlighterMixin],
   data () {
     return {

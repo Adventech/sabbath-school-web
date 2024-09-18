@@ -2,7 +2,7 @@
   <Menu as="div" class="relative">
     <MenuButton>
       <div class="bg-black/10 p-2 rounded">
-        <ThemeIcon class="fill-white w-6 h-6" />
+        <ThemeIcon :class="{'fill-white': hasCover}" class="fill-black w-6 h-6" />
       </div>
     </MenuButton>
     <transition
@@ -46,6 +46,7 @@ export default {
   },
   components: {
     Menu, MenuButton, MenuItems, MenuItem, ThemeIcon, themeStore
-  }
+  },
+  props: ['hasCover']
 }
 </script>

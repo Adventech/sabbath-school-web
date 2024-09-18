@@ -19,7 +19,7 @@
 
             <Menu as="ul" class="relative">
               <MenuButton class="flex items-center">
-                Other ages
+                Other Ages
               </MenuButton>
               <transition
                   enter-active-class="transition duration-100 ease-out"
@@ -123,7 +123,7 @@ import { Bars3Icon } from '@heroicons/vue/24/solid'
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/aij.css';
 
 .aij-header {

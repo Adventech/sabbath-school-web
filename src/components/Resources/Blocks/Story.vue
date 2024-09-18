@@ -20,8 +20,8 @@
         <p ref="hiddenContainer" :class="getTextStyle(block.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
       </div>
       <div class="flex justify-end">
-        <button @click="prevSlide()"><ArrowLeftCircleIcon class="story-slide-controls" /></button>
-        <button @click="nextSlide()"><ArrowRightCircleIcon class="story-slide-controls" /></button>
+        <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon class="story-slide-controls" /></button>
+        <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon class="story-slide-controls" /></button>
       </div>
     </div>
 

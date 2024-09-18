@@ -1,15 +1,21 @@
 <template>
-  <div :style="`background-image:url('${segment.background}')`"
-       class="bg-top bg-no-repeat relative pb-5 rounded">
-    <div v-if="segment.type === 'block'"
+  <div v-if="sSegment" :style="backgroundImage"
+       class="bg-top bg-no-repeat relative rounded">
+    <div v-if="sSegment.type === 'block'"
          :class="themeStore().getClassList()">
-      <div class="flex justify-end absolute right-5 top-5">
-        <Theme></Theme>
-      </div>
-      <SegmentBlocks :segment="segment"></SegmentBlocks>
+      <SegmentBlocks :segment="sSegment"></SegmentBlocks>
     </div>
-    <SegmentStory v-if="segment.type === 'story'" :segment="segment"></SegmentStory>
-    <SegmentPDF v-if="segment.type === 'pdf'" :segment="segment"></SegmentPDF>
+    <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment"></SegmentStory>
+    <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
+    <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
+
+    <Popup :open="bibleOpen" @closed="bibleOpen = false" :noPadding="true">
+      <Bible :bible="bibleData" :verse="bibleVerse"></Bible>
+    </Popup>
+
+    <Popup :open="egwOpen" @closed="egwOpen = false" :noPadding="true">
+      <EGW :egwData="egwData" :reference="egwReference"></EGW>
+    </Popup>
   </div>
 </template>
 
@@ -17,16 +23,87 @@
 import SegmentBlocks from '@/views/SegmentBlocks.vue'
 import SegmentStory from '@/views/SegmentStory.vue'
 import SegmentPDF from '@/views/SegmentPDF.vue'
+import SegmentVideo from '@/views/SegmentVideo.vue'
 import { themeStore } from '@/plugins/Theme/ThemeStore.js'
-import Theme from '@/plugins/Theme/Theme.vue'
+import Popup from '@/components/Popup.vue'
+import Bible from '@/components/Resources/Bible.vue'
+import EGW from '@/components/Resources/EGW.vue'
 
 export default {
-  components: { SegmentBlocks, SegmentPDF, SegmentStory, Theme },
-  props: ['segment'],
+  components: { SegmentBlocks, SegmentPDF, SegmentStory, SegmentVideo, Popup, Bible, EGW },
+  props: ['segment', 'segmentIndex'],
   data () {
     return {
       themeStore,
+      loading: false,
+      loadedSegment: null,
+      bibleOpen: false,
+      bibleVerse: null,
+      bibleData: null,
+      egwOpen: false,
+      egwReference: null,
+      egwData: null,
     }
+  },
+  computed: {
+    sSegment () {
+      return this.segment || this.loadedSegment
+    },
+    backgroundImage () {
+      return this.sSegment.type === 'block' && this.sSegment.background ? `background-image:url('${this.sSegment.background}')` : ''
+    },
+
+  },
+  async mounted () {
+    this.emitter.on('bible-click', async (v) => {
+      if (!v.blockId || !v.verse) return
+      const block = this.findBlockById(this.sSegment.blocks, v.blockId)
+      const verse = v.verse.replace(/sspmbible:\/\//i, '')
+
+      if (block && verse) {
+        this.bibleData = block?.data?.bible
+        this.bibleVerse = verse
+        this.bibleOpen = true
+      }
+    });
+
+    this.emitter.on('egw-click', async (v) => {
+      if (!v.blockId || !v.reference) return
+      const block = this.findBlockById(this.sSegment.blocks, v.blockId)
+      const reference = v.reference.replace(/sspmEgw:\/\//i, '')
+
+      if (block) {
+        this.egwData = block?.data?.egw
+        this.egwReference = reference
+        this.egwOpen = true
+      }
+    });
+
+    if (!this.segment && this.segmentIndex) {
+      await this.getSegment()
+    }
+  },
+  methods: {
+    async getSegment () {
+      this.loading = true
+      const segment = await this.$apiResources.get(`${this.segmentIndex}/index.json`)
+      this.loadedSegment = segment.data
+      this.loading = false
+    },
+    findBlockById (items, blockId) {
+      for (const block of items) {
+        if (block.id === blockId) {
+          return block
+        }
+        if (block.items && block.items.length) {
+          const found = this.findBlockById(block.items, blockId)
+          if (found) {
+            return found
+          }
+        }
+      }
+      return null;
+    },
   },
 }
 </script>
