@@ -71,7 +71,7 @@ export const getTextStyle = function (style) {
 
         }
 
-        if (themeStore().color === THEME_COLOR.LIGHT) {
+        if (themeStore().color !== THEME_COLOR.SEPIA && themeStore().color !== THEME_COLOR.DARK) {
             if (style.text.color) {
                 textStyleCSS += `color: ${style.text.color};`
             }
