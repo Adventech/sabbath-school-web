@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { useTitle } from "@vueuse/core"
 import { authStore } from '@/stores/auth'
 import ResourceItem from '../components/Resources/ResourceItem.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
@@ -58,6 +59,9 @@ export default {
     await this.getResourceProgress()
     await this.setRecent()
     this.emitter.on('update-document-progress', this.updateDocumentProgress)
+
+    const title = useTitle()
+    title.value = `${this.resource.title}`
   },
 }
 </script>

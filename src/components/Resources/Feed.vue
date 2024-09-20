@@ -3,10 +3,15 @@
 </template>
 
 <script>
+import { useTitle } from "@vueuse/core"
 import FeedGroup from '@/components/Resources/FeedGroup.vue'
 
 export default {
   components: { FeedGroup },
   props: ['feed'],
+  mounted () {
+    const title = useTitle()
+    title.value = `${this.feed.title}`
+  },
 }
 </script>

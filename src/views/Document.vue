@@ -104,6 +104,7 @@ import TableOfContents from '@/components/Resources/TableOfContents.vue'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { useTitle } from "@vueuse/core"
 
 export default {
   components: {
@@ -160,7 +161,10 @@ export default {
     this.emitter.on('segment-click', async (v) => {
       this.hiddenSegmentIndex = v
       this.hiddenSegmentOpen = true
-    });
+    })
+
+    const title = useTitle()
+    title.value = `${this.selectedSegment.title} - ${this.resource.title}`
   },
   methods: {
     loadFont (font) {
