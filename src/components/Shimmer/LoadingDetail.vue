@@ -21,6 +21,21 @@
       <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/4"></div>
       <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/6"></div>
       <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/4"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/6"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/3"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/4"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/6"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/4"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/6"></div>
+      <div class="animate-pulse bg-gray-200 rounded h-3 mt-3 w-1/5"></div>
     </div>
   </div>
 </template>

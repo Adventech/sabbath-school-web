@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.resource_highlight_blue {
+    @apply
+    theme-dark:bg-blue-500
+    bg-blue-200
+    rounded
+    pointer-events-none;
+}
+
+.resource_highlight_yellow {
+    @apply
+    theme-dark:bg-yellow-500
+    bg-yellow-200
+    rounded
+    pointer-events-none;
+}
+
+.resource_highlight_orange {
+    @apply
+    theme-dark:bg-orange-500
+    bg-orange-200
+    rounded
+    pointer-events-none;
+}
+
+.resource_highlight_green {
+    @apply
+    theme-dark:bg-green-500
+    bg-green-200
+    rounded
+    pointer-events-none;
+}

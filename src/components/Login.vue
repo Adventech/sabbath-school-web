@@ -3,7 +3,6 @@
     <h3 class="text-3xl font-bold mb-6">Log in</h3>
     <div class="w-full flex flex-col items-center">
       <button class="w-52 max-w-52 mb-3" ref="googleLoginBtn"></button>
-<!--      <div id="appleid-signin" class="z-10 w-52 h-10 signin-button" data-color="black" data-border="true" data-type="sign-in"></div>-->
     </div>
   </div>
 </template>
@@ -64,26 +63,6 @@ export default {
     })
 
     return
-    this.loadSIWAClient().then(() => {
-      AppleID.auth.init({
-        clientId : 'com.cryart.sabbatschool.web',
-        scope : 'name email',
-        redirectURI: 'http://localhost:3000/login',
-        state : 'sabbath-school-web',
-        nonce : 'fdsafdsafs',
-      });
-      document.addEventListener('AppleIDSignInOnSuccess', (event) => {
-        // Handle successful response.
-        console.log(event.detail.data);
-      });
-
-      document.addEventListener('AppleIDSignInOnFailure', (event) => {
-        // Handle error.
-        console.log(event.detail.error);
-      });
-    }).catch((err) => {
-      console.log(err)
-    })
   }
 }
 </script>

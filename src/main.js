@@ -10,6 +10,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { authStore } from '@/stores/auth'
 import mitt from 'mitt'
 import { VueHeadMixin, createHead } from '@unhead/vue'
+import ContextMenu from '@/plugins/ContextMenu/'
+import Highlighter from '@/plugins/Highlighter/'
+import Bible from '@/plugins/Bible/'
+import Block from '@/components/Resources/Blocks/Block.vue';
 
 DayJS.extend(customParseFormat)
 
@@ -19,9 +23,14 @@ const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_APP_API_HOST
 })
 
+// TODO: deprecate after dev version
+const axiosInstanceResources = axios.create({
+    baseURL: import.meta.env.VITE_APP_API_RESOURCES_HOST
+})
+
 const axiosInstanceAuth = axios.create({
-    // baseURL: "http://localhost:3001/api/v2"
-    baseURL: import.meta.env.VITE_APP_API_HOST
+    baseURL: "http://localhost:3001/api/v2"
+    // baseURL: import.meta.env.VITE_APP_API_HOST
 })
 
 axiosInstanceAuth.interceptors.request.use(function (config) {
@@ -58,9 +67,15 @@ app.use(pinia)
 app.use(router)
 app.mixin(VueHeadMixin)
 app.use(head)
+app.use(Highlighter)
+app.use(ContextMenu)
+app.use(Bible)
 
 app.config.globalProperties.$api = { ...axiosInstance }
+app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
 app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
 app.config.globalProperties.emitter = emitter
+
+app.component('Block', Block);
 
 app.mount('#app')
