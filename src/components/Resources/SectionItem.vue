@@ -13,7 +13,7 @@
             <p class="resource-item-document-item-title">{{ document.title }}</p>
             <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
           </div>
-          <div v-if="kind === 'blog' && document.cover"
+          <div v-if="!inline && kind === 'blog' && document.cover"
                class="shrink-0 order-2 md:order-1">
             <img :src="document.cover"
                  class="w-32 rounded" />
@@ -38,7 +38,7 @@ import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid
 import RouterLinkWithExternal from '@/components/RouterLinkWithExternal.vue'
 
 export default {
-  props: ['resourceId', 'kind', 'section', 'progress'],
+  props: ['resourceId', 'kind', 'section', 'progress', 'inline'],
   components: { CheckCircleIcon, CheckCircleIconSolid, ArrowTopRightOnSquareIcon, RouterLinkWithExternal },
   data () {
     return {

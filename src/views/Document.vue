@@ -5,15 +5,31 @@
   <div v-else-if="document" class="flex gap-5 my-10 flex-col md:flex-row">
     <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right">
       <div class="flex flex-col gap-5">
-        <div class="w-3/2 md:w-full items-center md:items-start gap-2 flex md:flex-col">
+        <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
           <router-link tag="div" :to="`/resources/${resource.index}`">
             <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" />
           </router-link>
           <div class="flex flex-col p-2 gap-2">
-            <router-link tag="div" :to="`/resources/${resource.index}`"  class="font-bold">{{ resource.title }}</router-link>
+            <router-link tag="div" :to="`/resources/${resource.index}`" class="font-bold">
+              ‹ {{ resource.title }}
+            </router-link>
             <p v-if="resource.subtitle" class="text-gray-400">{{ resource.subtitle }}</p>
           </div>
         </div>
+
+        <Disclosure v-slot="{ open }">
+          <DisclosureButton class="rounded md:text-right pr-4 py-2">
+            <div class=" flex flex-row md:justify-end gap-3">
+              <ChevronUpIcon v-if="open" class="w-3" />
+              <ChevronDownIcon v-else class="w-3" />
+              <span>Table of Contents</span>
+            </div>
+          </DisclosureButton>
+          <DisclosurePanel class="-mt-5 text-gray-500">
+            <TableOfContents :resource="resource" :inline="true" />
+          </DisclosurePanel>
+        </Disclosure>
+
 
         <template v-if="document.segments.length && document.segments.length > 1">
           <div class="hidden md:flex flex-wrap flex-row md:flex-col justify-start">
@@ -29,7 +45,7 @@
           </div>
           <Menu as="div" class="relative inline-block md:hidden text-left z-10">
             <div>
-              <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2  focus:outline-none">
+              <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2 w-full focus:outline-none">
                 <div class="flex items-center justify-between">
                   <span>{{ selectedSegment.title }}</span>
                   <span class="pointer-events-none flex items-center">
@@ -47,7 +63,7 @@
                 leave-active-class="transition duration-75 ease-in"
                 leave-from-class="transform scale-100 opacity-100"
                 leave-to-class="transform scale-95 opacity-0">
-              <MenuItems class="absolute max-h-56 overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+              <MenuItems class="absolute max-h-56 w-full overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                 <div v-for="(segment, index) in document.segments" class="p-1">
                   <MenuItem v-slot="{ active }">
                     <button @click="selectedSegmentIndex = index" class="text-start text-gray-900 group flex w-full items-center px-2 py-2 text-sm justify-between">
@@ -84,11 +100,28 @@ import DayJS from 'dayjs'
 import Segment from '@/views/Segment.vue'
 import Popup from '@/components/Popup.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
-import { CheckIcon } from '@heroicons/vue/24/solid'
+import TableOfContents from '@/components/Resources/TableOfContents.vue'
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
 export default {
-  components: { Segment, Popup, LoadingDetail, CheckIcon, Menu, MenuButton, MenuItems, MenuItem },
+  components: {
+    Segment,
+    Popup,
+    LoadingDetail,
+    CheckIcon,
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
+    TableOfContents,
+    Disclosure,
+    DisclosureButton,
+    DisclosurePanel,
+    ChevronDownIcon,
+    ChevronUpIcon,
+  },
   provide () {
     return {
       getDocument: () => this.document,
