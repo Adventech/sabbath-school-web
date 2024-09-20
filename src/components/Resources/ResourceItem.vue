@@ -21,6 +21,8 @@
         <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
       </div>
       <TableOfContents :resource="resource" :progress="progress" />
+
+      <FeedGroup v-for="feedGroup in resource.feeds" :feedGroup="feedGroup"></FeedGroup>
     </div>
 
     <div class="flex md:hidden gap-2 flex-col"
@@ -34,10 +36,11 @@
 </template>
 
 <script>
+import FeedGroup from '@/components/Resources/FeedGroup.vue'
 import TableOfContents from '@/components/Resources/TableOfContents.vue'
 
 export default {
-  components: { TableOfContents },
+  components: { FeedGroup, TableOfContents },
   props: ['resource', 'progress'],
   computed: {
     resourceCover: function () {

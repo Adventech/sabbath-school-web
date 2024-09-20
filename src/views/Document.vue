@@ -25,7 +25,7 @@
               <span>Table of Contents</span>
             </div>
           </DisclosureButton>
-          <DisclosurePanel class="-mt-5 text-gray-500">
+          <DisclosurePanel class="-mt-5">
             <TableOfContents :resource="resource" :inline="true" />
           </DisclosurePanel>
         </Disclosure>

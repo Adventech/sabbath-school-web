@@ -6,7 +6,7 @@
       <RouterLinkWithExternal v-for="document in section.documents"
                    :externalURL="document.externalURL"
                    :to="`/resources/${document.index}`"
-                   class="resource-item-document-item flex justify-between items-center">
+                   class="resource-item-document-item flex justify-between items-center gap-2">
         <div class="flex flex-row items-center justify-between w-full gap-2">
           <div class="grow order-1 md:order-2">
             <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
@@ -19,8 +19,8 @@
                  class="w-32 rounded" />
           </div>
         </div>
-        <div>
-          <ArrowTopRightOnSquareIcon class="w-4 text-gray-400" v-if="document.externalURL" />
+        <div v-if="document.externalURL" >
+          <ArrowTopRightOnSquareIcon class="w-4 text-gray-400"/>
         </div>
 <!--        <div @click.prevent="saveDocumentProgress(document.id)">-->
 <!--          <CheckCircleIcon v-if="!documentCompleted(document.id)" class="text-ss-primary w-6 h-6"></CheckCircleIcon>-->
