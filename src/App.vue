@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { useLanguageStore } from '@/stores/language'
 import { RouterView } from 'vue-router'
 import Header from '@/components/Header.vue'
@@ -25,6 +25,23 @@ const isAIJBabies = computed(() => {
 
 const isAIJBeginner = computed(() => {
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BEGINNER_HOST) === 0
+})
+
+const changeFavicon = function (src) {
+  let link = document.querySelector("link[rel*='icon']") || document.createElement('link')
+  link.rel = 'icon'
+  link.href = src
+  document.getElementsByTagName('head')[0].appendChild(link)
+}
+
+onMounted(() => {
+  let iconSource = '/assets/logo.png'
+
+  if (isAIJBabies.value || isAIJBeginner.value) {
+    iconSource = '/assets/aij-favicon.ico'
+  }
+
+  changeFavicon(iconSource)
 })
 
 directionCalc()
