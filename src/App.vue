@@ -24,7 +24,6 @@ const isAIJBabies = computed(() => {
 })
 
 const isAIJBeginner = computed(() => {
-
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BEGINNER_HOST) === 0
 })
 

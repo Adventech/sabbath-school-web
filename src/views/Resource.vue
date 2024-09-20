@@ -36,7 +36,11 @@ export default {
     },
     setRecent: async function () {
       if (!authStore().isLoggedIn) return
-      await this.$apiAuth.post(`/resources/user/recent/${this.$route.params.lang}/${this.resource.id}`)
+      try {
+        await this.$apiAuth.post(`/resources/user/recent/${this.$route.params.lang}/${this.resource.id}`)
+      } catch (e) {
+        console.log(e)
+      }
     },
     updateDocumentProgress: async function (documentProgress) {
       if (!authStore().isLoggedIn) return

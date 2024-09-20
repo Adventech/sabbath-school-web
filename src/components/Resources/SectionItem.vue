@@ -7,10 +7,17 @@
                    :externalURL="document.externalURL"
                    :to="`/resources/${document.index}`"
                    class="resource-item-document-item flex justify-between items-center">
-        <div>
-          <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
-          <p class="resource-item-document-item-title">{{ document.title }}</p>
-          <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
+        <div class="flex flex-row items-center justify-between w-full gap-2">
+          <div class="grow order-1 md:order-2">
+            <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
+            <p class="resource-item-document-item-title">{{ document.title }}</p>
+            <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
+          </div>
+          <div v-if="kind === 'blog' && document.cover"
+               class="shrink-0 order-2 md:order-1">
+            <img :src="document.cover"
+                 class="w-32 rounded" />
+          </div>
         </div>
         <div>
           <ArrowTopRightOnSquareIcon class="w-4 text-gray-400" v-if="document.externalURL" />
