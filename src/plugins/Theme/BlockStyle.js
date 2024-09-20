@@ -154,7 +154,7 @@ export const getBlockStyleClass = function (defaultStyles, block, nested, key) {
     blockStyleClass.push(margin.bottom ? `${spacingUnitsToClass("mb-", margin.bottom)}` : '')
     blockStyleClass.push(margin.end ? `${spacingUnitsToClass("mr-", margin.end)}` : '')
 
-    if (themeStore().color === THEME_COLOR.LIGHT) {
+    if (themeStore().color !== THEME_COLOR.DARK && themeStore().color !== THEME_COLOR.SEPIA) {
         backgroundColor && blockStyleCSS.push(`background-color: ${backgroundColor}`)
         backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-repeat: no-repeat;`)
         backgroundPosition && blockStyleClass.push(positionUnitsToClass(backgroundPosition))
