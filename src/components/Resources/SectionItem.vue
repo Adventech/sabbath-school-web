@@ -1,9 +1,8 @@
 <template>
   <div :class="[`resource-item-section-${kind}`]" class="resource-item-section">
-    <p v-if="!section.isRoot" class="mt-4 mb-2 text-ss-primary text-sm uppercase font-bold">{{ section.title }}</p>
+    <p v-if="!section.isRoot" class="mb-2 text-ss-primary text-sm uppercase font-bold">{{ section.title }}</p>
 
     <div class="resource-item-document-list">
-
       <RouterLinkWithExternal v-for="document in section.documents"
                    :externalURL="document.externalURL"
                    :to="`/resources/${document.index}`"
@@ -55,6 +54,7 @@ export default {
 
 <style lang="scss">
 .resource-item-section {
+  @apply flex flex-col gap-2;
   .resource-item-document-list {
     @apply bg-gray-100 rounded-lg w-full;
     .resource-item-document-item {

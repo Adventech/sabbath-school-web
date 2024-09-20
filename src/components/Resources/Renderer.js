@@ -12,7 +12,7 @@ renderer.link = function (href, title, text) {
         return `<a class="resource-link-sspm-egw" title="${title ?? ""}" href="${href}">${text}</a>`
     }
 
-    return `<a title="${title ?? ""}" href="${href}">${text}</a>`
+    return `<a class="resource-link-other" title="${title ?? ""}" href="${href}" target="_blank">${text}</a>`
 }
 
 renderer.text = function (text) {

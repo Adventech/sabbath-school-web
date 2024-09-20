@@ -1,4 +1,5 @@
 import { themeStore } from '@/plugins/Theme/ThemeStore.js'
+import { THEME_COLOR } from "./ThemeStore"
 
 const textOffsetToClass = function (prefix, unit) {
     const unitMap = {
@@ -69,8 +70,11 @@ export const getTextStyle = function (style) {
             textStyleCSS += `font-family: '${style.text.typeface}';`
 
         }
-        if (style.text.color) {
-            textStyleCSS += `color: ${style.text.color};`
+
+        if (themeStore().color === THEME_COLOR.LIGHT) {
+            if (style.text.color) {
+                textStyleCSS += `color: ${style.text.color};`
+            }
         }
 
         if (style.text.size) {

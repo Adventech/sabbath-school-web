@@ -1,3 +1,6 @@
+import { themeStore } from '@/plugins/Theme/ThemeStore.js'
+import { THEME_COLOR } from "./ThemeStore"
+
 const spacingUnitsToClass = function (prefix, unit) {
     const unitMap = {
         "none": "0",
@@ -151,9 +154,12 @@ export const getBlockStyleClass = function (defaultStyles, block, nested, key) {
     blockStyleClass.push(margin.bottom ? `${spacingUnitsToClass("mb-", margin.bottom)}` : '')
     blockStyleClass.push(margin.end ? `${spacingUnitsToClass("mr-", margin.end)}` : '')
 
-    backgroundColor && blockStyleCSS.push(`background-color: ${backgroundColor}`)
-    backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-repeat: no-repeat;`)
-    backgroundPosition && blockStyleClass.push(positionUnitsToClass(backgroundPosition))
+    if (themeStore().color === THEME_COLOR.LIGHT) {
+        backgroundColor && blockStyleCSS.push(`background-color: ${backgroundColor}`)
+        backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-repeat: no-repeat;`)
+        backgroundPosition && blockStyleClass.push(positionUnitsToClass(backgroundPosition))
+    }
+
     rounded && blockStyleClass.push(`rounded`)
 
     return { style: blockStyleCSS.join("; "), class: blockStyleClass.join(" ") }

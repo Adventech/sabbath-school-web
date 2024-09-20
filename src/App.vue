@@ -20,12 +20,11 @@ const directionCalc = function () {
 }
 
 const isAIJBabies = computed(() => {
-
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BABIES_HOST) === 0
 })
 
 const isAIJBeginner = computed(() => {
-  return true
+
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BEGINNER_HOST) === 0
 })
 
@@ -33,7 +32,7 @@ directionCalc()
 </script>
 
 <template>
-  <div :dir="dir" :class="{'aij-theme': isAIJBabies}">
+  <div :dir="dir" :class="{'aij-theme': isAIJBabies || isAIJBeginner}">
     <div>
       <HeaderAIJBabies v-if="isAIJBabies" />
       <HeaderAIJBeginner v-else-if="isAIJBeginner" />

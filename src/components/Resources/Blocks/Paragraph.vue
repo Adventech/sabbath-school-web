@@ -1,5 +1,10 @@
 <template>
-  <div v-bible-links="{blockId: block.id}" :style="getTextStyle(block.style).style" class="paragraph-block" :class="getTextStyle(block.style).class" v-if="paragraphText" v-html="paragraphText"></div>
+  <div v-bible-links="{blockId: block.id}"
+       :style="getTextStyle(block.style).style"
+       :class="getTextStyle(block.style).class"
+       v-if="paragraphText"
+       v-html="paragraphText"
+       class="paragraph-block"></div>
 </template>
 
 <script>
@@ -25,12 +30,10 @@ export default {
 <style lang="scss">
 .resource-link-sspm-bible,
 .resource-link-sspm-egw {
-  @apply border-b border-ss-primary font-bold;
+  @apply border-b border-ss-primary font-bold text-ss-primary;
 }
 
-.paragraph-block {
-  a {
-    @apply text-ss-primary;
-  }
+.resource-link-other {
+  @apply text-ss-primary hover:border-b hover:border-ss-primary;
 }
 </style>

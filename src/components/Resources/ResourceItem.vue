@@ -56,7 +56,7 @@
           </transition>
         </Menu>
       </div>
-      <div class="flex flex-col gap-2 md:gap-4">
+      <div class="flex flex-col gap-4 md:gap-8">
         <SectionItem v-if="resource.sectionView === 'dropdown'" :resourceId="resource.id" :kind="resource.kind" :section="selectedSection" :progress="progress"></SectionItem>
         <SectionItem v-else v-for="section in resource.sections" :resourceId="resource.id" :kind="resource.kind" :section="section" :progress="progress"></SectionItem>
       </div>

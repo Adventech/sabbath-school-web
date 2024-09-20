@@ -1,14 +1,22 @@
 <template>
-  <p :class="`select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="render(block.markdown)"></p>
+  <p :style="getTextStyle(block.style).style"
+     :class="`${getTextStyle(block.style).class} select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="render(block.markdown)"></p>
 </template>
 
 <script>
-import { marked } from '../Renderer.js'
+import { marked, renderer } from '../Renderer.js'
+import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
+
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
+  data () {
+    return {
+      getTextStyle,
+    }
+  },
   methods: {
     render: function (text) {
-      return marked.parse(text)
+      return marked.parse(text, { renderer })
     }
   }
 }
@@ -20,6 +28,9 @@ export default {
     @apply font-bold;
     > p {
       @apply mt-4;
+      > span {
+        @apply block;
+      }
     }
   }
   &-heading-1 {

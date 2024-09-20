@@ -5,7 +5,7 @@
     </div>
     <div class="relative">
       <div class="question-block-separator"></div>
-      <textarea @input="e => debounce($emit, e.target.value)" class="question-block-answer" placeholder="Enter your answer">{{ (blockUserInput && blockUserInput.answer) ? blockUserInput.answer : "" }}</textarea>
+      <textarea @input="e => debounce($emit, e.target.value)" class="question-block-answer">{{ (blockUserInput && blockUserInput.answer) ? blockUserInput.answer : "" }}</textarea>
     </div>
   </div>
 </template>

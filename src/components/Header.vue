@@ -11,8 +11,8 @@
 
       <SabbathSchoolButton />
       <AIJButton />
-      <PersonalMinistriesButton />
-      <DevotionalsButton />
+<!--      <PersonalMinistriesButton />-->
+<!--      <DevotionalsButton />-->
       <LanguageButton />
       <LoginButton />
     </header>
