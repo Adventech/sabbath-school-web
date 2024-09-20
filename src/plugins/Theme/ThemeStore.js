@@ -40,7 +40,7 @@ export const THEME_FONT_COLOR_MAP = {
 export const themeStore = defineStore({
   id: 'themeStore',
   state: () => ({
-    color: THEME_COLOR.AUTO,
+    color: THEME_COLOR.LIGHT,
     size: THEME_FONT_SIZE.BASE,
   }),
   actions: {
