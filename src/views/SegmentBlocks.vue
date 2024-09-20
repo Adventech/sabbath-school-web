@@ -15,7 +15,7 @@
       }"
       >
         <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-        <p class="text-3xl font-bold w-10/12 lg:w-full ">{{ segment.title }}</p>
+        <p class="text-xl md:text-3xl font-bold w-10/12 lg:w-full line-clamp-3">{{ segment.title }}</p>
         <p v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
       </div>
     </div>
