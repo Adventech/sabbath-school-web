@@ -73,6 +73,7 @@ export default {
       } catch (e) {}
     },
     loadAnnotations () {
+      if (!authStore().isLoggedIn || !this.document) return
       for (let pdf of this.pdfs) {
         this.annotations[pdf.id] = []
         try {
@@ -106,10 +107,10 @@ export default {
         styleSheets: [ "/assets/css/pspdfkit-css.css" ],
         document: pdf.src,
         container: container,
-        instantJSON: {
-          annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
-          format: "https://pspdfkit.com/instant-json/v1"
-        }
+        // instantJSON: {
+        //   annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
+        //   format: "https://pspdfkit.com/instant-json/v1"
+        // }
       });
 
       this.eventListeners[pdf.id] = () => {
