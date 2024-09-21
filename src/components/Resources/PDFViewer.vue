@@ -40,19 +40,16 @@ export default {
   },
   watch: {
     async userInput(newValue) {
-      // await this.loadAnnotations()
-
+      await this.loadAnnotations()
     }
   },
   async mounted () {
-    // this.loadAnnotations()
     await this.loadPdf()
   },
   methods: {
     async loadPdf() {
       try {
         for (let [index, pdf] of this.pdfs.entries()) {
-          console.log(pdf)
           await this.loadPSPDFKit(`.pdf-container-${index}`, pdf)
         }
       } catch (e) {
@@ -88,9 +85,26 @@ export default {
                 this.annotations[pdf.id].push(innerAnnotation)
               })
             }
+            if (this.instances[pdf.id]) {
+              this.applyAnnotations(pdf)
+            }
           }
-        } catch (e) {}
+        } catch (e) {
+          console.error(e)
+        }
       }
+    },
+    applyAnnotations(pdf, annotations) {
+      if (!this.instances[pdf.id] || !this.annotations[pdf.id]) { return }
+      this.instances[pdf.id].applyOperations([
+        {
+          type: "applyInstantJson",
+          instantJson: {
+            annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
+            format: "https://pspdfkit.com/instant-json/v1",
+          }
+        }
+      ])
     },
     async loadPSPDFKit(container, pdf) {
       PSPDFKit.unload(container);
@@ -99,8 +113,8 @@ export default {
       toolbarItems.splice(pagerIndex + 1, 0, { type: "layout-config" });
 
       const baseUrl = `${window.location.protocol}//${window.location.host}/assets/js/`;
-      console.log(baseUrl)
-      this.instances[pdf.id] = await PSPDFKit.load({
+
+      let config = {
         baseUrl,
         toolbarItems: toolbarItems,
         initialViewState: new PSPDFKit.ViewState({
@@ -110,11 +124,11 @@ export default {
         styleSheets: [ "/assets/css/pspdfkit-css.css" ],
         document: pdf.src,
         container: container,
-        // instantJSON: {
-        //   annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
-        //   format: "https://pspdfkit.com/instant-json/v1"
-        // }
-      });
+      }
+
+      this.instances[pdf.id] = await PSPDFKit.load(config)
+
+      this.applyAnnotations(pdf)
 
       this.eventListeners[pdf.id] = () => {
         this.onAnnotationsChange(pdf.id)
