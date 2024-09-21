@@ -40,17 +40,19 @@ export default {
   },
   watch: {
     async userInput(newValue) {
-      await this.loadAnnotations()
-      await this.loadPdf()
+      // await this.loadAnnotations()
+
     }
   },
   async mounted () {
-    this.loadAnnotations()
+    // this.loadAnnotations()
+    await this.loadPdf()
   },
   methods: {
     async loadPdf() {
       try {
         for (let [index, pdf] of this.pdfs.entries()) {
+          console.log(pdf)
           await this.loadPSPDFKit(`.pdf-container-${index}`, pdf)
         }
       } catch (e) {
@@ -97,6 +99,7 @@ export default {
       toolbarItems.splice(pagerIndex + 1, 0, { type: "layout-config" });
 
       const baseUrl = `${window.location.protocol}//${window.location.host}/assets/js/`;
+      console.log(baseUrl)
       this.instances[pdf.id] = await PSPDFKit.load({
         baseUrl,
         toolbarItems: toolbarItems,
