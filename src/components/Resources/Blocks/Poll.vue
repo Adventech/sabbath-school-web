@@ -51,7 +51,7 @@ export default {
     saveVote: async function (vote) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/poll/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/poll/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               vote,
@@ -62,7 +62,7 @@ export default {
     fetchPollData: async function () {
       if (!authStore().isLoggedIn) return
       try {
-        let pollResults = await this.$apiAuth.get(`/resources/polls/${this.block.id}`)
+        let pollResults = await this.$apiAuthResources.get(`/resources/polls/${this.block.id}`)
         this.pollResults = pollResults.data.results
       } catch (e) {}
     },

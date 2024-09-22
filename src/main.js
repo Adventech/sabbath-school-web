@@ -29,8 +29,11 @@ const axiosInstanceResources = axios.create({
 })
 
 const axiosInstanceAuth = axios.create({
-    baseURL: "http://localhost:3001/api/v2"
-    // baseURL: import.meta.env.VITE_APP_API_HOST
+    baseURL: import.meta.env.VITE_APP_API_HOST
+})
+
+const axiosInstanceAuthResources = axios.create({
+    baseURL: import.meta.env.VITE_APP_API_RESOURCES_HOST
 })
 
 axiosInstanceAuth.interceptors.request.use(function (config) {
@@ -41,6 +44,29 @@ axiosInstanceAuth.interceptors.request.use(function (config) {
 });
 
 axiosInstanceAuth.interceptors.response.use(function (response) {
+    return response;
+}, async function (error) {
+    if (error.response.status === 401) {
+        try {
+            let r = await axiosInstance.post('/auth/refresh', authStore().userObject)
+            authStore().setAccount(r.data)
+            error.config.headers['x-ss-auth-access-token'] = authStore().stsTokenManager.accessToken
+            return axios.request(error.config)
+        } catch (e) {
+            console.log('auth error aborting')
+        }
+    }
+    return Promise.reject(error);
+});
+
+axiosInstanceAuthResources.interceptors.request.use(function (config) {
+    config.headers['x-ss-auth-access-token'] = authStore().stsTokenManager.accessToken
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
+
+axiosInstanceAuthResources.interceptors.response.use(function (response) {
     return response;
 }, async function (error) {
     if (error.response.status === 401) {
@@ -74,6 +100,7 @@ app.use(Bible)
 app.config.globalProperties.$api = { ...axiosInstance }
 app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
 app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
+app.config.globalProperties.$apiAuthResources = { ...axiosInstanceAuthResources }
 app.config.globalProperties.emitter = emitter
 
 app.component('Block', Block);

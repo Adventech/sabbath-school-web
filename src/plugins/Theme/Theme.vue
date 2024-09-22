@@ -1,9 +1,7 @@
 <template>
   <Menu as="div" class="relative">
-    <MenuButton>
-      <div class="bg-black/10 p-2 rounded">
-        <ThemeIcon :class="{'fill-white': hasCover || themeStore().color === THEME_COLOR.DARK}" class="fill-black w-6 h-6" />
-      </div>
+    <MenuButton class="flex items-center cursor-pointer">
+      <ThemeIcon class="auxiliary-icon" />
     </MenuButton>
     <transition
         enter-active-class="transition duration-100 ease-out"
@@ -46,6 +44,5 @@ export default {
   components: {
     Menu, MenuButton, MenuItems, MenuItem, ThemeIcon, themeStore
   },
-  props: ['hasCover']
 }
 </script>

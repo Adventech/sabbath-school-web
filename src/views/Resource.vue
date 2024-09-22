@@ -27,7 +27,7 @@ export default {
   methods: {
     getResourceProgress: async function () {
       if (!authStore().isLoggedIn) return
-      const ui = await this.$apiAuth.get(`/resources/user/progress/resource/${this.resource.id}`)
+      const ui = await this.$apiAuthResources.get(`/resources/user/progress/resource/${this.resource.id}`)
       this.progress = ui.data
     },
     getResource: async function (resourceType, resourceName) {
@@ -38,14 +38,14 @@ export default {
     setRecent: async function () {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/recent/${this.$route.params.lang}/${this.resource.id}`)
+        await this.$apiAuthResources.post(`/resources/user/recent/${this.$route.params.lang}/${this.resource.id}`)
       } catch (e) {
         console.log(e)
       }
     },
     updateDocumentProgress: async function (documentProgress) {
       if (!authStore().isLoggedIn) return
-      await this.$apiAuth.post(`/resources/user/progress/${this.resource.id}/${documentProgress.documentId}`, {
+      await this.$apiAuthResources.post(`/resources/user/progress/${this.resource.id}/${documentProgress.documentId}`, {
         completed: documentProgress.completed,
         documentId: documentProgress.documentId,
       })

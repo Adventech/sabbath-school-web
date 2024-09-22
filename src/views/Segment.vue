@@ -3,9 +3,13 @@
        class="bg-top bg-no-repeat relative rounded">
     <div v-if="sSegment.type === 'block'"
          :class="themeStore().getClassList()">
-      <SegmentBlocks :segment="sSegment"></SegmentBlocks>
+      <SegmentBlocks :segment="sSegment">
+        <slot></slot>
+      </SegmentBlocks>
     </div>
-    <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment"></SegmentStory>
+    <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment">
+
+    </SegmentStory>
     <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
     <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
 

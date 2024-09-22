@@ -24,7 +24,7 @@ export default {
     getRecent: async function () {
       if (!authStore().isLoggedIn) return
       try {
-        const feed = await this.$apiAuth.get(`/resources/user/recent/${this.$route.params.lang}`)
+        const feed = await this.$apiAuthResources.get(`/resources/user/recent/${this.$route.params.lang}`)
         this.feed.unshift(feed.data)
       } catch (e) {}
     },

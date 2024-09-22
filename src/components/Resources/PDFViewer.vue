@@ -44,6 +44,7 @@ export default {
     }
   },
   async mounted () {
+    await this.loadAnnotations()
     await this.loadPdf()
   },
   methods: {
@@ -66,7 +67,7 @@ export default {
         })
       }
       try {
-        await this.$apiAuth.post(`/resources/user/input/annotations/${this.document.id}/${pdfId}`, {
+        await this.$apiAuthResources.post(`/resources/user/input/annotations/${this.document.id}/${pdfId}`, {
           data: [ { annotations, pageIndex: 0 } ]
         })
       } catch (e) {}

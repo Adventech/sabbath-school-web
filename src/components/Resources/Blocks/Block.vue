@@ -121,7 +121,7 @@ export default {
     saveAppeal: async function (appeal) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/appeal/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/appeal/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               appeal,
@@ -133,7 +133,7 @@ export default {
     saveChoice: async function (choice) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/multiple-choice/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/multiple-choice/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               choice,
@@ -145,7 +145,7 @@ export default {
     saveChecklist: async function (checked) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/checklist/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/checklist/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               checked,
@@ -157,7 +157,7 @@ export default {
     saveAnswer: async function (answer) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/question/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/question/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               answer,
@@ -169,7 +169,7 @@ export default {
     saveHighlight: async function (highlights) {
       if (!authStore().isLoggedIn) return
       try {
-        await this.$apiAuth.post(`/resources/user/input/highlights/${this.document.id}/${this.block.id}`,
+        await this.$apiAuthResources.post(`/resources/user/input/highlights/${this.document.id}/${this.block.id}`,
             {
               blockId: this.block.id,
               highlights

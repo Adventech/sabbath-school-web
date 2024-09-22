@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="flex justify-end absolute right-5 top-5">
-      <Theme :hasCover="segment.cover || document.cover"></Theme>
+      <slot></slot>
     </div>
     <div
          class="w-full bg-no-repeat bg-cover bg-center rounded-t flex flex-col justify-end"
-         :class="{'h-48 md:h-ss-cover mb-5': segment.cover || document.cover}"
-         :style="`background-image:url('${segment.cover || document.cover}')`"
+         :class="{'h-48 md:h-ss-cover mb-5': cover}"
+         :style="`background-image:url('${cover}')`"
     >
       <div class="flex flex-col"
            :class="{
-        'p-5 text-white bg-gradient-to-b from-transparent to-black/40': segment.cover || document.cover,
-        'mx-5 mb-5 mt-5': !segment.cover && !document.cover,
+        'p-5 text-white bg-gradient-to-b from-transparent to-black/40': cover,
+        'mx-5 mb-5 mt-5': !cover,
       }"
       >
         <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
@@ -33,14 +33,15 @@
 
 <script>
 import DayJS from 'dayjs'
-import Theme from '@/plugins/Theme/Theme.vue'
 
 export default {
   props: ['segment'],
   inject: ['getDocument'],
-  components: { Theme },
   computed: {
-    document() {
+    cover () {
+      return this.segment.cover || this.document.cover
+    },
+    document () {
       return this.getDocument()
     },
   },

@@ -30,7 +30,6 @@
           </DisclosurePanel>
         </Disclosure>
 
-
         <template v-if="document.segments.length && document.segments.length > 1">
           <div class="hidden md:flex flex-wrap flex-row md:flex-col justify-start">
             <router-link
@@ -83,7 +82,13 @@
     <div class="md:w-9/12 lg:w-9/12 xl:w-10/12 border border-gray-100 bg-white shadow-xl">
       <div :style="documentBackground" class="bg-left-top bg-no-repeat">
         <div>
-          <Segment v-if="selectedSegment" :segment="selectedSegment"></Segment>
+          <Segment v-if="selectedSegment" :segment="selectedSegment">
+            <div class="auxiliary auxiliary-light"
+                 :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
+              <Theme></Theme>
+              <PDFAuxiliary :resource="resource" :target="document.index" />
+            </div>
+          </Segment>
         </div>
 
         <Popup :open="hiddenSegmentOpen" @closed="hiddenSegmentOpen = false" :noPadding="true">
@@ -96,11 +101,14 @@
 
 <script>
 import { authStore } from '@/stores/auth'
+import { THEME_COLOR, themeStore } from '@/plugins/Theme/ThemeStore.js'
 import DayJS from 'dayjs'
 import Segment from '@/views/Segment.vue'
 import Popup from '@/components/Popup.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 import TableOfContents from '@/components/Resources/TableOfContents.vue'
+import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
+import Theme from '@/plugins/Theme/Theme.vue'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
@@ -122,6 +130,8 @@ export default {
     DisclosurePanel,
     ChevronDownIcon,
     ChevronUpIcon,
+    PDFAuxiliary,
+    Theme,
   },
   provide () {
     return {
@@ -132,10 +142,14 @@ export default {
   },
   data () {
     return {
-      loading: true,
-
+      themeStore,
+      THEME_COLOR,
       DayJS,
+
+      loading: true,
+      resource: null,
       document: null,
+
       selectedSegmentIndex: 0,
       documentUserInput: [],
       ready: false,
@@ -210,7 +224,7 @@ export default {
         return
       }
       try {
-        const documentUserInput = await this.$apiAuth.get(`/resources/user/input/document/${this.document.id}`)
+        const documentUserInput = await this.$apiAuthResources.get(`/resources/user/input/document/${this.document.id}`)
         this.documentUserInput = documentUserInput.data
       } catch (e) {}
     },
@@ -228,3 +242,27 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.auxiliary {
+  @apply flex flex-row gap-4 p-3 rounded-md items-center;
+  &-light {
+    @apply bg-none;
+    .auxiliary-icon {
+      @apply text-black hover:text-ss-primary;
+
+    }
+  }
+
+  &-dark {
+    @apply bg-black/30;
+    .auxiliary-icon {
+      @apply text-white hover:text-gray-300;
+    }
+  }
+
+  &-icon {
+    @apply cursor-pointer w-6 h-6;
+  }
+}
+</style>
