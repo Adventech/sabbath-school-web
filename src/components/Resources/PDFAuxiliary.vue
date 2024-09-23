@@ -1,7 +1,7 @@
 <template>
   <div v-if="pdf.length">
     <DocumentTextIcon class="auxiliary-icon" @click="pdfAuxOpen=true" />
-    <Popup :open="pdfAuxOpen" @closed="pdfAuxOpen = false" :noPadding="true">
+    <Popup :open="pdfAuxOpen" @closed="pdfAuxOpen = false" :large="true" :noPadding="true">
       <PDFViewer :pdfs="pdf" />
     </Popup>
   </div>
@@ -27,7 +27,10 @@ const pdf = computed(() => {
 const checkIfPDFAuxAvailable = async () => {
   try {
     let response = await proxy.$apiResources.get(`${props.resource.index}/pdf.json`)
-    pdfAux.value = response.data
+    const contentType = response.headers["content-type"]
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      pdfAux.value = response.data
+    }
   } catch (e) {}
 }
 

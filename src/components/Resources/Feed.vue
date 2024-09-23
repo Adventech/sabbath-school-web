@@ -1,5 +1,7 @@
 <template>
-  <FeedGroup v-for="feedGroup in feed.groups" :feedGroup="feedGroup"></FeedGroup>
+  <div class="px-4">
+    <FeedGroup v-for="feedGroup in feed.groups" :feedGroup="feedGroup"></FeedGroup>
+  </div>
 </template>
 
 <script>

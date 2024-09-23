@@ -2,6 +2,7 @@
   <div>
     <div class="flex justify-end absolute right-5 top-5">
       <slot></slot>
+      <slot name="test"></slot>
     </div>
     <div
          class="w-full bg-no-repeat bg-cover bg-center rounded-t flex flex-col justify-end"

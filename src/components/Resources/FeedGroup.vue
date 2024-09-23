@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4">
+  <div>
     <div class="feed-group">{{ feedGroup.title }}</div>
     <div v-if="feedGroup.scope === 'resource'"
          :class="{

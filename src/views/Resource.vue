@@ -3,7 +3,7 @@
     <template v-if="loading">
       <LoadingDetail></LoadingDetail>
     </template>
-    <div v-else class="px-4">
+    <div v-else>
       <ResourceItem v-if="resource" :resource="resource" :progress="progress"></ResourceItem>
     </div>
   </div>

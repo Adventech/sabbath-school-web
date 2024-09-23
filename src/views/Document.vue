@@ -86,12 +86,19 @@
             <div class="auxiliary auxiliary-light"
                  :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
               <Theme></Theme>
+              <AudioAuxiliary :resource="resource" :target="document.index" />
+              <VideoAuxiliary :resource="resource"  />
               <PDFAuxiliary :resource="resource" :target="document.index" />
             </div>
           </Segment>
         </div>
 
-        <Popup :open="hiddenSegmentOpen" @closed="hiddenSegmentOpen = false" :noPadding="true">
+        <Popup :open="hiddenSegmentOpen"
+               @closed="hiddenSegmentOpen = false"
+               :noPadding="true"
+               :large="true"
+               :noControls="true"
+        >
           <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
         </Popup>
       </div>
@@ -108,6 +115,8 @@ import Popup from '@/components/Popup.vue'
 import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 import TableOfContents from '@/components/Resources/TableOfContents.vue'
 import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
+import AudioAuxiliary from '@/components/Resources/AudioAuxiliary.vue'
+import VideoAuxiliary from '@/components/Resources/VideoAuxiliary.vue'
 import Theme from '@/plugins/Theme/Theme.vue'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
@@ -131,6 +140,8 @@ export default {
     ChevronDownIcon,
     ChevronUpIcon,
     PDFAuxiliary,
+    AudioAuxiliary,
+    VideoAuxiliary,
     Theme,
   },
   provide () {
