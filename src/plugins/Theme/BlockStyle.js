@@ -108,10 +108,10 @@ const getProperty = function (defaultStyles, block, nested, styleKey, propertyKe
             ? defaultStyles.nested?.blocks?.find((b) => b.type === block.type)?.style
             : defaultStyles.inline?.blocks?.find((b) => b.type === block.type)?.style
 
-    resultProperty = resolveProperty(globalBlockStyle, defaultProperty)
+    resultProperty = resolveProperty(globalBlockStyle, resultProperty)
 
     if (block.style) {
-        resultProperty = resolveProperty(block.style, defaultProperty)
+        resultProperty = resolveProperty(block.style, resultProperty)
     }
 
     return resultProperty

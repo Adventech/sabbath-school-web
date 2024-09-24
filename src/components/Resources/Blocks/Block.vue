@@ -9,8 +9,8 @@
         :is="blocks[block.type].component"
         :block="block"
         :parent="parent"
-        :class="blockClassesAndStyle.class"
-        :style="blockClassesAndStyle.style"
+        :class="`${blockClassesAndStyle.class} ${textClassesAndStyle.class}`"
+        :style="`${blockClassesAndStyle.style}; ${textClassesAndStyle.style}`"
         :userInput="userInput"
     >
       <template
@@ -30,6 +30,7 @@
 import { shallowRef } from 'vue'
 import { authStore } from '@/stores/auth'
 import { getBlockStyleClass } from '@/plugins/Theme/BlockStyle.js'
+import { getTextStyleAndClass } from "@/plugins/Theme/TextStyle.js"
 
 import List from '@/components/Resources/Blocks/List.vue'
 import ListItem from '@/components/Resources/Blocks/ListItem.vue'
@@ -80,6 +81,13 @@ export default {
       let ret = { class: "", style: "" }
       if (!this.block.id || !this.defaultStyles) return ret
       return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "block") }
+    },
+
+    textClassesAndStyle () {
+      let ret = { class: "", style: "" }
+      if (!this.block.id || !this.defaultStyles) return ret
+      let b = { ...ret, ...getTextStyleAndClass(this.defaultStyles, this.block, this.nested, "text") }
+      return b
     },
 
     wrapperClassesAndStyle () {

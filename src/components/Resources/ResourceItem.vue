@@ -2,7 +2,7 @@
   <div class="flex gap-4 md:gap-8 flex-col md:flex-row">
     <div class="flex flex-col items-center md:items-start">
       <div :class="`resource-item-${resource.kind} flex-none`">
-        <img :src="resourceCover" class="resource-item-cover object-cover" />
+        <img :src="resourceCover" class="resource-item-cover" />
 
         <div class="hidden md:flex gap-2 flex-col mt-4"
              v-if="resource.credits && resource.credits.length">

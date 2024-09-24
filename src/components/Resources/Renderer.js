@@ -1,5 +1,6 @@
 import { marked } from "marked"
 import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
+import { getInlineTextStyle } from "../../plugins/Theme/TextStyle"
 
 const renderer = new marked.Renderer()
 
@@ -32,7 +33,7 @@ renderer.text = function (text) {
         let inlineStyle = ""
         try {
             styleOptions = JSON.parse(decodedOptions)
-            const textStyle = getTextStyle(styleOptions.style)
+            const textStyle = getInlineTextStyle(styleOptions.style)
             inlineClass = textStyle.class
             inlineStyle = textStyle.style
         } catch (error) {

@@ -1,7 +1,5 @@
 <template>
   <div v-bible-links="{blockId: block.id}"
-       :style="getTextStyle(block.style).style"
-       :class="getTextStyle(block.style).class"
        v-if="paragraphText"
        v-html="paragraphText"
        class="paragraph-block"></div>
@@ -10,7 +8,6 @@
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
-import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
 
 export default {
   props: ['block', 'userInput', 'parent'],
@@ -18,7 +15,6 @@ export default {
   data () {
     return {
       paragraphText: null,
-      getTextStyle,
     }
   },
   mounted () {

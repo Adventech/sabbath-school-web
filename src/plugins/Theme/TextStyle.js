@@ -62,10 +62,89 @@ const textAlignmentToClass = function (prefix, unit) {
     return unitMap[unit] ? `${prefix}${unitMap[unit]}` : ""
 }
 
+const getProperty = function (defaultStyles, block, nested, styleKey, propertyKey) {
+    const defaultProperty = null
+    const baseStyle = nested ? defaultStyles.nested?.all : defaultStyles.inline?.all
+
+    const resolveProperty = function (style, defaultProperty) {
+        return style?.[styleKey]?.[propertyKey] ?? defaultProperty
+    }
+
+    let resultProperty = resolveProperty(baseStyle, defaultProperty)
+
+    let globalBlockStyle =
+        nested
+            ? defaultStyles.nested?.blocks?.find((b) => b.type === block.type)?.style
+            : defaultStyles.inline?.blocks?.find((b) => b.type === block.type)?.style
+
+    resultProperty = resolveProperty(globalBlockStyle, resultProperty)
+
+    if (block.style) {
+        resultProperty = resolveProperty(block.style, resultProperty)
+    }
+
+    return resultProperty
+}
+
+export const getTextStyleAndClass = function (defaultStyles, block, nested, key) {
+    let textStyleClass = []
+    let textStyleCSS = []
+
+    const textTypeface = getProperty(defaultStyles, block, nested, key, "typeface")
+    const textColor = getProperty(defaultStyles, block, nested, key, "color")
+    const textSize = getProperty(defaultStyles, block, nested, key, "size")
+    const textAlign = getProperty(defaultStyles, block, nested, key, "align")
+    const textOffset = getProperty(defaultStyles, block, nested, key, "offset")
+
+    textTypeface && textStyleCSS.push(`font-family: '${textTypeface}'`)
+    textSize && textStyleClass.push(textUnitsToClass("text-", textSize))
+    textAlign && textStyleClass.push(textAlignmentToClass("text-", textAlign))
+    textOffset && textStyleClass.push(textAlignmentToClass("align-", textOffset))
+
+
+    if (themeStore().color !== THEME_COLOR.DARK && themeStore().color !== THEME_COLOR.SEPIA) {
+        textColor && textStyleCSS.push(`color: ${textColor}`)
+    }
+
+    return { style: textStyleCSS.join("; "), class: textStyleClass.join(" ") }
+}
+
+export const getInlineTextStyle = function (style) {
+    let textStyleClass = []
+    let textStyleCSS = []
+
+    if (style && style.text) {
+        if (style.text.typeface) {
+            textStyleCSS.push(`font-family: '${style.text.typeface}'`)
+
+        }
+
+        if (themeStore().color !== THEME_COLOR.SEPIA && themeStore().color !== THEME_COLOR.DARK) {
+            if (style.text.color) {
+                textStyleCSS.push(`color: ${style.text.color}`)
+            }
+        }
+
+        if (style.text.size) {
+            textStyleClass.push(`${textUnitsToClass("text-", style.text.size)}`)
+        }
+
+        if (style.text.align) {
+            textStyleClass.push(`${textAlignmentToClass("text-", style.text.align)}`)
+        }
+
+        if (style.text.offset) {
+            textStyleClass.push(`${textOffsetToClass("align-", style.text.offset)}`)
+        }
+    }
+    return { style: textStyleCSS.join(";"), class: textStyleClass.join(" ") }
+}
+
 export const getTextStyle = function (style) {
     let textStyleClass = []
     let textStyleCSS = ""
-    if (style && style.text) {
+
+    if (false && style && style.text) {
         if (style.text.typeface) {
             textStyleCSS += `font-family: '${style.text.typeface}';`
 

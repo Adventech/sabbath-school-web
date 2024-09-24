@@ -30,7 +30,7 @@ export default {
   @apply flex flex-none overflow-visible;
 
   &-cover {
-    @apply object-cover shadow-xl rounded;
+    @apply shadow-xl rounded;
   }
   &-title {
     @apply mt-2 relative z-10 line-clamp-2;

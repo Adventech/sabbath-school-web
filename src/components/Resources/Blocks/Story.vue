@@ -7,17 +7,18 @@
         class="flex flex-col gap-3">
       <div class="story-slide relative">
         <div
-            :class="`story-slide-text-${currentSlide.alignment || 'top'}`"
-            :style="getTextStyle(currentSlide.style).style"
+            :class="`story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class}`"
+            :style="getInlineTextStyle(currentSlide.style).style"
             class="story-slide-text story-slide-text-position">
           <div :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
-            <p :style="`margin-top: ${currentOffset}px`" :class="getTextStyle(currentSlide.style).class" v-if="paragraphText" v-html="paragraphText"></p>
+            <p :style="`margin-top: ${currentOffset}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
+               v-if="paragraphText" v-html="paragraphText"></p>
           </div>
         </div>
         <Transition name="fade" mode="out-in">
           <img :src="currentSlide.image" :key="currentSlide.image" class="rounded" />
         </Transition>
-        <p ref="hiddenContainer" :class="getTextStyle(block.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
+        <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
       </div>
       <div class="flex justify-end">
         <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon class="story-slide-controls" /></button>
@@ -31,7 +32,7 @@
 <script>
 import { nextTick } from 'vue'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
-import { getTextStyle } from "@/plugins/Theme/TextStyle.js"
+import { getInlineTextStyle } from "@/plugins/Theme/TextStyle.js"
 import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from '@heroicons/vue/24/solid'
 
 export default {
@@ -39,7 +40,7 @@ export default {
   components: { ArrowRightCircleIcon, ArrowLeftCircleIcon },
   data () {
     return {
-      getTextStyle,
+      getInlineTextStyle,
       currentSlideIndex: 0,
       currentTextSlide: 0,
 
