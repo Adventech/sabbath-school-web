@@ -156,7 +156,7 @@ export const getBlockStyleClass = function (defaultStyles, block, nested, key) {
 
     if (themeStore().color !== THEME_COLOR.DARK && themeStore().color !== THEME_COLOR.SEPIA) {
         backgroundColor && blockStyleCSS.push(`background-color: ${backgroundColor}`)
-        backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-repeat: no-repeat;`)
+        backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-size: contain; background-repeat: no-repeat;`)
         backgroundPosition && blockStyleClass.push(positionUnitsToClass(backgroundPosition))
     }
 
