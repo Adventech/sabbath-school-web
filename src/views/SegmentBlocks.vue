@@ -16,19 +16,17 @@
         'mx-5 mb-5 mt-5': !cover,
       }"
       >
-        <div class="p-5 px-10" v-if="!document.titleBelowCover">
-
+        <div v-if="!document.titleBelowCover">
           <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="text-xl md:text-3xl font-bold w-10/12 lg:w-full line-clamp-3">{{ segment.title }}</p>
+          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3">{{ segment.title }}</p>
           <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
         </div>
-
       </div>
     </div>
 
-    <div class="p-5 px-10" v-if="document.titleBelowCover">
+    <div class="p-5" v-if="document.titleBelowCover">
       <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="text-xl md:text-3xl font-bold w-full line-clamp-3">{{ segment.title }}</p>
+      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3">{{ segment.title }}</p>
       <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
     </div>
 
@@ -80,3 +78,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.segment-title.text-center {
+  @apply px-10;
+}
+</style>

@@ -1,17 +1,17 @@
 <template>
-  <div v-if="sSegment" :style="backgroundImage"
-       class="bg-top bg-no-repeat relative rounded">
-    <div v-if="sSegment.type === 'block'"
-         :class="themeStore().getClassList()">
-      <SegmentBlocks :segment="sSegment">
-        <slot></slot>
-      </SegmentBlocks>
+  <div>
+    <div v-if="sSegment" :style="backgroundImage"
+         class="bg-top bg-no-repeat relative rounded">
+      <div v-if="sSegment.type === 'block'"
+           :class="themeStore().getClassList()">
+        <SegmentBlocks :segment="sSegment">
+          <slot></slot>
+        </SegmentBlocks>
+      </div>
+      <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment" />
+      <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
+      <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
     </div>
-    <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment">
-
-    </SegmentStory>
-    <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
-    <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
 
     <Popup :open="bibleOpen" @closed="bibleOpen = false" :noPadding="true">
       <Bible :bible="bibleData" :verse="bibleVerse"></Bible>
