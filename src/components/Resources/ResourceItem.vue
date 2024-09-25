@@ -1,15 +1,12 @@
 <template>
-  <div class="flex gap-4 md:gap-8 flex-col md:flex-row">
+  <div class="flex gap-4 md:gap-8 flex-col md:flex-row px-4">
     <div class="flex flex-col items-center md:items-start">
       <div :class="`resource-item-${resource.kind} flex-none`">
         <img :src="resourceCover" class="resource-item-cover" />
 
         <div class="hidden md:flex gap-2 flex-col mt-4"
              v-if="resource.credits && resource.credits.length">
-          <div v-for="credit in resource.credits">
-            <p class="text-gray-500 font-bold text-sm">{{ credit.name }}</p>
-            <p class="text-gray-500 text-sm">{{ credit.value }}</p>
-          </div>
+          <ResourceCredits :credits="resource.credits" />
         </div>
       </div>
     </div>
@@ -27,20 +24,18 @@
 
     <div class="flex md:hidden gap-2 flex-col"
          v-if="resource.credits && resource.credits.length">
-      <div v-for="credit in resource.credits">
-        <p class="text-gray-500 font-bold text-sm">{{ credit.name }}</p>
-        <p class="text-gray-500 text-sm">{{ credit.value }}</p>
-      </div>
+      <ResourceCredits :credits="resource.credits" />
     </div>
   </div>
 </template>
 
 <script>
 import FeedGroup from '@/components/Resources/FeedGroup.vue'
+import ResourceCredits from '@/components/Resources/ResourceCredits.vue'
 import TableOfContents from '@/components/Resources/TableOfContents.vue'
 
 export default {
-  components: { FeedGroup, TableOfContents },
+  components: { FeedGroup, TableOfContents, ResourceCredits },
   props: ['resource', 'progress'],
   computed: {
     resourceCover: function () {
@@ -53,10 +48,6 @@ export default {
       }
       return coverMap[this.resource.kind]
     }
-  },
-  created () {
-    // select default section based on the resource kind
-    // if sectionView === dropdown
   },
 }
 </script>

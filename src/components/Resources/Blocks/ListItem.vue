@@ -19,3 +19,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.list-item-block {
+  @apply mb-2;
+}
+</style>

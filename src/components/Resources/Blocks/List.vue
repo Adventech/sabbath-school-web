@@ -24,6 +24,13 @@ export default {
 </script>
 
 <style lang="scss">
+
+.list-decimal {
+  li {
+    @apply list-inside -ml-5;
+  }
+}
+
 .resource-block-list {
   @apply list-disc;
   & > ul {
@@ -37,8 +44,10 @@ export default {
 
 .resource-block-list {
   @apply list-disc;
+
   & > .resource-block-list {
     @apply list-square;
+
 
     & > .resource-block-list {
       @apply list-circle;
