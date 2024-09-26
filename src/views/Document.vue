@@ -206,7 +206,7 @@ export default {
         // Attempt to "search" for the Bold font by adding the style to the inline bold
         innerHTML += `
          .${font.name} strong {
-          font-family: "${font.name.replace(/Regular|Normal/img, '')}Bold"
+          font-family: "${font.name.replace(/Regular|Normal|Roman/img, '')}Bold"
          }
         `
       }
