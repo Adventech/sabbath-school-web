@@ -1,21 +1,57 @@
+const plugin = require('tailwindcss/plugin')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'font-bold',
+    {
+      pattern: /([pm])([tblr])?-[0-9.]+/,
+    },
+    {
+      pattern: /text-(3xs|2xs|xs|sm|base|lg|xl|2xl|3xl|4xl|start|end|center)+/,
+    },
+    {
+      pattern: /align-(sub|super)+/,
+    },
+    {
+      pattern: /(bg|theme)-(light|sepia|dark)+/,
+    },
+    {
+      pattern: /(bg)-(left|right|center|bottom|top)+/,
+    },
+  ],
   theme: {
     listStyleType: {
       none: 'none',
       decimal: 'decimal',
-      disc: 'disc'
+      disc: 'disc',
+      square: 'square',
+      roman: 'upper-roman',
+      circle: 'circle',
     },
 
     fontFamily: {
       sans: ['lato', 'sans-serif'],
+      mono: ['ui-monospace', 'SFMono-Regular'],
     },
 
     extend: {
+      fontSize: {
+        '3xs': '.5rem',
+        '2xs': '.625rem',
+        'xs': '0.8rem',
+        'sm': '1rem',
+        'base': '1.125rem',
+        'lg': '1.25rem',
+        'xl': '1.563rem',
+        '2xl': '1.953rem',
+        '3xl': '2.441rem',
+        '4xl': '3.052rem',
+      },
       maxWidth: {
         'ss-cover': '250px',
       },
@@ -39,7 +75,10 @@ module.exports = {
         ]
       },
       colors: {
-        'ss-primary': '#2E5797'
+        'ss-primary': 'var(--color-primary)',
+        'light': 'var(--tw-color-gray-50)',
+        'sepia': '#fbf0d9',
+        'dark': '#000000',
       },
       height: {
         'ss-cover': '335px',
@@ -48,7 +87,24 @@ module.exports = {
       width: {
         'ss-cover': '250px',
       },
+      scale: {
+        'appeal': '0.995',
+      },
+      spacing: {
+        '7': '1.75rem',
+        '8': '2rem',
+        '9': '2.25rem',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({addVariant}) {
+      // here is your CSS selector - could be anything
+      // in this case it is `.theme` element
+      // with `.theme--red` class (both present)
+      addVariant('theme-sepia', '.theme.theme--sepia &')
+      addVariant('theme-dark', '.theme.theme--dark &')
+      addVariant('theme-light', '.theme.theme--light &')
+    })
+  ],
 }

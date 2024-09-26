@@ -1,5 +1,5 @@
 <template>
-  <div class="ss-grid">
+  <div class="grid grid-rows-3 grid-flow-col">
     <div v-for="card in Array.from(Array(12).keys())" class="min-w-ss-cover max-w-ss-cover max-h-ss-cover min-h-ss-cover">
       <div class="animate-pulse bg-gray-200 rounded h-64 mb-2"></div>
       <div class="animate-pulse bg-gray-200 rounded h-2 mb-2"></div>
