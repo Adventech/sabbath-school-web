@@ -24,12 +24,16 @@ export default {
 </script>
 
 <style lang="scss">
-.resource-link-sspm-bible,
-.resource-link-sspm-egw {
-  @apply border-b border-ss-primary font-bold text-ss-primary;
+.resource-link {
+  @apply break-words;
+  &-sspm-bible,
+  &-sspm-egw {
+    @apply border-b border-ss-primary font-bold text-ss-primary;
+  }
+
+  &-other {
+    @apply text-ss-primary hover:border-b hover:border-ss-primary;
+  }
 }
 
-.resource-link-other {
-  @apply text-ss-primary hover:border-b hover:border-ss-primary;
-}
 </style>
