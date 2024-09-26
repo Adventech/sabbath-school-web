@@ -1,19 +1,18 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import axios from 'axios'
-
-import App from './App.vue'
-import router from './router'
-import DayJS from 'dayjs'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { authStore } from '@/stores/auth'
 import mitt from 'mitt'
-import { VueHeadMixin, createHead } from '@unhead/vue'
-import ContextMenu from '@/plugins/ContextMenu/'
-import Highlighter from '@/plugins/Highlighter/'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import App from '@/App.vue'
+import router from '@/router'
+import DayJS from 'dayjs'
 import Bible from '@/plugins/Bible/'
 import Block from '@/components/Resources/Blocks/Block.vue';
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import ContextMenu from '@/plugins/ContextMenu/'
+import Highlighter from '@/plugins/Highlighter/'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import { authStore } from '@/stores/auth'
+import { VueHeadMixin, createHead } from '@unhead/vue'
 
 DayJS.extend(customParseFormat)
 
