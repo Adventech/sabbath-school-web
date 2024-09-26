@@ -13,7 +13,7 @@
             <router-link tag="div" :to="`/resources/${resource.index}`" class="font-bold">
               ‹ {{ resource.title }}
             </router-link>
-            <p v-if="resource.subtitle" class="text-gray-400">{{ resource.subtitle }}</p>
+            <p v-if="resource.subtitle" class="text-gray-400 line-clamp-4">{{ resource.subtitle }}</p>
           </div>
         </div>
 

@@ -6,8 +6,9 @@
           <source :src="currentVideo.src" />
         </video>
         <div class="flex flex-col gap-1">
-          <p class="text-2xl font-bold">{{ currentVideo.title }}</p>
-          <p class="text-lg">{{ currentVideo.artist }}</p>
+          <p class="text-2xl font-bold">{{ currentVideo.title || segment.title }}</p>
+          <p v-if="currentVideo.artist" class="text-lg text-gray-500">{{ currentVideo.artist }}</p>
+          <p v-if="segment.subtitle" class="text-lg text-gray-500">{{ segment.subtitle }}</p>
         </div>
       </div>
       <div v-context-menu>

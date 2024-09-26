@@ -7,10 +7,10 @@
                    :externalURL="document.externalURL"
                    :to="`/resources/${document.index}`"
                    class="resource-item-document-item flex justify-between items-center gap-2">
-        <div class="flex flex-row items-center justify-between w-full gap-2">
+        <div class="flex flex-row items-center justify-between w-full gap-4">
           <div class="grow order-1 md:order-2">
             <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
-            <p class="resource-item-document-item-title">{{ document.title }}</p>
+            <p :class="{'font-bold':!inline && kind === 'blog' && document.cover}" class="resource-item-document-item-title">{{ document.title }}</p>
             <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
           </div>
           <div v-if="!inline && kind === 'blog' && document.cover"
@@ -65,7 +65,7 @@ export default {
   .resource-item-document-list {
     @apply bg-gray-100 rounded-lg w-full;
     .resource-item-document-item {
-      @apply hover:bg-gray-200 first:rounded-t-lg last:rounded-b-lg;
+      @apply hover:bg-gray-200 first:rounded-t-lg last:rounded-b-lg cursor-pointer;
       &-title {}
       &-date {
         @apply text-gray-400 text-sm
