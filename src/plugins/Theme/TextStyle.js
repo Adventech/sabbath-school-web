@@ -96,7 +96,7 @@ export const getTextStyleAndClass = function (defaultStyles, block, nested, key)
     const textAlign = getProperty(defaultStyles, block, nested, key, "align")
     const textOffset = getProperty(defaultStyles, block, nested, key, "offset")
 
-    textTypeface && textStyleCSS.push(`font-family: '${textTypeface}'`)
+    textTypeface && textStyleCSS.push(`font-family: '${textTypeface}'`) && textStyleClass.push(`${textTypeface}`)
     textSize && textStyleClass.push(textUnitsToClass("text-", textSize))
     textAlign && textStyleClass.push(textAlignmentToClass("text-", textAlign))
     textOffset && textStyleClass.push(textAlignmentToClass("align-", textOffset))

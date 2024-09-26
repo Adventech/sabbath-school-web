@@ -194,12 +194,24 @@ export default {
   methods: {
     loadFont (font) {
       let style = document.createElement('style');
-      style.type = 'text/css';
-      style.innerHTML = `@font-face {
-        font-family: '${font.name}';
+
+      let innerHTML = `@font-face {
+        font-family: "${font.name}";
         src: url('${font.src}') format('truetype');
-        weight: ${font.weight};
-      }`;
+        font-weight: ${font.weight};
+      }
+      `;
+
+      if (!/bold/i.test(font.name)) {
+        // Attempt to "search" for the Bold font by adding the style to the inline bold
+        innerHTML += `
+         .${font.name} strong {
+          font-family: "${font.name.replace(/Regular|Normal/img, '')}Bold"
+         }
+        `
+      }
+
+      style.innerHTML = innerHTML
       document.head.appendChild(style);
     },
 
