@@ -6,7 +6,7 @@
     </div>
     <div
          class="w-full bg-no-repeat bg-cover bg-center rounded-t flex flex-col justify-end"
-         :class="{'h-48 md:h-ss-cover mb-5': cover}"
+         :class="{'h-48 md:h-ss-cover mb-5 xl:h-[27rem]': cover}"
          :style="`background-image:url('${cover}')`"
     >
       <div class="flex flex-col"
