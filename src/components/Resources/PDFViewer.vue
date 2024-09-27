@@ -1,16 +1,14 @@
 <template>
-  <div class="min-h-ss-pdf md:h-full xl:min-h-ss-pdf-xl md:min-h-ss-pdf-md lg:min-h-ss-pdf-lg">
     <TabGroup>
-      <TabList class="border-b border-gray-200 p-4">
+      <TabList class="border-b border-gray-200 px-4 pb-4">
         <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
           <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
         </Tab>
       </TabList>
-      <TabPanels class="min-h-ss-pdf md:h-full xl:min-h-ss-pdf-xl md:min-h-ss-pdf-md lg:min-h-ss-pdf-lg">
-        <TabPanel :unmount="false" class="min-h-ss-pdf md:h-full xl:min-h-ss-pdf-xl md:min-h-ss-pdf-md lg:min-h-ss-pdf-lg" v-for="(pdf, i) in pdfs" :class="`pdf-container-${i}`"></TabPanel>
+      <TabPanels>
+        <TabPanel :unmount="false" class="pdf-content" v-for="(pdf, i) in pdfs" :class="`pdf-container-${i}`"></TabPanel>
       </TabPanels>
     </TabGroup>
-  </div>
 </template>
 
 <script>
@@ -159,7 +157,10 @@ export default {
 </script>
 
 <style lang="scss">
+.pdf-content {
+  height: 800px;
+}
 .PSPDFKit-Container {
-  height: 100vh !important;
+  height: 800px !important;
 }
 </style>
