@@ -81,7 +81,7 @@
     </div>
     <div
          :class="selectedSegment.type === 'block' ? themeStore().getClassList() : ''"
-         class="md:w-9/12 lg:w-9/12 xl:w-10/12  bg-top bg-cover bg-no-repeat h-fit"
+         class="md:w-9/12 lg:w-9/12 xl:w-10/12 bg-top bg-cover bg-no-repeat h-fit"
          :style="documentBackground"
     >
       <Segment class="border border-gray-100 shadow-xl" v-if="selectedSegment" :segment="selectedSegment">

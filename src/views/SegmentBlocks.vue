@@ -6,7 +6,7 @@
 
     <div
          class="w-full bg-no-repeat bg-cover rounded-t flex flex-col justify-end bg-center bg-auto "
-         :class="{'h-64 md:h-ss-cover mb-5': cover}"
+         :class="{'h-64 md:h-ss-cover': cover}"
          :style="`background-image:url('${cover}');`"
     >
       <div class="flex flex-col"
@@ -32,7 +32,7 @@
 
     <slot v-if="$slots.pdf" name="pdf"></slot>
     <div v-else v-context-menu>
-      <div class="flex  gap-4 flex-col pb-5">
+      <div class="flex gap-4 flex-col py-5">
         <Block v-for="(block) in segment.blocks"
                :block="block"
                :key="`segment_block_${block.id}`"

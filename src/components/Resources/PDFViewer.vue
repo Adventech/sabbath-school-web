@@ -1,6 +1,6 @@
 <template>
     <TabGroup>
-      <TabList class="border-b border-gray-200 px-4 pb-4">
+      <TabList v-if="pdfs.length > 1" class="border-b border-gray-200 p-4">
         <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
           <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
         </Tab>
