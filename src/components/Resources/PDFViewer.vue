@@ -36,6 +36,14 @@ export default {
     },
     userInput () {
       return this.getDocumentUserInput()
+    },
+    PSPSDFLicenseKey () {
+      let domain = window.location.hostname
+          .replace(/^app(-stage)?\.?/ig, '')
+          .replace(/^sabbath-school-stage/ig, 'sabbath-school')
+          .replace(/\.|-/g, '_').toUpperCase().trim()
+
+      return import.meta.env[`VITE_APP_PSPDF_KEY_${domain}`] || import.meta.env[`VITE_APP_PSPDF_KEY`]
     }
   },
   watch: {
@@ -121,7 +129,7 @@ export default {
         initialViewState: new PSPDFKit.ViewState({
           zoom: PSPDFKit.ZoomMode.FIT_TO_WIDTH
         }),
-        licenseKey: import.meta.env.VITE_APP_PSPDF_KEY,
+        licenseKey: this.PSPSDFLicenseKey,
         styleSheets: [ "/assets/css/pspdfkit-css.css" ],
         document: pdf.src,
         container: container,
