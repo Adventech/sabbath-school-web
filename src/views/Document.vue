@@ -85,13 +85,16 @@
          :style="documentBackground"
     >
       <Segment class="border border-gray-100 shadow-xl" v-if="selectedSegment" :segment="selectedSegment">
-        <div class="auxiliary auxiliary-light"
-             :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
-          <Theme></Theme>
-          <AudioAuxiliary :resource="resource" :target="document.index" />
-          <VideoAuxiliary :resource="resource"  />
-          <PDFAuxiliary :resource="resource" :target="document.index" />
-        </div>
+        <template #aux>
+          <div class="auxiliary auxiliary-light"
+               :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
+            <Theme></Theme>
+            <AudioAuxiliary :resource="resource" :target="document.index" />
+            <VideoAuxiliary :resource="resource"  />
+            <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" />
+          </div>
+        </template>
+        <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" /></template>
       </Segment>
 
       <Popup :open="hiddenSegmentOpen"
@@ -117,6 +120,7 @@ import TableOfContents from '@/components/Resources/TableOfContents.vue'
 import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
 import AudioAuxiliary from '@/components/Resources/AudioAuxiliary.vue'
 import VideoAuxiliary from '@/components/Resources/VideoAuxiliary.vue'
+import PDFViewer from '@/components/Resources/PDFViewer.vue'
 import Theme from '@/plugins/Theme/Theme.vue'
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
@@ -144,6 +148,7 @@ export default {
     VideoAuxiliary,
     Theme,
     themeStore,
+    PDFViewer,
   },
   provide () {
     return {
@@ -168,6 +173,9 @@ export default {
 
       hiddenSegmentOpen: false,
       hiddenSegmentIndex: null,
+
+      pdfAuxOpen: false,
+      pdfs: null,
     }
   },
   computed: {
@@ -201,6 +209,10 @@ export default {
     title.value = `${this.selectedSegment.title} - ${this.resource.title}`
   },
   methods: {
+    pdfAuxToggle (pdfAuxOpen, pdfs) {
+      this.pdfAuxOpen = pdfAuxOpen
+      this.pdfs = pdfs
+    },
     loadFont (font) {
       let style = document.createElement('style');
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-end absolute right-5 top-5">
-      <slot></slot>
+      <slot name="aux"></slot>
     </div>
 
     <div
@@ -30,7 +30,8 @@
       <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
     </div>
 
-    <div v-context-menu>
+    <slot v-if="$slots.pdf" name="pdf"></slot>
+    <div v-else v-context-menu>
       <div class="flex  gap-4 flex-col pb-5">
         <Block v-for="(block) in segment.blocks"
                :block="block"
@@ -45,10 +46,12 @@
 import DayJS from 'dayjs'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getInlineTextStyle } from "../plugins/Theme/TextStyle"
+import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
 
 export default {
   props: ['segment'],
   inject: ['getDocument', 'getDefaultStyles'],
+  components: { PDFAuxiliary },
   computed: {
     cover () {
       return this.segment.cover || this.document.cover

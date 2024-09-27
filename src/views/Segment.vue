@@ -1,8 +1,15 @@
 <template>
   <div>
+
+
     <div v-if="sSegment" class="relative rounded">
       <SegmentBlocks v-if="sSegment.type === 'block'" :segment="sSegment">
-        <slot></slot>
+        <template #aux>
+          <slot name="aux"></slot>
+        </template>
+        <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
+          <slot name="pdf"></slot>
+        </template>
       </SegmentBlocks>
       <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment" />
       <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
