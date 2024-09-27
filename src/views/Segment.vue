@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <div v-if="sSegment" class="relative rounded">
       <SegmentBlocks v-if="sSegment.type === 'block'" :segment="sSegment">
         <template #aux>
