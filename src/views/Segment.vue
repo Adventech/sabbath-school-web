@@ -1,13 +1,9 @@
 <template>
   <div>
-    <div v-if="sSegment" :style="backgroundImage"
-         class="bg-top bg-no-repeat relative rounded">
-      <div v-if="sSegment.type === 'block'"
-           :class="themeStore().getClassList()">
-        <SegmentBlocks :segment="sSegment">
-          <slot></slot>
-        </SegmentBlocks>
-      </div>
+    <div v-if="sSegment" class="relative rounded">
+      <SegmentBlocks v-if="sSegment.type === 'block'" :segment="sSegment">
+        <slot></slot>
+      </SegmentBlocks>
       <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment" />
       <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
       <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
@@ -52,9 +48,6 @@ export default {
   computed: {
     sSegment () {
       return this.segment || this.loadedSegment
-    },
-    backgroundImage () {
-      return this.sSegment.type === 'block' && this.sSegment.background ? `background-image:url('${this.sSegment.background}')` : ''
     },
 
   },

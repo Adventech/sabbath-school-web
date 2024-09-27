@@ -2,36 +2,36 @@
   <div>
     <div class="flex justify-end absolute right-5 top-5">
       <slot></slot>
-      <slot name="test"></slot>
     </div>
+
     <div
-         class="w-full bg-no-repeat bg-cover bg-center rounded-t flex flex-col justify-end"
-         :class="{'h-48 md:h-ss-cover mb-5 xl:h-[27rem]': cover}"
-         :style="`background-image:url('${cover}')`"
+         class="w-full bg-no-repeat bg-cover rounded-t flex flex-col justify-end bg-center bg-auto "
+         :class="{'h-64 md:h-ss-cover mb-5': cover}"
+         :style="`background-image:url('${cover}');`"
     >
       <div class="flex flex-col"
            :class="{
-        'p-5 text-white bg-gradient-to-b from-transparent to-black/40': cover && !document.titleBelowCover,
-        'p-5 text-white': cover && document.titleBelowCover,
+        'p-5 text-white bg-gradient-to-b from-transparent to-black/40': cover && !titleBelowCover,
+        'p-5 text-white': cover && titleBelowCover,
         'mx-5 mb-5 mt-5': !cover,
       }"
       >
-        <div v-if="!document.titleBelowCover">
+        <div v-if="!titleBelowCover">
           <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3">{{ segment.title }}</p>
+          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3" v-html="title"></p>
           <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
         </div>
       </div>
     </div>
 
-    <div class="p-5" v-if="document.titleBelowCover">
+    <div class="p-5" v-if="titleBelowCover">
       <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3">{{ segment.title }}</p>
+      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3" v-html="title"></p>
       <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
     </div>
 
     <div v-context-menu>
-      <div class="flex gap-4 flex-col pb-5">
+      <div class="flex  gap-4 flex-col pb-5">
         <Block v-for="(block) in segment.blocks"
                :block="block"
                :key="`segment_block_${block.id}`"
@@ -43,6 +43,7 @@
 
 <script>
 import DayJS from 'dayjs'
+import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getInlineTextStyle } from "../plugins/Theme/TextStyle"
 
 export default {
@@ -58,16 +59,27 @@ export default {
     defaultStyles() {
       return this.getDefaultStyles()
     },
+    title () {
+      return this.segment.markdownTitle ?
+          marked.parse(this.segment.markdownTitle, { renderer }) :
+          this.segment.title
+    },
+    titleBelowCover () {
+      return this.document.titleBelowCover || this.segment.titleBelowCover
+    },
     titleClassesAndStyle () {
       let ret = { class: "", style: "" }
-      if (!this.defaultStyles || !this.defaultStyles.title) return ret
-      let b = { ...ret, ...getInlineTextStyle(this.defaultStyles.title) }
+      let defaultStyles = this.segment.defaultStyles || this.defaultStyles
+      if (!defaultStyles || !defaultStyles.title) return ret
+      let b = { ...ret, ...getInlineTextStyle(defaultStyles.title) }
       return b
     },
     subTitleClassesAndStyle () {
       let ret = { class: "", style: "" }
-      if (!this.defaultStyles || !this.defaultStyles.subtitle) return ret
-      let b = { ...ret, ...getInlineTextStyle(this.defaultStyles.subtitle) }
+      let defaultStyles = this.segment.defaultStyles || this.defaultStyles
+      if (!defaultStyles || !defaultStyles.subtitle) return ret
+      if (!defaultStyles || !defaultStyles.subtitle) return ret
+      let b = { ...ret, ...getInlineTextStyle(defaultStyles.subtitle) }
       return b
     },
   },

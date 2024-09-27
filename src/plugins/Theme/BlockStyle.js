@@ -129,21 +129,6 @@ export const getBlockStyleClass = function (defaultStyles, block, nested, key) {
     const backgroundPosition = getPosition(defaultStyles, block, nested, key, "backgroundPosition")
     const rounded = getProperty(defaultStyles, block, nested, key, "rounded")
 
-
-    // console.log(defaultStyles)
-
-    //  wrapper, block
-    // image
-    //      aspectRatio
-    //      expandable
-    //      storyTextAlign
-    // text
-    //      typeface
-    //      color
-    //      size
-    //      align
-    //      offset
-
     blockStyleClass.push(padding.top ? `${spacingUnitsToClass("pt-", padding.top)}` : '')
     blockStyleClass.push(padding.start ? `${spacingUnitsToClass("pl-", padding.start)}` : '')
     blockStyleClass.push(padding.bottom ? `${spacingUnitsToClass("pb-", padding.bottom)}` : '')

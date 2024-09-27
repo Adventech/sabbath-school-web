@@ -76,7 +76,7 @@ module.exports = {
       },
       colors: {
         'ss-primary': 'var(--color-primary)',
-        'light': 'var(--tw-color-gray-50)',
+        'light': '#ffffff',
         'sepia': '#fbf0d9',
         'dark': '#000000',
       },

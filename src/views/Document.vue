@@ -79,29 +79,29 @@
         </template>
       </div>
     </div>
-    <div class="md:w-9/12 lg:w-9/12 xl:w-10/12 border border-gray-100 bg-white shadow-xl">
-      <div :style="documentBackground" class="bg-left-top bg-no-repeat">
-        <div>
-          <Segment v-if="selectedSegment" :segment="selectedSegment">
-            <div class="auxiliary auxiliary-light"
-                 :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
-              <Theme></Theme>
-              <AudioAuxiliary :resource="resource" :target="document.index" />
-              <VideoAuxiliary :resource="resource"  />
-              <PDFAuxiliary :resource="resource" :target="document.index" />
-            </div>
-          </Segment>
+    <div
+         :class="selectedSegment.type === 'block' ? themeStore().getClassList() : ''"
+         class="md:w-9/12 lg:w-9/12 xl:w-10/12  bg-top bg-cover bg-no-repeat"
+         :style="documentBackground"
+    >
+      <Segment class="border border-gray-100 shadow-xl" v-if="selectedSegment" :segment="selectedSegment">
+        <div class="auxiliary auxiliary-light"
+             :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
+          <Theme></Theme>
+          <AudioAuxiliary :resource="resource" :target="document.index" />
+          <VideoAuxiliary :resource="resource"  />
+          <PDFAuxiliary :resource="resource" :target="document.index" />
         </div>
+      </Segment>
 
-        <Popup :open="hiddenSegmentOpen"
-               @closed="hiddenSegmentOpen = false"
-               :noPadding="true"
-               :large="true"
-               :noControls="true"
-        >
-          <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
-        </Popup>
-      </div>
+      <Popup :open="hiddenSegmentOpen"
+             @closed="hiddenSegmentOpen = false"
+             :noPadding="true"
+             :large="true"
+             :noControls="true"
+      >
+        <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
+      </Popup>
     </div>
   </div>
 </template>
@@ -143,6 +143,7 @@ export default {
     AudioAuxiliary,
     VideoAuxiliary,
     Theme,
+    themeStore,
   },
   provide () {
     return {
@@ -171,7 +172,15 @@ export default {
   },
   computed: {
     documentBackground: function () {
-      return this.selectedSegment.type === 'block' && this.document.background ? `background-image:url('${this.document.background}');` : ''
+      if (!this.document || !this.selectedSegment) { return '' }
+      if (themeStore().color === THEME_COLOR.DARK || themeStore().color === THEME_COLOR.SEPIA) {
+        return ''
+      }
+      let backgroundURL = this.document.background ?? this.selectedSegment.background
+      if (this.selectedSegment.type === 'block' && backgroundURL) {
+        return `background-image:url('${backgroundURL}');`
+      }
+      return ''
     },
     selectedSegment: function () {
       if (!this.document) { return null }

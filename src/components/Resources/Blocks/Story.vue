@@ -7,16 +7,16 @@
         class="flex flex-col gap-3">
       <div class="story-slide relative">
         <div
-            :class="`story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class}`"
-            :style="getInlineTextStyle(currentSlide.style).style"
-            class="story-slide-text story-slide-text-position">
+            :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} pl-4 pt-4 pb-4 pr-4 md:pl-8 md:pr-8 md:pt-8 md:pb-8`"
+            :style="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
+            class="story-slide-text-position w-full">
           <div :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
             <p :style="`margin-top: ${currentOffset}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
                v-if="paragraphText" v-html="paragraphText"></p>
           </div>
         </div>
         <Transition name="fade" mode="out-in">
-          <img :src="currentSlide.image" :key="currentSlide.image" class="rounded" />
+          <img :src="currentSlide.image" :key="currentSlide.image" class="rounded select-none pointer-events-none" />
         </Transition>
         <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
       </div>
@@ -34,13 +34,16 @@ import { nextTick } from 'vue'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getInlineTextStyle } from "@/plugins/Theme/TextStyle.js"
 import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from '@heroicons/vue/24/solid'
+import { getBlockStyleClass } from "../../../plugins/Theme/BlockStyle"
 
 export default {
   props: ['block', 'parent', 'userInput'],
+  inject: ['getDefaultStyles'],
   components: { ArrowRightCircleIcon, ArrowLeftCircleIcon },
   data () {
     return {
       getInlineTextStyle,
+      getBlockStyleClass,
       currentSlideIndex: 0,
       currentTextSlide: 0,
 
@@ -54,18 +57,22 @@ export default {
       threshold: 50
     }
   },
+  updated () {
+    this.calculateLineHeight()
+  },
   mounted () {
     this.calculateLineHeight();
     window.addEventListener('resize', this.calculateLineHeight)
     window.addEventListener('keydown', this.handleKeyPress)
-
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.calculateLineHeight)
     window.removeEventListener('keydown', this.handleKeyPress)
-
   },
   computed: {
+    defaultStyles () {
+      return this.getDefaultStyles()
+    },
     paragraphText () {
       return marked.parse(this.currentSlide.markdown, { renderer })
     },
@@ -88,7 +95,7 @@ export default {
       if (!container) return
 
       this.lineHeight = parseFloat(getComputedStyle(container).lineHeight)
-      this.maxSlides = Math.ceil(parseFloat(getComputedStyle(container).height) / this.lineHeight / this.linesPerSlide)
+      this.maxSlides = Math.ceil(parseFloat(getComputedStyle(container).height) / this.lineHeight / this.linesPerSlide) - 1
     },
 
     handleKeyPress(event) {
@@ -145,7 +152,7 @@ export default {
 
 <style lang="scss">
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.1s;
+  transition: opacity 0.2s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
@@ -158,7 +165,7 @@ export default {
 
   &-text {
     &-position {
-      @apply left-4 right-4 lg:left-8 lg:right-8 absolute;
+      @apply absolute;
     }
 
     & > div {
@@ -169,10 +176,10 @@ export default {
     }
 
     &-bottom {
-      @apply bottom-4 md:bottom-6 lg:bottom-8;
+      @apply bottom-0;
     }
     &-top {
-      @apply top-4 md:top-6 lg:top-8;
+      @apply top-0;
     }
   }
 
@@ -181,7 +188,7 @@ export default {
   }
 
   &-hidden-container {
-    @apply invisible top-20 bg-red-200 story-slide-text-size absolute;
+    @apply top-0 p-4 md:p-8 invisible bg-red-200 story-slide-text-size absolute;
   }
 }
 </style>
