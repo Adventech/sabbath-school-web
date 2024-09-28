@@ -11,11 +11,24 @@ export default {
         emitter.on('highlight', (color) => { vue.config.globalProperties.emitter.emit('highlight', color) })
         v.mount(document.body.appendChild(document.createElement('div')))
 
+        let element
+
+        const ev = async (evt) => {
+            emitter.emit(`show`, { element, selection: window.getSelection() })
+        }
+
         vue.directive('context-menu', {
             mounted(el, binding, vnode, prevVnode) {
-                el.addEventListener('mouseup', async (evt) => {
-                    emitter.emit(`show`, { el, selection: window.getSelection() })
-                })
+                element = el
+                el.addEventListener('mouseup', ev)
+                el.addEventListener('touchend', ev)
+                el.addEventListener('selectionchange', ev)
+            },
+
+            unmounted(el, binding, vnode) {
+                el.removeEventListener('mouseup', ev)
+                el.removeEventListener('touchend', ev)
+                el.removeEventListener('selectionchange', ev)
             }
         })
     }
