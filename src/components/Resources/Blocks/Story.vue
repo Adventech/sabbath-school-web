@@ -10,8 +10,8 @@
             :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} pl-4 pt-4 pb-4 pr-4 md:pl-8 md:pr-8 md:pt-8 md:pb-8`"
             :style="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
             class="story-slide-text-position w-full">
-          <div :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
-            <p :style="`margin-top: ${currentOffset}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
+          <div ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
+            <p :style="`column-gap: 0; width: ${slideWidth*maxSlides}px; column-count:${maxSlides}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
                v-if="paragraphText" v-html="paragraphText"></p>
           </div>
         </div>
@@ -49,6 +49,7 @@ export default {
 
       lineHeight: -1,
       linesPerSlide: 2,
+      slideWidth: 0,
 
       maxSlides: 0,
 
@@ -80,19 +81,31 @@ export default {
       return this.block.items[this.currentSlideIndex]
     },
     maxHeight () {
-      return this.lineHeight * this.linesPerSlide
+      return this.lineHeight * this.linesPerSlide + 5
     },
-    currentOffset () {
+
+    currentOffsetX () {
       if (!this.lineHeight) return 0
-      return -1 * this.lineHeight * this.linesPerSlide * this.currentTextSlide - 5
+      return (this.currentTextSlide) * this.slideWidth
     },
   },
   methods: {
+    getWidthMinusPadding (element) {
+      const style = window.getComputedStyle(element)
+      const paddingLeft = parseFloat(style.paddingLeft)
+      const paddingRight = parseFloat(style.paddingRight)
+      const fullWidth = element.clientWidth
+
+      return fullWidth - paddingLeft - paddingRight
+    },
     async calculateLineHeight() {
       await nextTick()
       const container = this.$refs.hiddenContainer
 
       if (!container) return
+
+      const imageSlide = this.$refs.imageSlide
+      this.slideWidth = this.getWidthMinusPadding(imageSlide)
 
       this.lineHeight = parseFloat(getComputedStyle(container).lineHeight)
       this.maxSlides = Math.ceil(parseFloat(getComputedStyle(container).height) / this.lineHeight / this.linesPerSlide) - 1
