@@ -20,9 +20,14 @@
         </Transition>
         <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
       </div>
-      <div class="flex justify-end">
-        <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon class="story-slide-controls" /></button>
-        <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon class="story-slide-controls" /></button>
+      <div class="story-slide-controls flex items-center justify-between">
+        <div>
+          <StoryAudio v-if="segment.audio" :audio="segment.audio"></StoryAudio>
+        </div>
+        <div>
+          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon class="story-slide-controls-arrow" /></button>
+          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon class="story-slide-controls-arrow" /></button>
+        </div>
       </div>
     </div>
 
@@ -35,11 +40,12 @@ import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getInlineTextStyle } from "@/plugins/Theme/TextStyle.js"
 import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from '@heroicons/vue/24/solid'
 import { getBlockStyleClass } from "../../../plugins/Theme/BlockStyle"
+import StoryAudio from '@/components/Resources/StoryAudio.vue'
 
 export default {
   props: ['block', 'parent', 'userInput'],
-  inject: ['getDefaultStyles'],
-  components: { ArrowRightCircleIcon, ArrowLeftCircleIcon },
+  inject: ['getDefaultStyles', 'getSegment'],
+  components: { ArrowRightCircleIcon, ArrowLeftCircleIcon, StoryAudio },
   data () {
     return {
       getInlineTextStyle,
@@ -71,6 +77,9 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress)
   },
   computed: {
+    segment () {
+      return this.getSegment()
+    },
     defaultStyles () {
       return this.getDefaultStyles()
     },
@@ -197,7 +206,23 @@ export default {
   }
 
   &-controls {
-    @apply w-10 h-10 text-gray-600 hover:text-black;
+    .plyr__controls {
+      background: transparent !important;
+      justify-content: flex-start !important;
+      padding: 0 !important;
+
+      button {
+        margin: 0 !important;
+      }
+
+      input {
+        color: var(--color-primary);
+      }
+    }
+
+    &-arrow {
+      @apply w-10 h-10 text-gray-600 hover:text-black;
+    }
   }
 
   &-hidden-container {

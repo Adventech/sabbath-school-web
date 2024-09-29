@@ -29,14 +29,20 @@ import SegmentBlocks from '@/views/SegmentBlocks.vue'
 import SegmentStory from '@/views/SegmentStory.vue'
 import SegmentPDF from '@/views/SegmentPDF.vue'
 import SegmentVideo from '@/views/SegmentVideo.vue'
+import StoryAudio from '@/components/Resources/StoryAudio.vue'
 import { themeStore } from '@/plugins/Theme/ThemeStore.js'
 import Popup from '@/components/Popup.vue'
 import Bible from '@/components/Resources/Bible.vue'
 import EGW from '@/components/Resources/EGW.vue'
 
 export default {
-  components: { SegmentBlocks, SegmentPDF, SegmentStory, SegmentVideo, Popup, Bible, EGW },
+  components: { SegmentBlocks, SegmentPDF, SegmentStory, SegmentVideo, Popup, Bible, EGW, StoryAudio },
   props: ['segment', 'segmentIndex'],
+  provide () {
+    return {
+      getSegment: () => this.sSegment
+    }
+  },
   data () {
     return {
       themeStore,
