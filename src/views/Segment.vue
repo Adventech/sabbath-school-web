@@ -2,14 +2,31 @@
   <div>
     <div v-if="sSegment" class="relative rounded">
       <SegmentBlocks v-if="sSegment.type === 'block'" :segment="sSegment">
-        <template #aux>
-          <slot name="aux"></slot>
+        <template #auxTheme>
+          <slot name="auxTheme"></slot>
         </template>
+        <template #auxAudio>
+          <slot name="auxAudio"></slot>
+        </template>
+        <template #auxVideo>
+          <slot name="auxVideo"></slot>
+        </template>
+        <template #auxPdf>
+          <slot name="auxPdf"></slot>
+        </template>
+
         <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
           <slot name="pdf"></slot>
         </template>
       </SegmentBlocks>
-      <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment" />
+      <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment">
+        <template #auxPdfStory>
+          <slot name="auxPdfStory"></slot>
+        </template>
+        <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
+          <slot name="pdf"></slot>
+        </template>
+      </SegmentStory>
       <SegmentPDF v-if="sSegment.type === 'pdf'" :segment="sSegment"></SegmentPDF>
       <SegmentVideo v-if="sSegment.type === 'video'" :segment="sSegment"></SegmentVideo>
     </div>

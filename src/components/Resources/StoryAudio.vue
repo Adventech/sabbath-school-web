@@ -28,8 +28,6 @@ const setupPlayer = () => {
     type: 'audio',
     sources: [ { src: props.audio.src } ],
   }
-
-  console.log(props.audio)
 }
 
 onMounted(() => {

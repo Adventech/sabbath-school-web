@@ -85,15 +85,26 @@
          :style="documentBackground"
     >
       <Segment class="border border-gray-100 shadow-xl" v-if="selectedSegment" :segment="selectedSegment">
-        <template #aux>
-          <div class="auxiliary auxiliary-light"
-               :class="[{'auxiliary-dark': document.cover || selectedSegment.cover || themeStore().color === THEME_COLOR.DARK}]" >
-            <Theme></Theme>
-            <AudioAuxiliary :resource="resource" :target="document.index" />
-            <VideoAuxiliary :resource="resource"  />
-            <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" />
-          </div>
+        <template #auxTheme>
+          <Theme></Theme>
         </template>
+
+        <template #auxAudio>
+          <AudioAuxiliary :resource="resource" :target="document.index" />
+        </template>
+
+        <template #auxVideo>
+          <VideoAuxiliary :resource="resource"  />
+        </template>
+
+        <template #auxPdf>
+          <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" />
+        </template>
+
+        <template #auxPdfStory>
+          <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" :story="true" />
+        </template>
+
         <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" /></template>
       </Segment>
 

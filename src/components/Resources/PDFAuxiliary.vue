@@ -1,15 +1,21 @@
 <template>
   <div v-if="pdf.length">
-    <DocumentTextIcon class="auxiliary-icon" @click="togglePdf()" />
+    <template v-if="story">
+      <div class="flex flex-row gap-3">
+        <button @click="togglePdf()" :class="{'bg-ss-primary text-white': !pdfAuxOpen}" class="py-2 px-3 bg-gray-200 hover:bg-gray-300 rounded flex flex-row items-center gap-2"><CursorArrowRippleIcon class="auxiliary-icon" /> Interactive Story</button>
+        <button @click="togglePdf()" :class="{'bg-ss-primary text-white': pdfAuxOpen}" class="py-2 px-3 bg-gray-200 hover:bg-gray-300 rounded flex flex-row items-center gap-2"><DocumentTextIcon class="auxiliary-icon" /> Original PDF</button>
+      </div>
+    </template>
+    <DocumentTextIcon v-else class="auxiliary-icon" @click="togglePdf()" />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
-import { DocumentTextIcon } from '@heroicons/vue/24/outline'
+import { DocumentTextIcon, CursorArrowRippleIcon } from '@heroicons/vue/24/outline'
 
 const emit = defineEmits(['pdfAuxToggle'])
-const props = defineProps(['resource', 'target', 'popup'])
+const props = defineProps(['resource', 'target', 'popup', 'story'])
 const { proxy } = getCurrentInstance()
 
 let pdfAuxOpen = ref(false)

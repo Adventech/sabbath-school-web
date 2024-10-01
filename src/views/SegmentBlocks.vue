@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="flex justify-end absolute right-5 top-5">
-      <slot name="aux"></slot>
+      <div class="auxiliary auxiliary-light"
+           :class="[{'auxiliary-dark': cover || themeStore().color === THEME_COLOR.DARK}]" >
+        <slot name="auxTheme"></slot>
+        <slot name="auxAudio"></slot>
+        <slot name="auxVideo"></slot>
+        <slot name="auxPdf"></slot>
+      </div>
     </div>
 
     <div
@@ -47,6 +53,7 @@ import DayJS from 'dayjs'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { getInlineTextStyle } from "../plugins/Theme/TextStyle"
 import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
+import { THEME_COLOR, themeStore } from '@/plugins/Theme/ThemeStore.js'
 
 export default {
   props: ['segment'],
@@ -89,6 +96,8 @@ export default {
   data () {
     return {
       DayJS,
+      themeStore,
+      THEME_COLOR,
     }
   },
 }
