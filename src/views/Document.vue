@@ -3,7 +3,7 @@
     <LoadingDetail></LoadingDetail>
   </template>
   <div v-else-if="document" class="flex gap-5 my-10 flex-col md:flex-row">
-    <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right">
+    <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right ">
       <div class="flex flex-col gap-5">
         <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
           <router-link tag="div" :to="`/resources/${resource.index}`">
@@ -81,7 +81,7 @@
     </div>
     <div
          :class="selectedSegment.type === 'block' ? themeStore().getClassList() : ''"
-         class="md:w-9/12 lg:w-9/12 xl:w-10/12 bg-top bg-cover bg-no-repeat h-fit"
+         class="md:w-9/12 lg:w-9/12 xl:w-10/12 bg-top bg-cover bg-no-repeat h-fit flex-grow"
          :style="documentBackground"
     >
       <Segment class="border border-gray-100 shadow-xl" v-if="selectedSegment" :segment="selectedSegment">
@@ -115,6 +115,10 @@
              :noControls="true"
       >
         <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
+      </Popup>
+
+      <Popup :open="commentInputOpen" @closed="commentInputOpen = false">
+        <textarea>fdsafdsafs</textarea>
       </Popup>
     </div>
   </div>
@@ -187,6 +191,8 @@ export default {
 
       pdfAuxOpen: false,
       pdfs: null,
+
+      commentInputOpen: false,
     }
   },
   computed: {
@@ -216,6 +222,10 @@ export default {
       this.hiddenSegmentOpen = true
     })
 
+    this.emitter.on('comment', async (v) => {
+      this.commentInputOpen = true
+    })
+
     const title = useTitle()
     title.value = `${this.selectedSegment.title} - ${this.resource.title}`
   },
@@ -238,7 +248,7 @@ export default {
         // Attempt to "search" for the Bold font by adding the style to the inline bold
         innerHTML += `
          .${font.name} strong {
-          font-family: "${font.name.replace(/Regular|Normal|Roman/img, '')}Bold"
+          font-family: "${font.name.replace(/-(Regular|Normal|Roman)/img, '')}-Bold"
          }
         `
       }

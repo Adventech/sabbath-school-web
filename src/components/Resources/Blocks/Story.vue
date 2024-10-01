@@ -10,14 +10,18 @@
             :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} pl-4 pt-4 pb-4 pr-4 md:pl-8 md:pr-8 md:pt-8 md:pb-8`"
             :style="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
             class="story-slide-text-position w-full">
-          <div ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
-            <p :style="`column-gap: 0; width: ${slideWidth*maxSlides}px; column-count:${maxSlides}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
-               v-if="paragraphText" v-html="paragraphText"></p>
+          <div :class="{'justify-center flex flex-col h-full': maxSlides === 1}" class="" ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
+            <p  :style="`height: fit-content; column-gap: 0; width: ${slideWidth*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
+               v-if="paragraphText" v-html="paragraphText">
+
+            </p>
           </div>
         </div>
-        <Transition name="fade" mode="out-in">
-          <img :src="currentSlide.image" :key="currentSlide.image" class="rounded select-none pointer-events-none" />
-        </Transition>
+        <div :class="{'hidden': slideImage.image !== currentSlide.image}" v-for="slideImage in block.items">
+          <Transition name="fade" mode="out-in">
+            <img  :src="slideImage.image" :key="slideImage.image" class=" rounded select-none pointer-events-none w-full" />
+          </Transition>
+        </div>
         <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
       </div>
       <div class="story-slide-controls flex items-center justify-between">
@@ -54,14 +58,15 @@ export default {
       currentTextSlide: 0,
 
       lineHeight: -1,
-      linesPerSlide: 2,
+      linesPerSlide: 3,
       slideWidth: 0,
 
       maxSlides: 0,
 
       startX: 0,
       startY: 0,
-      threshold: 50
+      threshold: 50,
+      isFading: false,
     }
   },
   updated () {
@@ -77,9 +82,6 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress)
   },
   computed: {
-    totalPagesInAllSlides () {
-      return
-    },
     segment () {
       return this.getSegment()
     },
@@ -93,7 +95,7 @@ export default {
       return this.block.items[this.currentSlideIndex]
     },
     maxHeight () {
-      return this.lineHeight * this.linesPerSlide + 5
+      return this.lineHeight * this.linesPerSlide + 3
     },
 
     currentOffsetX () {
@@ -120,7 +122,10 @@ export default {
       this.slideWidth = this.getWidthMinusPadding(imageSlide)
 
       this.lineHeight = parseFloat(getComputedStyle(container).lineHeight)
-      this.maxSlides = Math.ceil(parseFloat(getComputedStyle(container).height) / this.lineHeight / this.linesPerSlide) - 1
+
+
+
+      this.maxSlides = Math.ceil((parseFloat(getComputedStyle(container).height) - parseFloat(getComputedStyle(container).paddingBottom) - parseFloat(getComputedStyle(container).paddingTop)) / this.lineHeight / this.linesPerSlide)
     },
 
     handleKeyPress(event) {
@@ -154,22 +159,32 @@ export default {
 
     nextSlide() {
       this.calculateLineHeight()
-      if (this.currentTextSlide < this.maxSlides-1) {
-        this.currentTextSlide++
-      } else if (this.currentSlideIndex < this.block.items.length-1) {
-        this.currentSlideIndex++
-        this.calculateLineHeight()
-        this.currentTextSlide = 0
-      }
+
+
+      this.isFading = true
+      setTimeout(() => {
+        if (this.currentTextSlide < this.maxSlides-1) {
+          this.currentTextSlide++
+        } else if (this.currentSlideIndex < this.block.items.length-1) {
+          this.currentSlideIndex++
+          this.calculateLineHeight()
+          this.currentTextSlide = 0
+        }
+        this.isFading = false
+      }, 300);
     },
     prevSlide() {
       this.calculateLineHeight()
-      if (this.currentTextSlide > 0) {
-        this.currentTextSlide--
-      } else if (this.currentSlideIndex > 0) {
-        this.currentSlideIndex--
-        this.currentTextSlide = 0
-      }
+      this.isFading = true
+      setTimeout(() => {
+        if (this.currentTextSlide > 0) {
+          this.currentTextSlide--
+        } else if (this.currentSlideIndex > 0) {
+          this.currentSlideIndex--
+          this.currentTextSlide = 0
+        }
+        this.isFading = false
+      }, 300)
     },
   },
 }
@@ -177,15 +192,16 @@ export default {
 
 <style lang="scss">
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.2s;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
 .story-slide {
+
   &-text-size {
-    @apply md:text-2xl lg:text-3xl xl:text-5xl leading-snug md:leading-9 leading-normal;
+    @apply text-base sm:leading-tight sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-snug md:leading-6 lg:leading-8 xl:leading-9;
   }
 
   &-text {
@@ -196,7 +212,8 @@ export default {
     & > div {
       @apply overflow-hidden;
       & > p {
-        @apply story-slide-text-size transition-all ease-in-out;
+        @apply story-slide-text-size;
+        transition: opacity 0.3s ease-in-out;
       }
     }
 
@@ -229,7 +246,7 @@ export default {
   }
 
   &-hidden-container {
-    @apply top-0 p-4 md:p-8 invisible bg-red-200 story-slide-text-size absolute;
+    @apply top-0 p-4 md:p-8 invisible w-full bg-red-200 story-slide-text-size absolute;
   }
 }
 </style>
