@@ -25,8 +25,8 @@
           <StoryAudio v-if="segment.audio" :audio="segment.audio"></StoryAudio>
         </div>
         <div>
-          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon class="story-slide-controls-arrow" /></button>
-          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon class="story-slide-controls-arrow" /></button>
+          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon :class="{'fill-gray-200': currentSlideIndex <= 0}" class="story-slide-controls-arrow" /></button>
+          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon :class="{'fill-gray-200': currentSlideIndex === block.items.length-1 && currentTextSlide === maxSlides-1}" class="story-slide-controls-arrow" /></button>
         </div>
       </div>
     </div>
@@ -77,6 +77,9 @@ export default {
     window.removeEventListener('keydown', this.handleKeyPress)
   },
   computed: {
+    totalPagesInAllSlides () {
+      return
+    },
     segment () {
       return this.getSegment()
     },

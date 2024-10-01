@@ -40,7 +40,7 @@ export default {
       }
       this.player.on('playing', playing)
       this.player.on('pause', playing)
-      this.selectedAudio = this.audio[this.audio.findIndex((item) => item.targetIndex === self.target) || 0]
+      this.selectedAudio = this.audio[this.audio.find((item) => item.targetIndex === this.target) || 0]
     }
   },
   beforeUnmount () {
