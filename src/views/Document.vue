@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <Disclosure :defaultOpen="!document.segments.length || document.segments.length === 1" v-slot="{ open }">
+        <Disclosure v-slot="{ open }">
           <DisclosureButton  class="rounded md:text-right pr-4 py-2">
             <div class="flex flex-row md:justify-end gap-3">
               <ChevronUpIcon v-if="open" class="w-3" />
