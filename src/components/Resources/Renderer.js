@@ -9,8 +9,8 @@ renderer.link = function (href, title, text) {
         return `<a class="resource-link resource-link-sspm-bible" title="${title ?? ""}" href="${href}">${text}</a>`
     }
 
-    if (href.indexOf("sspmEGW://") === 0) {
-        return `<a class="resource-link resource-link-sspm-egw" title="${title ?? ""}" href="${href}">${text}</a>`
+    if ((href.indexOf("sspmEGW://") === 0) || (href.indexOf("sspmegw://") === 0)) {
+        return `<a class="resource-link resource-link-sspm-egw" title="${title ?? ""}" href="${href.replace(/sspmegw/i, 'sspmEGW')}">${text}</a>`
     }
 
     return `<a class="resource-link resource-link-other" title="${title ?? ""}" href="${href}" target="_blank">${text}</a>`
