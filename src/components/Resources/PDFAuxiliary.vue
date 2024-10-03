@@ -16,6 +16,10 @@ import { DocumentTextIcon, CursorArrowRippleIcon } from '@heroicons/vue/24/outli
 
 const emit = defineEmits(['pdfAuxToggle'])
 const props = defineProps(['resource', 'target', 'popup', 'story'])
+
+// Access the current component's instance
+const internalInstance = getCurrentInstance();
+
 const { proxy } = getCurrentInstance()
 
 let pdfAuxOpen = ref(false)
@@ -43,5 +47,9 @@ const checkIfPDFAuxAvailable = async () => {
 
 onMounted(async () => {
   await checkIfPDFAuxAvailable()
+
+  internalInstance.appContext.config.globalProperties.emitter.on('pdfAuxToggle', () => {
+    pdfAuxOpen.value = !pdfAuxOpen.value
+  })
 })
 </script>

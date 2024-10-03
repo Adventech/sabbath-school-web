@@ -141,6 +141,7 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/sol
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { useTitle } from "@vueuse/core"
+import { nextTick } from 'vue'
 
 export default {
   components: {
@@ -224,6 +225,15 @@ export default {
 
     this.emitter.on('comment', async (v) => {
       this.commentInputOpen = true
+    })
+
+    this.emitter.on('enterFullScreen', async () => {
+      if (this.pdfAuxOpen) {
+        this.pdfAuxOpen = false
+        this.emitter.emit('pdfAuxToggle')
+        await nextTick()
+        this.emitter.emit('enterFullScreen')
+      }
     })
 
     const title = useTitle()

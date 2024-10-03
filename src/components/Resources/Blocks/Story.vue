@@ -105,7 +105,7 @@ import { Dialog, DialogPanel } from '@headlessui/vue'
 import StoryAudio from '@/components/Resources/StoryAudio.vue'
 
 export default {
-  props: ['block', 'parent', 'userInput'],
+  props: ['block', 'parent', 'userInput', 'nested'],
   inject: ['getDefaultStyles', 'getSegment'],
   components: { ArrowRightCircleIcon, ArrowLeftCircleIcon, StoryAudio, Dialog, DialogPanel, Bars3BottomLeftIcon, XMarkIcon },
   data () {
