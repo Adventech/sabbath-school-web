@@ -7,18 +7,23 @@ export default {
         vue.directive('bible-links', {
             mounted(el, binding) {
                 el.addEventListener('click', (event) => {
-                    if (event.target.classList.contains("resource-link-sspm-bible")) {
-                        vue.config.globalProperties.emitter.emit('bible-click',
-                            { verse: event.target.getAttribute("href"), ...binding.value }
-                        )
-                        event.preventDefault()
-                    }
+                    const linkElement = event.target.closest('a');
+                    if (linkElement) {
+                        // Check for Bible link class
+                        if (linkElement.classList.contains("resource-link-sspm-bible")) {
+                            vue.config.globalProperties.emitter.emit('bible-click',
+                                { verse: linkElement.getAttribute("href"), ...binding.value }
+                            );
+                            event.preventDefault();
+                        }
 
-                    if (event.target.classList.contains("resource-link-sspm-egw")) {
-                        vue.config.globalProperties.emitter.emit('egw-click',
-                            { reference: event.target.getAttribute("href"), title: event.target.textContent, ...binding.value }
-                        )
-                        event.preventDefault()
+                        // Check for EGW link class
+                        if (linkElement.classList.contains("resource-link-sspm-egw")) {
+                            vue.config.globalProperties.emitter.emit('egw-click',
+                                { reference: linkElement.getAttribute("href"), title: linkElement.textContent, ...binding.value }
+                            );
+                            event.preventDefault();
+                        }
                     }
                 });
             }
