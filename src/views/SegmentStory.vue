@@ -6,10 +6,6 @@
         <div class="px-5">
           <slot name="auxPdfStory"></slot>
         </div>
-
-        <template v-if="$slots.pdf && $slots.pdf().length">
-          <slot name="pdf"></slot>
-        </template>
       </div>
       <div class="px-6 flex flex-row gap-5 items-center">
         <FullScreenIcon @click="enterFullScreen()" class="w-4 mt-1 cursor-pointer" />
@@ -17,7 +13,11 @@
       </div>
     </div>
 
-    <Block v-if="!$slots.pdf || !$slots.pdf().length" v-for="(block) in segment.blocks"
+    <template v-if="$slots.pdf && $slots.pdf().length">
+      <slot name="pdf"></slot>
+    </template>
+
+    <Block v-else v-for="(block) in segment.blocks"
            :block="block"
            :key="`segment_block_${block.id}`"
     ></Block>
