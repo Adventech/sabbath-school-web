@@ -3,7 +3,7 @@
     <LoadingDetail></LoadingDetail>
   </template>
   <div v-else-if="document" class="flex gap-5 my-10 flex-col md:flex-row">
-    <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right ">
+    <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right">
       <div class="flex flex-col gap-5">
         <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
           <router-link tag="div" :to="`/resources/${resource.index}`">

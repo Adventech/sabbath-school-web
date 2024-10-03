@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="w-10 overflow-hidden">
     <audio class="story-audio" controls></audio>
   </div>
 </template>
@@ -15,7 +15,7 @@ let player = ref(null)
 let playing = ref(false)
 
 const setupPlayer = () => {
-  player = new Plyr('.story-audio', { controls: ['play', 'volume']})
+  player = new Plyr('.story-audio', { controls: ['play']})
 
   let playing = function (e) {
     playing.value = e.detail.plyr.playing

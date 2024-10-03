@@ -14,7 +14,6 @@
         <template #auxPdf>
           <slot name="auxPdf"></slot>
         </template>
-
         <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
           <slot name="pdf"></slot>
         </template>
@@ -22,6 +21,9 @@
       <SegmentStory v-if="sSegment.type === 'story'" :segment="sSegment">
         <template #auxPdfStory>
           <slot name="auxPdfStory"></slot>
+        </template>
+        <template #auxAudio>
+          <slot name="auxAudio"></slot>
         </template>
         <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
           <slot name="pdf"></slot>

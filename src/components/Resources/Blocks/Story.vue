@@ -1,72 +1,147 @@
 <template>
   <div>
+    <!-- Full screen story -->
+    <Dialog :open="fullScreen">
+      <DialogPanel tabindex="0">
+        <div class="z-20 fixed top-0 bottom-0 right-0 left-0 bg-black text-white">
+          <!-- Controls -->
+          <div class="absolute top-0 bottom-0 right-0 left-0 z-30">
+            <div class="absolute story-slide-controls top-5 right-5 flex justify-end gap-2 flex-row bg-black/20 p-2 rounded">
+              <StoryAudio v-if="segment.audio" :audio="segment.audio"></StoryAudio>
+              <Bars3BottomLeftIcon @click="fullScreenCaptionsShown = !fullScreenCaptionsShown" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
+              <XMarkIcon @click="fullScreen=false" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
+            </div>
+            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex <= 0}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-20 h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex === block.items.length-1 && fullScreenCurrentTextSlide === fullScreenMaxSlides-1}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-20 h-20 hover:text-white transition-all" /></button>
+          </div>
+
+          <div ref="fullScreenPanel" class="h-screen flex justify-center relative">
+            <div class="relative">
+              <div class="absolute w-auto story-slide-text"
+
+                   :class="[`${blockClassesAndStyle.class} ${textClassesAndStyle.class}`, `${getBlockStyleClass(defaultStyles, fullScreenCurrentSlide, false, 'block').class} ${getInlineTextStyle(fullScreenCurrentSlide.style).class} overflow-hidden story-slide-padding`, {'invisible': !fullScreenCaptionsShown}]"
+                   :style="`${blockClassesAndStyle.style}; ${textClassesAndStyle.style}; ${getBlockStyleClass(defaultStyles, fullScreenCurrentSlide, false, 'block').style};${getInlineTextStyle(fullScreenCurrentSlide.style).style}; ${fullScreenCurrentSlide.alignment}: ${fullScreenCaptionMargin}px; width: ${fullScreenImageWidthWithPadding}px; height: ${fullScreenMaxHeightWithPadding}px; overflow:hidden`">
+                <div>
+                      <p  class="story-slide-text-size"
+                          :style="`height: ${fullScreenMaxHeight}px; column-gap:0px;width: ${fullScreenImageWidth*fullScreenMaxSlides}px; column-count:${fullScreenMaxSlides}; opacity: ${fullScreenIsFading ? 0 : 1}; margin-left: -${fullScreenCurrentOffsetX}px; ${getInlineTextStyle(fullScreenCurrentSlide.style).style}`"
+                          :class="[getInlineTextStyle(fullScreenCurrentSlide.style).class, {'justify-center flex flex-col h-full': fullScreenMaxSlides === 1}]"
+                          v-if="fullScreenParagraphText" v-html="fullScreenParagraphText">
+
+                  </p>
+                </div>
+              </div>
+
+              <div :class="{'hidden': slideImage.image !== fullScreenCurrentSlide.image}" v-for="slideImage in block.items">
+                  <img
+                      ref="imageRef"
+                      @load="calculateFullScreenCaptionMargin()"
+                      :src="slideImage?.style?.image?.variants?.portrait ?? slideImage.image" :key="slideImage.image"
+                      class="h-screen w-auto object-contain select-none" />
+              </div>
+
+              <p ref="hiddenContainerFullScreen"
+                 :style="`${getInlineTextStyle(fullScreenCurrentSlide.style).style}`"
+                 :class="getInlineTextStyle(fullScreenCurrentSlide.style).class"
+                 class="story-slide-hidden-container-fullscreen story-slide-padding" v-html="fullScreenParagraphText"></p>
+            </div>
+          </div>
+        </div>
+      </DialogPanel>
+    </Dialog>
+
+    <!-- Inline story -->
     <div
         v-if="currentSlide"
         @touchstart="handleTouchStart"
         @touchend="handleTouchEnd"
         class="flex flex-col gap-3">
-      <div class="story-slide relative">
+      <div class="story-slide relative flex flex-row justify-center">
         <div
-            :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} pl-4 pt-4 pb-4 pr-4 md:pl-8 md:pr-8 md:pt-8 md:pb-8`"
-            :style="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
-            class="story-slide-text-position w-full">
-          <div :class="{'justify-center flex flex-col h-full': maxSlides === 1}" class="" ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
-            <p  :style="`height: fit-content; column-gap: 0; width: ${slideWidth*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
+            :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} story-slide-padding`"
+            :style="`max-width: ${slideWidth}px; ${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
+            class="story-slide-text-position">
+          <div :class="{'justify-center flex flex-col h-full': maxSlides === 1}" ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
+            <p :style="`height: fit-content; column-gap: 0; width: ${slideWidthWithoutPadding*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
                v-if="paragraphText" v-html="paragraphText">
 
             </p>
           </div>
         </div>
-        <div :class="{'hidden': slideImage.image !== currentSlide.image}" v-for="slideImage in block.items">
-          <Transition name="fade" mode="out-in">
-            <img  :src="slideImage.image" :key="slideImage.image" class=" rounded select-none pointer-events-none w-full" />
-          </Transition>
+
+        <div :class="{'hidden opacity-0': slideImage.image !== currentSlide.image}" v-for="slideImage in block.items" :key="slideImage.image">
+          <transition name="fade">
+          <img
+              ref="imageRefInline"
+              @load="calculateLineHeight"
+              :src="slideImage.image" :key="slideImage.image"
+              :class="[
+                  {'max-h-[500px] md:max-h-[600px] lg:max-h-[700px] xl:max-h-[900px]': isLandscape},
+                  {'max-h-[400px] md:max-h-[500px] lg:max-h-[500px] xl:max-h-[600px]': !isLandscape},
+              ]"
+              class="mx-auto rounded select-none object-contain pointer-events-none" />
+          </transition>
         </div>
-        <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-text-position" v-html="paragraphText"></p>
+
+        <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-padding story-slide-text-position" v-html="paragraphText"></p>
       </div>
-      <div class="story-slide-controls flex items-center justify-between">
-        <div>
-          <StoryAudio v-if="segment.audio" :audio="segment.audio"></StoryAudio>
-        </div>
+      <div class="story-slide-controls flex items-center justify-end">
         <div>
           <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon :class="{'fill-gray-200': currentSlideIndex <= 0}" class="story-slide-controls-arrow" /></button>
           <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon :class="{'fill-gray-200': currentSlideIndex === block.items.length-1 && currentTextSlide === maxSlides-1}" class="story-slide-controls-arrow" /></button>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { nextTick } from 'vue'
 import { marked, renderer } from "@/components/Resources/Renderer.js"
-import { getInlineTextStyle } from "@/plugins/Theme/TextStyle.js"
-import { ArrowRightCircleIcon, ArrowLeftCircleIcon } from '@heroicons/vue/24/solid'
-import { getBlockStyleClass } from "../../../plugins/Theme/BlockStyle"
+import { getBlockStyleClass } from '@/plugins/Theme/BlockStyle.js'
+import { getInlineTextStyle, getTextStyleAndClass } from "@/plugins/Theme/TextStyle.js"
+import { ArrowRightCircleIcon, ArrowLeftCircleIcon, Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { Dialog, DialogPanel } from '@headlessui/vue'
+
 import StoryAudio from '@/components/Resources/StoryAudio.vue'
 
 export default {
   props: ['block', 'parent', 'userInput'],
   inject: ['getDefaultStyles', 'getSegment'],
-  components: { ArrowRightCircleIcon, ArrowLeftCircleIcon, StoryAudio },
+  components: { ArrowRightCircleIcon, ArrowLeftCircleIcon, StoryAudio, Dialog, DialogPanel, Bars3BottomLeftIcon, XMarkIcon },
   data () {
     return {
       getInlineTextStyle,
       getBlockStyleClass,
-      currentSlideIndex: 0,
-      currentTextSlide: 0,
-
       lineHeight: -1,
       linesPerSlide: 3,
-      slideWidth: 0,
 
+      currentSlideIndex: 0,
+      currentTextSlide: 0,
+      slideWidth: 0,
+      slideWidthWithoutPadding: 0,
       maxSlides: 0,
+      isLandscape: false,
 
       startX: 0,
       startY: 0,
       threshold: 50,
+
       isFading: false,
+
+      // fullscreen
+      fullScreen: false,
+      fullScreenLineHeight: 0,
+      fullScreenCaptionMargin: 0,
+      fullScreenImageWidth: 0,
+      fullScreenImageWidthWithPadding: 0,
+      fullScreenImageHeight: 0,
+      fullScreenCurrentSlideIndex: 0,
+      fullScreenCurrentTextSlide: 0,
+      fullScreenMaxSlides: 0,
+      fullScreenMaxHeight: 0,
+      fullScreenMaxHeightWithPadding: 0,
+      fullScreenIsFading: false,
+      fullScreenCaptionsShown: true,
     }
   },
   updated () {
@@ -75,10 +150,15 @@ export default {
   mounted () {
     this.calculateLineHeight();
     window.addEventListener('resize', this.calculateLineHeight)
+    window.addEventListener('resize', this.calculateFullScreenCaptionMargin)
     window.addEventListener('keydown', this.handleKeyPress)
+    this.emitter.on('enterFullScreen', () => {
+      this.fullScreen = true
+    })
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.calculateLineHeight)
+    window.removeEventListener('resize', this.calculateFullScreenCaptionMargin)
     window.removeEventListener('keydown', this.handleKeyPress)
   },
   computed: {
@@ -91,45 +171,95 @@ export default {
     paragraphText () {
       return marked.parse(this.currentSlide.markdown, { renderer })
     },
+    fullScreenParagraphText () {
+      return marked.parse(this.fullScreenCurrentSlide.markdown, { renderer })
+    },
     currentSlide () {
       return this.block.items[this.currentSlideIndex]
     },
-    maxHeight () {
-      return this.lineHeight * this.linesPerSlide + 3
+    fullScreenCurrentSlide () {
+      return this.block.items[this.fullScreenCurrentSlideIndex]
     },
-
+    maxHeight () {
+      return this.lineHeight * this.linesPerSlide + 3.5
+    },
     currentOffsetX () {
       if (!this.lineHeight) return 0
-      return (this.currentTextSlide) * this.slideWidth
+      return (this.currentTextSlide) * this.slideWidthWithoutPadding
+    },
+    fullScreenCurrentOffsetX () {
+      if (!this.fullScreenLineHeight) return 0
+      return (this.fullScreenCurrentTextSlide) * this.fullScreenImageWidth
+    },
+    blockClassesAndStyle () {
+      let ret = { class: "", style: "" }
+      if (!this.block.id || !this.defaultStyles) return ret
+      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "block") }
+    },
+
+    textClassesAndStyle () {
+      let ret = { class: "", style: "" }
+      if (!this.block.id || !this.defaultStyles) return ret
+      let b = { ...ret, ...getTextStyleAndClass(this.defaultStyles, this.block, this.nested, "text") }
+      return b
+    },
+
+    wrapperClassesAndStyle () {
+      let ret = { class: "", style: "" }
+      if (!this.block.id || !this.defaultStyles) return ret
+      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "wrapper") }
     },
   },
   methods: {
-    getWidthMinusPadding (element) {
-      const style = window.getComputedStyle(element)
-      const paddingLeft = parseFloat(style.paddingLeft)
-      const paddingRight = parseFloat(style.paddingRight)
-      const fullWidth = element.clientWidth
+    async calculateFullScreenCaptionMargin () {
+      await nextTick()
 
-      return fullWidth - paddingLeft - paddingRight
+      const container = this.$refs.hiddenContainerFullScreen
+      const image = this.$refs.imageRef[this.fullScreenCurrentSlideIndex]
+
+      if (!image) { return }
+
+      let trueHeight = image.naturalHeight
+      let trueWidth = image.naturalWidth
+      let trueAspect = trueWidth / trueHeight
+
+      let imageWidth = parseFloat(getComputedStyle(image).width)
+
+      let imageWidthNatural = image.clientWidth
+      let imageHeight = image.clientHeight
+
+      let imageContentHeight = imageWidthNatural / trueAspect
+
+      this.fullScreenImageWidth = imageWidth - parseFloat(getComputedStyle(container).paddingLeft) - parseFloat(getComputedStyle(container).paddingRight)
+      this.fullScreenImageWidthWithPadding = imageWidth
+      this.fullScreenLineHeight = parseFloat(getComputedStyle(container).lineHeight)
+      this.fullScreenMaxHeight = this.fullScreenLineHeight * this.linesPerSlide + 3
+      this.fullScreenMaxHeightWithPadding = this.fullScreenMaxHeight + parseFloat(getComputedStyle(container).paddingTop) + parseFloat(getComputedStyle(container).paddingBottom)
+
+      this.fullScreenMaxSlides = Math.ceil((parseFloat(getComputedStyle(container).height) - parseFloat(getComputedStyle(container).paddingBottom) - parseFloat(getComputedStyle(container).paddingTop)) / this.fullScreenLineHeight / this.linesPerSlide)
+
+      this.fullScreenCaptionMargin = (imageHeight > imageContentHeight) ?  (imageHeight - imageContentHeight)/2 : 0
     },
+
     async calculateLineHeight() {
       await nextTick()
       const container = this.$refs.hiddenContainer
 
       if (!container) return
 
-      const imageSlide = this.$refs.imageSlide
-      this.slideWidth = this.getWidthMinusPadding(imageSlide)
+      const imageSlide = this.$refs.imageRefInline[this.currentSlideIndex]
+      this.slideWidth = parseFloat(getComputedStyle(imageSlide).width)
+      this.isLandscape = parseFloat(getComputedStyle(imageSlide).width) > parseFloat(getComputedStyle(imageSlide).height)
+      this.slideWidthWithoutPadding = this.slideWidth - parseFloat(getComputedStyle(container).paddingLeft) -parseFloat(getComputedStyle(container).paddingRight)
 
       this.lineHeight = parseFloat(getComputedStyle(container).lineHeight)
-
-
-
       this.maxSlides = Math.ceil((parseFloat(getComputedStyle(container).height) - parseFloat(getComputedStyle(container).paddingBottom) - parseFloat(getComputedStyle(container).paddingTop)) / this.lineHeight / this.linesPerSlide)
     },
 
     handleKeyPress(event) {
-      if (event.key === 'ArrowLeft') {
+      if (event.key === 'Escape' && this.fullScreen) {
+        this.fullScreen = false
+      } else if (event.key === 'ArrowLeft') {
         this.prevSlide()
       } else if (event.key === 'ArrowRight') {
         this.nextSlide()
@@ -158,33 +288,65 @@ export default {
     },
 
     nextSlide() {
-      this.calculateLineHeight()
+      if (this.fullScreen) {
+        this.fullScreenIsFading = true
+        setTimeout(() => {
+          if (this.fullScreenCurrentTextSlide < this.fullScreenMaxSlides-1 && this.fullScreenCaptionsShown) {
+            this.fullScreenCurrentTextSlide++
+          } else if (this.fullScreenCurrentSlideIndex < this.block.items.length-1) {
+            this.fullScreenCurrentSlideIndex++
+            this.fullScreenCurrentTextSlide = 0
+          }
+          this.fullScreenIsFading = false
+          this.calculateFullScreenCaptionMargin()
+        }, 300)
+      } else {
+        this.calculateLineHeight()
+        this.isFading = true
+        setTimeout(() => {
+          if (this.currentTextSlide < this.maxSlides-1 && this.fullScreenCaptionsShown) {
+            this.currentTextSlide++
+          } else if (this.currentSlideIndex < this.block.items.length-1) {
+            this.currentSlideIndex++
+            this.calculateLineHeight()
+            this.currentTextSlide = 0
+          }
+          this.isFading = false
+        }, 300);
+        this.calculateLineHeight()
+      }
 
 
-      this.isFading = true
-      setTimeout(() => {
-        if (this.currentTextSlide < this.maxSlides-1) {
-          this.currentTextSlide++
-        } else if (this.currentSlideIndex < this.block.items.length-1) {
-          this.currentSlideIndex++
-          this.calculateLineHeight()
-          this.currentTextSlide = 0
-        }
-        this.isFading = false
-      }, 300);
     },
+
     prevSlide() {
-      this.calculateLineHeight()
-      this.isFading = true
-      setTimeout(() => {
-        if (this.currentTextSlide > 0) {
-          this.currentTextSlide--
-        } else if (this.currentSlideIndex > 0) {
-          this.currentSlideIndex--
-          this.currentTextSlide = 0
-        }
-        this.isFading = false
-      }, 300)
+      if (this.fullScreen) {
+
+        this.fullScreenIsFading = true
+        setTimeout(() => {
+          if (this.fullScreenCurrentTextSlide > 0) {
+            this.fullScreenCurrentTextSlide--
+          } else if (this.fullScreenCurrentSlideIndex > 0) {
+            this.fullScreenCurrentSlideIndex--
+            this.fullScreenCurrentTextSlide = 0
+          }
+          this.calculateFullScreenCaptionMargin()
+          this.fullScreenIsFading = false
+        }, 300)
+
+      } else {
+        this.calculateLineHeight()
+        this.isFading = true
+        setTimeout(() => {
+          if (this.currentTextSlide > 0) {
+            this.currentTextSlide--
+          } else if (this.currentSlideIndex > 0) {
+            this.currentSlideIndex--
+            this.currentTextSlide = 0
+          }
+          this.isFading = false
+        }, 300)
+      }
     },
   },
 }
@@ -198,11 +360,26 @@ export default {
   opacity: 0;
 }
 
+.story-slide-padding {
+  @apply p-2 #{!important};
+  @apply sm:p-3 #{!important};
+  @apply md:p-4 #{!important};
+  @apply lg:p-5 #{!important};
+  @apply xl:p-5 #{!important};
+}
+
 .story-slide {
 
   &-text-size {
-    @apply text-base sm:leading-tight sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-snug md:leading-6 lg:leading-8 xl:leading-9;
+    @apply
+    text-base leading-4
+    sm:text-base sm:leading-5
+    md:text-lg md:leading-5
+    lg:text-xl lg:leading-7
+    xl:text-2xl xl:leading-8;
   }
+
+
 
   &-text {
     &-position {
@@ -226,13 +403,18 @@ export default {
   }
 
   &-controls {
+    .plyr {
+      @apply w-10 #{!important};
+    }
     .plyr__controls {
+      @apply w-10 #{!important};
       background: transparent !important;
       justify-content: flex-start !important;
       padding: 0 !important;
 
       button {
         margin: 0 !important;
+        @apply text-white/80;
       }
 
       input {
@@ -247,6 +429,10 @@ export default {
 
   &-hidden-container {
     @apply top-0 p-4 md:p-8 invisible w-full bg-red-200 story-slide-text-size absolute;
+  }
+
+  &-hidden-container-fullscreen {
+    @apply absolute invisible top-0 bg-red-400/50 w-full story-slide-text-size right-0;
   }
 }
 </style>
