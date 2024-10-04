@@ -6,7 +6,7 @@
     <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right">
       <div class="flex flex-col gap-5">
         <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
-          <router-link tag="div" :to="`/resources/${resource.index}`">
+          <router-link tag="div" :to="`/resources/${resource.index}`" class="shrink-0">
             <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" />
           </router-link>
           <div class="flex flex-col p-2 gap-2">
