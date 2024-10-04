@@ -1,6 +1,6 @@
 <template>
   <div>
-    <audio class="w-full" controls>
+    <audio class="w-full" controls preload="none">
       <source :src="block.src" />
     </audio>
     <p v-if="block.caption" class="select-none italic text-gray-400 mt-1 text-center w-full">{{ block.caption }}</p>
