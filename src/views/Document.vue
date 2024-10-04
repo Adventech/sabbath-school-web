@@ -44,7 +44,7 @@
           </div>
           <Menu as="div" class="relative inline-block md:hidden text-left z-10">
             <div>
-              <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2 w-full focus:outline-none">
+              <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2 w-full focus:outline-none text-left">
                 <div class="flex items-center justify-between">
                   <span>{{ selectedSegment.title }}</span>
                   <span class="pointer-events-none flex items-center">
