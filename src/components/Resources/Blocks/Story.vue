@@ -3,7 +3,10 @@
     <!-- Full screen story -->
     <Dialog :open="fullScreen">
       <DialogPanel tabindex="0">
-        <div class="z-20 fixed top-0 bottom-0 right-0 left-0 bg-black text-white">
+        <div
+            @touchstart="handleTouchStart"
+            @touchend="handleTouchEnd"
+            class="z-20 fixed top-0 bottom-0 right-0 left-0 bg-black text-white">
           <!-- Controls -->
           <div class="absolute top-0 bottom-0 right-0 left-0 z-30">
             <div class="absolute story-slide-controls top-5 right-5 flex justify-end gap-2 flex-row bg-black/20 p-2 rounded">
@@ -11,8 +14,8 @@
               <Bars3BottomLeftIcon @click="fullScreenCaptionsShown = !fullScreenCaptionsShown" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
               <XMarkIcon @click="fullScreen=false" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
             </div>
-            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex <= 0}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-20 h-20 hover:text-white transition-all" /></button>
-            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex === block.items.length-1 && fullScreenCurrentTextSlide === fullScreenMaxSlides-1}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-20 h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex <= 0}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex === block.items.length-1 && fullScreenCurrentTextSlide === fullScreenMaxSlides-1}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
           </div>
 
           <div ref="fullScreenPanel" class="h-screen flex justify-center relative">
