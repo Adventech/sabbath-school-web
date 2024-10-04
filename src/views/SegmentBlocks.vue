@@ -24,7 +24,7 @@
       >
         <div v-if="!titleBelowCover">
           <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3" v-html="title"></p>
+          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-lg md:text-2xl lg:text-3xl font-bold w-full" v-html="title"></p>
           <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
         </div>
       </div>
@@ -32,7 +32,7 @@
 
     <div class="p-5" v-if="titleBelowCover">
       <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-xl md:text-3xl font-bold w-full line-clamp-3" v-html="title"></p>
+      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-lg md:text-2xl lg:text-3xl font-bold w-full" v-html="title"></p>
       <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
     </div>
 

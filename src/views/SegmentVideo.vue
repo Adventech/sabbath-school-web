@@ -2,9 +2,14 @@
   <div class="flex flex-col lg:flex-row">
     <div class="w-full lg:w-9/12 flex-grow flex flex-col order-2 lg:order-1">
       <div class="flex flex-col gap-5 p-5">
-        <video class="w-full rounded shadow" controls :poster="currentVideo.thumbnail" :key="currentVideo.src">
-          <source :src="currentVideo.src" />
-        </video>
+        <video-player class="w-full"
+                      :src="currentVideo.hls || currentVideo.src"
+                      :aspectRatio="'16:9'"
+                      :preload="'auto'"
+                      :poster="currentVideo.thumbnail"
+                      :key="currentVideo.src" controls>
+        </video-player>
+
         <div class="flex flex-col gap-1">
           <p class="text-2xl font-bold">{{ currentVideo.title || segment.title }}</p>
           <p v-if="currentVideo.artist" class="text-lg text-gray-500">{{ currentVideo.artist }}</p>
@@ -34,8 +39,11 @@
 </template>
 
 <script>
+import { VideoPlayer } from '@videojs-player/vue'
+
 export default {
   props: ['segment'],
+  components: { VideoPlayer },
   data () {
     return {
       currentVideoIndex: 0,
@@ -49,3 +57,31 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.video-js {
+  .vjs-big-play-button {
+    width: 1.63332em;
+    border: 0;
+    border-radius: 100%;
+    margin: auto;
+    transform: translate(-50%, -50%);
+    @apply bg-ss-primary #{!important};
+    @apply hover:opacity-80 #{!important};
+  }
+
+  .vjs-poster {
+    @apply rounded;
+    picture, img {
+      @apply rounded-lg;
+    }
+  }
+  @apply rounded-lg bg-transparent ;
+  video {
+    @apply rounded-lg;
+  }
+  .vjs-control-bar {
+    @apply bg-transparent mb-2;
+  }
+}
+</style>
