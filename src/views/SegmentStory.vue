@@ -2,10 +2,8 @@
   <div class="flex gap-3 flex-col py-5">
 
     <div class="flex justify-between items-center">
-      <div>
-        <div class="px-5">
-          <slot name="auxPdfStory"></slot>
-        </div>
+      <div class="px-5">
+        <slot name="auxPdfStory"></slot>
       </div>
       <div class="px-6 flex flex-row gap-5 items-center">
         <FullScreenIcon @click="enterFullScreen()" class="w-4 mt-1 cursor-pointer" />
