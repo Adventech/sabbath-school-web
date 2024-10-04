@@ -26,7 +26,7 @@ const checkIfAudioAuxAvailable = async () => {
     let response = await proxy.$apiResources.get(`${props.resource.index}/audio.json`)
     const contentType = response.headers["content-type"]
     if (contentType && contentType.indexOf("application/json") !== -1) {
-      audio.value = response.data.filter((item) => item.target.startsWith(props.target))
+      audio.value = response.data.filter((item) => props.target.startsWith(item.target))
     }
   } catch (e) {}
 }
