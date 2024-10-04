@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-end absolute right-5 top-5">
+    <div :class="[{'absolute right-5 top-5': cover}, {'pt-5 pr-5': !cover}]" class="flex justify-end">
       <div class="auxiliary auxiliary-light"
            :class="[{'auxiliary-dark': cover || themeStore().color === THEME_COLOR.DARK}]" >
         <slot name="auxTheme"></slot>
@@ -61,6 +61,7 @@ export default {
   components: { PDFAuxiliary },
   computed: {
     cover () {
+      console.log(this.segment.cover || this.document.cover)
       return this.segment.cover || this.document.cover
     },
     document () {
