@@ -1,4 +1,5 @@
 @import './plyr.css';
+@import './video-js.css';
 
 @tailwind base;
 @tailwind components;
