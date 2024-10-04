@@ -19,6 +19,8 @@ jobs:
           check-latest: true
       - name: Run install
         uses: borales/actions-yarn@v4
+        with:
+          cmd: install
       - run: yarn
       - run: npx vite build `[[ "${{ steps.extract_branch.outputs.branch }}" = "stage" ]] && echo '--mode stage'`
       - run: curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
