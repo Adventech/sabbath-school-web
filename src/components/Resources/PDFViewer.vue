@@ -19,10 +19,11 @@ const TOOLBAR_ITEMS_ALLOWED = ['zoom-in', 'zoom-out', 'zoom-mode' ,'spacer', 'in
 
 export default {
   props: ['pdfs'],
-  inject: ['getDocument', 'getDocumentUserInput'],
+  inject: ['getDocument'],
   components: { TabGroup, TabList, Tab, TabPanels, TabPanel },
   data () {
     return {
+      documentUserInput: null,
       instances: {},
       annotations: {},
       eventListeners: {},
@@ -31,9 +32,6 @@ export default {
   computed: {
     document () {
       return this.getDocument()
-    },
-    userInput () {
-      return this.getDocumentUserInput()
     },
     PSPSDFLicenseKey () {
       let domain = window.location.hostname
@@ -44,16 +42,22 @@ export default {
       return import.meta.env[`VITE_APP_PSPDF_KEY_${domain}`] || import.meta.env[`VITE_APP_PSPDF_KEY`]
     }
   },
-  watch: {
-    async userInput(newValue) {
-      await this.loadAnnotations()
-    }
-  },
   async mounted () {
-    await this.loadAnnotations()
+    await this.getDocumentUserInput()
     await this.loadPdf()
   },
   methods: {
+    async getDocumentUserInput () {
+      if (!authStore().isLoggedIn) {
+        this.documentUserInput = []
+        return
+      }
+      try {
+        const documentUserInput = await this.$apiAuthResources.get(`/resources/user/input/document/${this.document.id}`)
+        this.documentUserInput = documentUserInput.data
+      } catch (e) {}
+    },
+
     async loadPdf() {
       try {
         for (let [index, pdf] of this.pdfs.entries()) {
@@ -63,6 +67,7 @@ export default {
         console.error(e)
       }
     },
+
     async onAnnotationsChange (pdfId) {
       if (!authStore().isLoggedIn || !this.document) return
       let data = await this.instances[pdfId].exportInstantJSON()
@@ -78,41 +83,7 @@ export default {
         })
       } catch (e) {}
     },
-    loadAnnotations () {
-      if (!authStore().isLoggedIn || !this.document) return
-      for (let pdf of this.pdfs) {
-        this.annotations[pdf.id] = []
-        try {
-          let r = this.userInput.find(i => i.pdfId === pdf.id)
-          if (r) {
-            for (let annotation of r.data) {
-              annotation.annotations.map(a => {
-                let innerAnnotation = JSON.parse(a)
-                if (!innerAnnotation.id) { innerAnnotation.id = "" }
-                this.annotations[pdf.id].push(innerAnnotation)
-              })
-            }
-            if (this.instances[pdf.id]) {
-              this.applyAnnotations(pdf)
-            }
-          }
-        } catch (e) {
-          console.error(e)
-        }
-      }
-    },
-    applyAnnotations(pdf, annotations) {
-      if (!this.instances[pdf.id] || !this.annotations[pdf.id]) { return }
-      this.instances[pdf.id].applyOperations([
-        {
-          type: "applyInstantJson",
-          instantJson: {
-            annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
-            format: "https://pspdfkit.com/instant-json/v1",
-          }
-        }
-      ])
-    },
+
     async loadPSPDFKit(container, pdf) {
       PSPDFKit.unload(container);
       let toolbarItems = PSPDFKit.defaultToolbarItems.filter((item) => TOOLBAR_ITEMS_ALLOWED.indexOf(item.type) >= 0)
@@ -120,6 +91,22 @@ export default {
       toolbarItems.splice(pagerIndex + 1, 0, { type: "layout-config" });
 
       const baseUrl = `${window.location.protocol}//${window.location.host}/assets/js/`;
+
+      this.annotations[pdf.id] = []
+      try {
+        let r = this.documentUserInput.find(i => i.pdfId === pdf.id)
+        if (r) {
+          for (let annotation of r.data) {
+            annotation.annotations.map(a => {
+              let innerAnnotation = JSON.parse(a)
+              if (!innerAnnotation.id) { innerAnnotation.id = "" }
+              this.annotations[pdf.id].push(innerAnnotation)
+            })
+          }
+        }
+      } catch (e) {
+        console.error(e)
+      }
 
       let config = {
         baseUrl,
@@ -131,11 +118,13 @@ export default {
         styleSheets: [ "/assets/css/pspdfkit-css.css" ],
         document: pdf.src,
         container: container,
+        instantJSON: {
+          annotations: JSON.parse(JSON.stringify(this.annotations[pdf.id])),
+          format: "https://pspdfkit.com/instant-json/v1",
+        },
       }
 
       this.instances[pdf.id] = await PSPDFKit.load(config)
-
-      this.applyAnnotations(pdf)
 
       this.eventListeners[pdf.id] = () => {
         this.onAnnotationsChange(pdf.id)

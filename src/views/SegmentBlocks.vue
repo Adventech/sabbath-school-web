@@ -61,7 +61,6 @@ export default {
   components: { PDFAuxiliary },
   computed: {
     cover () {
-      console.log(this.segment.cover || this.document.cover)
       return this.segment.cover || this.document.cover
     },
     document () {
