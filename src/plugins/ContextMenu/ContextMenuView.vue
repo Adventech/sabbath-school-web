@@ -11,10 +11,10 @@
       <div @click="highlight()" class="cursor-pointer hover:bg-gray-200 rounded p-1 -ml-1">
         <XCircleIcon class="w-5 h-5 text-gray-500"></XCircleIcon>
       </div>
-    <div class="h-5 border border-r border-gray-200"></div>
-    <div @click="comment()" class="cursor-pointer hover:bg-gray-200 rounded p-1">
-      <ChatBubbleBottomCenterTextIcon class="w-5 h-5 fill-gray-600" />
-    </div>
+<!--    <div class="h-5 border border-r border-gray-200"></div>-->
+<!--    <div @click="comment()" class="cursor-pointer hover:bg-gray-200 rounded p-1">-->
+<!--      <ChatBubbleBottomCenterTextIcon class="w-5 h-5 fill-gray-600" />-->
+<!--    </div>-->
   </div>
 </template>
 
