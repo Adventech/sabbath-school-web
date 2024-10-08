@@ -14,8 +14,8 @@
               <Bars3BottomLeftIcon @click="fullScreenCaptionsShown = !fullScreenCaptionsShown" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
               <XMarkIcon @click="fullScreen=false" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
             </div>
-            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex <= 0}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
-            <button :class="{'invisible opacity-0': fullScreenCurrentSlideIndex === block.items.length-1 && fullScreenCurrentTextSlide === fullScreenMaxSlides-1}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': isFullScreenFirstSlide}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': isFullScreenLastSlide}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
           </div>
 
           <div ref="fullScreenPanel" class="h-screen flex justify-center relative">
@@ -42,9 +42,12 @@
                       class="h-screen w-auto object-contain select-none" />
               </div>
 
+              <div class=" story-slide-padding absolute top-0 w-full">
               <p ref="hiddenContainerFullScreen"
-                 :style="`${blockStyleFullScreen.style}`"
-                 class="story-slide-hidden-container-fullscreen story-slide-padding" v-html="fullScreenParagraphText"></p>
+                 :style="`${blockStyleFullScreen.style}; ${textStyleFullScreen.style}`"
+                 :class="['story-slide-hidden-container-fullscreen story-slide-padding']"
+                 v-html="fullScreenParagraphText"></p>
+              </div>
             </div>
           </div>
         </div>
@@ -84,12 +87,15 @@
           </transition>
         </div>
 
-        <p ref="hiddenContainer" :class="[textStyle.class]" class="story-slide-hidden-container story-slide-padding story-slide-text-position" v-html="paragraphText"></p>
+        <p ref="hiddenContainer"
+           :style="`max-width: ${slideWidth}px; ${blockStyle.style}; ${textStyle.style}`"
+           :class="[textStyle.class]"
+           class="story-slide-hidden-container story-slide-padding story-slide-text-position" v-html="paragraphText"></p>
       </div>
       <div class="story-slide-controls flex items-center justify-end">
         <div>
-          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon :class="{'fill-gray-200': currentSlideIndex <= 0}" class="story-slide-controls-arrow" /></button>
-          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon :class="{'fill-gray-200': currentSlideIndex === block.items.length-1 && currentTextSlide === maxSlides-1}" class="story-slide-controls-arrow" /></button>
+          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon :class="{'fill-gray-200': isFirstSlide}" class="story-slide-controls-arrow" /></button>
+          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon :class="{'fill-gray-200': isLastSlide}" class="story-slide-controls-arrow" /></button>
         </div>
       </div>
     </div>
@@ -163,25 +169,50 @@ export default {
     segment () {
       return this.getSegment()
     },
+
     defaultStyles () {
       return this.getDefaultStyles()
     },
+
     style () {
       return this.getStyle()
     },
+
     currentSlide () {
       return this.block.items[this.currentSlideIndex]
     },
+
     fullScreenCurrentSlide () {
       return this.block.items[this.fullScreenCurrentSlideIndex]
     },
+
+    isFirstSlide () {
+      return this.currentSlideIndex <= 0
+    },
+
+    isLastSlide () {
+      return this.currentSlideIndex === this.block.items.length - 1 &&
+          this.currentTextSlide === this.maxSlides - 1
+    },
+
+    isFullScreenFirstSlide () {
+      return this.fullScreenCurrentSlideIndex <= 0
+    },
+
+    isFullScreenLastSlide () {
+      return this.fullScreenCurrentSlideIndex === this.block.items.length - 1 &&
+          this.fullScreenCurrentTextSlide === this.fullScreenMaxSlides - 1
+    },
+
     maxHeight () {
       return this.lineHeight * this.linesPerSlide + 3.5
     },
+
     currentOffsetX () {
       if (!this.lineHeight) return 0
       return (this.currentTextSlide) * this.slideWidthWithoutPadding
     },
+
     fullScreenCurrentOffsetX () {
       if (!this.fullScreenLineHeight) return 0
       return (this.fullScreenCurrentTextSlide) * this.fullScreenImageWidth
@@ -290,6 +321,9 @@ export default {
 
     nextSlide() {
       if (this.fullScreen) {
+        if (this.isFullScreenLastSlide) {
+          return
+        }
         this.fullScreenIsFading = true
         setTimeout(() => {
           if (this.fullScreenCurrentTextSlide < this.fullScreenMaxSlides-1 && this.fullScreenCaptionsShown) {
@@ -302,6 +336,9 @@ export default {
           this.calculateFullScreenCaptionMargin()
         }, 300)
       } else {
+        if (this.isLastSlide) {
+          return
+        }
         this.calculateLineHeight()
         this.isFading = true
         setTimeout(() => {
@@ -316,13 +353,13 @@ export default {
         }, 300);
         this.calculateLineHeight()
       }
-
-
     },
 
     prevSlide() {
       if (this.fullScreen) {
-
+        if (this.isFullScreenFirstSlide) {
+          return
+        }
         this.fullScreenIsFading = true
         setTimeout(() => {
           if (this.fullScreenCurrentTextSlide > 0) {
@@ -336,6 +373,9 @@ export default {
         }, 300)
 
       } else {
+        if (this.isFirstSlide) {
+          return
+        }
         this.calculateLineHeight()
         this.isFading = true
         setTimeout(() => {
@@ -427,11 +467,11 @@ export default {
   }
 
   &-hidden-container {
-    @apply top-0 p-4 md:p-8 invisible w-full bg-red-200 story-slide-text-size absolute;
+    @apply top-0 p-4 md:p-8 invisible w-full bg-red-200/80 story-slide-text-size absolute;
   }
 
   &-hidden-container-fullscreen {
-    @apply absolute invisible top-0 bg-red-400/50 w-full story-slide-text-size right-0;
+    @apply absolute invisible top-0 left-0 bg-red-400/20 w-full story-slide-text-size right-0;
   }
 }
 </style>
