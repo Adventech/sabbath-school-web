@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import { marked, renderer } from '../Renderer.js'
+import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
   methods: {
     render: function (text) {
-      return marked.parse(text, { renderer })
+      return BlockStyle.getRenderedInlineText(text)
     }
   }
 }

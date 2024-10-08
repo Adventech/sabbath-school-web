@@ -1,12 +1,11 @@
 <template>
-  <ul :class="{'list-decimal': block.ordered}" class="ml-5 resource-block-list">
+  <ul :class="{'list-decimal': block.ordered}" class="!ml-5 resource-block-list">
     <template
         v-for="(item, index) in block.items"
         :key="`${block.id}-${index}-${item.id || ''}`">
       <Block
           :block="item"
           :parentBlockType="block.type"
-          :nested="true"
       ></Block>
     </template>
   </ul>
@@ -27,7 +26,8 @@ export default {
 
 .list-decimal {
   li {
-    @apply list-inside -ml-5;
+    @apply list-inside;
+    @apply -ml-5 #{!important}
   }
 }
 

@@ -5,7 +5,8 @@
 
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
-import { marked, renderer } from "../Renderer.js"
+import { BlockStyle } from "../Style/BlockStyle"
+
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
   mixins: [HighlighterMixin],
@@ -15,13 +16,13 @@ export default {
     }
   },
   async mounted () {
-    this.listItemValue = marked.parse(this.block.markdown, { renderer })
+    this.listItemValue = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .list-item-block {
-  @apply mb-2;
+  @apply mb-2 #{!important};
 }
 </style>

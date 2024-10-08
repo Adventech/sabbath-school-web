@@ -22,12 +22,12 @@
             <div class="relative">
               <div class="absolute w-auto story-slide-text"
 
-                   :class="[`${blockClassesAndStyle.class} ${textClassesAndStyle.class}`, `${getBlockStyleClass(defaultStyles, fullScreenCurrentSlide, false, 'block').class} ${getInlineTextStyle(fullScreenCurrentSlide.style).class} overflow-hidden story-slide-padding`, {'invisible': !fullScreenCaptionsShown}]"
-                   :style="`${blockClassesAndStyle.style}; ${textClassesAndStyle.style}; ${getBlockStyleClass(defaultStyles, fullScreenCurrentSlide, false, 'block').style};${getInlineTextStyle(fullScreenCurrentSlide.style).style}; ${fullScreenCurrentSlide.alignment}: ${fullScreenCaptionMargin}px; width: ${fullScreenImageWidthWithPadding}px; height: ${fullScreenMaxHeightWithPadding}px; overflow:hidden`">
+                   :class="['overflow-hidden story-slide-padding', `${textStyleFullScreen.class}`, {'invisible': !fullScreenCaptionsShown}]"
+                   :style="`${blockStyleFullScreen.style}; ${textStyleFullScreen.style}; ${fullScreenCurrentSlide.alignment}: ${fullScreenCaptionMargin}px; width: ${fullScreenImageWidthWithPadding}px; height: ${fullScreenMaxHeightWithPadding}px; overflow:hidden`">
                 <div>
                       <p  class="story-slide-text-size"
-                          :style="`height: ${fullScreenMaxHeight}px; column-gap:0px;width: ${fullScreenImageWidth*fullScreenMaxSlides}px; column-count:${fullScreenMaxSlides}; opacity: ${fullScreenIsFading ? 0 : 1}; margin-left: -${fullScreenCurrentOffsetX}px; ${getInlineTextStyle(fullScreenCurrentSlide.style).style}`"
-                          :class="[getInlineTextStyle(fullScreenCurrentSlide.style).class, {'justify-center flex flex-col h-full': fullScreenMaxSlides === 1}]"
+                          :style="`height: ${fullScreenMaxHeight}px; column-gap:0px;width: ${fullScreenImageWidth*fullScreenMaxSlides}px; column-count:${fullScreenMaxSlides}; opacity: ${fullScreenIsFading ? 0 : 1}; margin-left: -${fullScreenCurrentOffsetX}px; ${textStyleFullScreen.style}`"
+                          :class="[{'justify-center flex flex-col h-full': fullScreenMaxSlides === 1}]"
                           v-if="fullScreenParagraphText" v-html="fullScreenParagraphText">
 
                   </p>
@@ -38,13 +38,12 @@
                   <img
                       ref="imageRef"
                       @load="calculateFullScreenCaptionMargin()"
-                      :src="slideImage?.style?.image?.variants?.portrait ?? slideImage.image" :key="slideImage.image"
+                      :src="slideImage.image" :key="slideImage.image"
                       class="h-screen w-auto object-contain select-none" />
               </div>
 
               <p ref="hiddenContainerFullScreen"
-                 :style="`${getInlineTextStyle(fullScreenCurrentSlide.style).style}`"
-                 :class="getInlineTextStyle(fullScreenCurrentSlide.style).class"
+                 :style="`${blockStyleFullScreen.style}`"
                  class="story-slide-hidden-container-fullscreen story-slide-padding" v-html="fullScreenParagraphText"></p>
             </div>
           </div>
@@ -60,11 +59,11 @@
         class="flex flex-col gap-3">
       <div class="story-slide relative flex flex-row justify-center">
         <div
-            :class="`${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').class} story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${getInlineTextStyle(currentSlide.style).class} story-slide-padding`"
-            :style="`max-width: ${slideWidth}px; ${getBlockStyleClass(defaultStyles, currentSlide, false, 'block').style};${getInlineTextStyle(currentSlide.style).style}`"
+            :class="`story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${textStyle.class} story-slide-padding`"
+            :style="`max-width: ${slideWidth}px; ${blockStyle.style}; ${textStyle.style}`"
             class="story-slide-text-position">
           <div :class="{'justify-center flex flex-col h-full': maxSlides === 1}" ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
-            <p :style="`height: fit-content; column-gap: 0; width: ${slideWidthWithoutPadding*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px; ${getInlineTextStyle(currentSlide.style).style}`" :class="getInlineTextStyle(currentSlide.style).class"
+            <p :style="`height: fit-content; column-gap: 0; width: ${slideWidthWithoutPadding*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px;`"
                v-if="paragraphText" v-html="paragraphText">
 
             </p>
@@ -85,7 +84,7 @@
           </transition>
         </div>
 
-        <p ref="hiddenContainer" :style="getInlineTextStyle(currentSlide.style).style" :class="getInlineTextStyle(currentSlide.style).class" class="story-slide-hidden-container story-slide-padding story-slide-text-position" v-html="paragraphText"></p>
+        <p ref="hiddenContainer" :class="[textStyle.class]" class="story-slide-hidden-container story-slide-padding story-slide-text-position" v-html="paragraphText"></p>
       </div>
       <div class="story-slide-controls flex items-center justify-end">
         <div>
@@ -99,22 +98,18 @@
 
 <script>
 import { nextTick } from 'vue'
-import { marked, renderer } from "@/components/Resources/Renderer.js"
-import { getBlockStyleClass } from '@/plugins/Theme/BlockStyle.js'
-import { getInlineTextStyle, getTextStyleAndClass } from "@/plugins/Theme/TextStyle.js"
 import { ArrowRightCircleIcon, ArrowLeftCircleIcon, Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 
 import StoryAudio from '@/components/Resources/StoryAudio.vue'
+import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
-  props: ['block', 'parent', 'userInput', 'nested'],
-  inject: ['getDefaultStyles', 'getSegment'],
+  props: ['block', 'parent', 'userInput'],
+  inject: ['getDefaultStyles', 'getSegment', 'getStyle'],
   components: { ArrowRightCircleIcon, ArrowLeftCircleIcon, StoryAudio, Dialog, DialogPanel, Bars3BottomLeftIcon, XMarkIcon },
   data () {
     return {
-      getInlineTextStyle,
-      getBlockStyleClass,
       lineHeight: -1,
       linesPerSlide: 3,
 
@@ -171,11 +166,8 @@ export default {
     defaultStyles () {
       return this.getDefaultStyles()
     },
-    paragraphText () {
-      return marked.parse(this.currentSlide.markdown, { renderer })
-    },
-    fullScreenParagraphText () {
-      return marked.parse(this.fullScreenCurrentSlide.markdown, { renderer })
+    style () {
+      return this.getStyle()
     },
     currentSlide () {
       return this.block.items[this.currentSlideIndex]
@@ -194,23 +186,29 @@ export default {
       if (!this.fullScreenLineHeight) return 0
       return (this.fullScreenCurrentTextSlide) * this.fullScreenImageWidth
     },
-    blockClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "block") }
+
+    paragraphText () {
+      return BlockStyle.getRenderedInlineText(this.currentSlide.markdown)
     },
 
-    textClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      let b = { ...ret, ...getTextStyleAndClass(this.defaultStyles, this.block, this.nested, "text") }
-      return b
+    textStyle () {
+      return BlockStyle.getTextStyle(this.style?.blocks, '', this.currentSlide)
     },
 
-    wrapperClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "wrapper") }
+    blockStyle () {
+      return BlockStyle.getElementStyle(this.style?.blocks, 'block', this.currentSlide)
+    },
+
+    fullScreenParagraphText () {
+      return BlockStyle.getRenderedInlineText(this.fullScreenCurrentSlide.markdown)
+    },
+
+    textStyleFullScreen () {
+      return BlockStyle.getTextStyle(this.style?.blocks, '', this.fullScreenCurrentSlide)
+    },
+
+    blockStyleFullScreen () {
+      return BlockStyle.getElementStyle(this.style?.blocks, 'block', this.fullScreenCurrentSlide)
     },
   },
   methods: {
@@ -381,8 +379,6 @@ export default {
     lg:text-xl lg:leading-7
     xl:text-2xl xl:leading-8;
   }
-
-
 
   &-text {
     &-position {

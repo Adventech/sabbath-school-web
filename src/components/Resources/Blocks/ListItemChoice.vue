@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import { marked } from "../Renderer.js"
+import { marked } from "marked"
+
 export default {
   props: ['block', 'parent', 'userInput'],
   data () {

@@ -13,9 +13,9 @@
 
     <div class="flex-grow flex flex-col gap-2">
       <div class="w-full flex flex-col gap-2">
-        <p class="resource-item-title text-center md:text-start">{{ resource.title }}</p>
-        <p class="resource-item-subtitle">{{ resource.subtitle }}</p>
-        <p v-if="resource.description" class="resource-item-description">{{ resource.description }}</p>
+        <p :class="['resource-item-title', resourceTitleTextStyle.class, {'resource-item-title-plain': !resource.markdownTitle }]" :style="resourceTitleTextStyle.style" v-html="title"></p>
+        <p :class="['resource-item-subtitle', resourceSubtitleTextStyle.class]" :style="resourceSubtitleTextStyle.style" v-html="subtitle"></p>
+        <p v-if="resource.description" :class="['resource-item-description', resourceDescriptionTextStyle.class]" :style="resourceDescriptionTextStyle.style" v-html="description"></p>
       </div>
       <TableOfContents :resource="resource" :progress="progress" />
 
@@ -33,12 +33,52 @@
 import FeedGroup from '@/components/Resources/FeedGroup.vue'
 import ResourceCredits from '@/components/Resources/ResourceCredits.vue'
 import TableOfContents from '@/components/Resources/TableOfContents.vue'
+import { ResourceTitleTextStyle, ResourceSubtitleTextStyle, ResourceDescriptionTextStyle } from "./Style/ResourceTextStyle"
 
 export default {
   components: { FeedGroup, TableOfContents, ResourceCredits },
   props: ['resource', 'progress'],
+
+  mounted () {
+    if (this.resource.fonts) {
+      for (let font of this.resource.fonts) {
+        this.loadFont(font)
+      }
+    }
+  },
+
   computed: {
-    resourceCover: function () {
+    resourceTitleTextStyle () {
+      return ResourceTitleTextStyle.getTextStyle(this.resource.style, 'resource.title')
+    },
+
+    resourceSubtitleTextStyle () {
+      return ResourceSubtitleTextStyle.getTextStyle(this.resource.style, 'resource.subtitle')
+    },
+
+    resourceDescriptionTextStyle () {
+      return ResourceDescriptionTextStyle.getTextStyle(this.resource.style, 'resource.description')
+    },
+
+    title () {
+      return this.resource.markdownTitle ?
+          ResourceTitleTextStyle.getRenderedInlineText(this.resource.markdownTitle) :
+          this.resource.title
+    },
+
+    subtitle () {
+      return this.resource.markdownSubtitle ?
+          ResourceSubtitleTextStyle.getRenderedInlineText(this.resource.markdownSubtitle) :
+          this.resource.subtitle
+    },
+
+    description () {
+      return this.resource.markdownDescription ?
+          ResourceSubtitleTextStyle.getRenderedInlineText(this.resource.markdownDescription) :
+          this.resource.description
+    },
+
+    resourceCover () {
       const coverMap = {
         'book': this.resource.covers.portrait,
         'magazine': this.resource.covers.portrait,
@@ -49,16 +89,47 @@ export default {
       return coverMap[this.resource.kind]
     }
   },
+  methods: {
+    loadFont (font) {
+      let style = document.createElement('style');
+
+      let innerHTML = `@font-face {
+        font-family: "${font.name}";
+        src: url('${font.src}') format('truetype');
+        font-weight: ${font.weight};
+      }
+      `;
+
+      if (!/bold/i.test(font.name)) {
+        // Attempt to "search" for the Bold font by adding the style to the inline bold
+        innerHTML += `
+         .${font.name} strong {
+          font-family: "${font.name.replace(/-(Regular|Normal|Roman)/img, '')}-Bold"
+         }
+        `
+      }
+
+      style.innerHTML = innerHTML
+      document.head.appendChild(style);
+    },
+  }
 }
 </script>
 
 <style lang="scss">
 .resource-item {
   &-title {
-    @apply text-3xl font-bold;
+    @apply text-3xl text-center md:text-start;
+    &-plain {
+      @apply font-bold;
+    }
   }
   &-subtitle {
-    @apply text-gray-500;
+    @apply text-lg text-gray-500 text-center md:text-start;
+  }
+
+  &-description {
+    @apply text-center md:text-start;
   }
 
   &-book, &-magazine {

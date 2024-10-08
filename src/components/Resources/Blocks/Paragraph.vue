@@ -7,7 +7,7 @@
 
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
-import { marked, renderer } from "@/components/Resources/Renderer.js"
+import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   props: ['block', 'userInput', 'parent'],
@@ -18,7 +18,7 @@ export default {
     }
   },
   mounted () {
-    this.paragraphText = marked.parse(this.block.markdown, { renderer })
+    this.paragraphText = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
 }
 </script>

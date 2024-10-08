@@ -24,16 +24,16 @@
       >
         <div v-if="!titleBelowCover">
           <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-          <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-lg md:text-2xl lg:text-3xl font-bold w-full" v-html="title"></p>
-          <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
+          <p :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></p>
+          <p :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></p>
         </div>
       </div>
     </div>
 
     <div class="p-5" v-if="titleBelowCover">
       <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-      <p :style="`${titleClassesAndStyle.style}`" :class="`${titleClassesAndStyle.class}`" class="segment-title text-lg md:text-2xl lg:text-3xl font-bold w-full" v-html="title"></p>
-      <p :style="`${subTitleClassesAndStyle.style}`" :class="`${subTitleClassesAndStyle.class}`" v-if="segment.subtitle" class="text-gray-400">{{ segment.subtitle }}</p>
+      <p :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></p>
+      <p :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></p>
     </div>
 
     <slot v-if="$slots.pdf" name="pdf"></slot>
@@ -50,14 +50,13 @@
 
 <script>
 import DayJS from 'dayjs'
-import { marked, renderer } from "@/components/Resources/Renderer.js"
-import { getInlineTextStyle } from "../plugins/Theme/TextStyle"
 import PDFAuxiliary from '@/components/Resources/PDFAuxiliary.vue'
 import { THEME_COLOR, themeStore } from '@/plugins/Theme/ThemeStore.js'
+import { SegmentTitleTextStyle, SegmentSubtitleTextStyle } from "../components/Resources/Style/SegmentTextStyle"
 
 export default {
   props: ['segment'],
-  inject: ['getDocument', 'getDefaultStyles'],
+  inject: ['getDocument', 'getStyle', 'getDefaultStyles'],
   components: { PDFAuxiliary },
   computed: {
     cover () {
@@ -69,28 +68,32 @@ export default {
     defaultStyles() {
       return this.getDefaultStyles()
     },
-    title () {
-      return this.segment.markdownTitle ?
-          marked.parse(this.segment.markdownTitle, { renderer }) :
-          this.segment.title
+    style() {
+      return this.getStyle()
     },
+
     titleBelowCover () {
       return this.document.titleBelowCover || this.segment.titleBelowCover
     },
-    titleClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      let defaultStyles = this.segment.defaultStyles || this.defaultStyles
-      if (!defaultStyles || !defaultStyles.title) return ret
-      let b = { ...ret, ...getInlineTextStyle(defaultStyles.title) }
-      return b
+
+    title () {
+      return this.segment.markdownTitle ?
+          SegmentTitleTextStyle.getRenderedInlineText(this.segment.markdownTitle) :
+          this.segment.title
     },
-    subTitleClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      let defaultStyles = this.segment.defaultStyles || this.defaultStyles
-      if (!defaultStyles || !defaultStyles.subtitle) return ret
-      if (!defaultStyles || !defaultStyles.subtitle) return ret
-      let b = { ...ret, ...getInlineTextStyle(defaultStyles.subtitle) }
-      return b
+
+    subtitle () {
+      return this.segment.markdownSubtitle ?
+          SegmentSubtitleTextStyle.getRenderedInlineText(this.segment.markdownSubtitle) :
+          this.segment.subtitle
+    },
+
+    segmentTitleTextStyle () {
+      return SegmentTitleTextStyle.getTextStyle(this.segment.style ?? this.style, 'segment.title')
+    },
+
+    segmentSubtitleTextStyle () {
+      return SegmentSubtitleTextStyle.getTextStyle(this.segment.style ?? this.style, 'segment.subtitle')
     },
   },
   data () {
@@ -104,7 +107,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.segment-title.text-center {
-  @apply px-10;
+.segment-title {
+  @apply text-lg md:text-2xl lg:text-3xl w-full;
+
+  &-plain {
+    @apply font-bold;
+  }
+
+  &-text-center {
+    @apply px-10;
+  }
+}
+
+.segment-subtitle {
+  @apply text-gray-400;
 }
 </style>

@@ -40,13 +40,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { marked, renderer } from "@/components/Resources/Renderer.js"
 import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { BlockStyle } from "../Style/BlockStyle"
 const props = defineProps(['block', 'userInput', 'blockData', 'documentId'])
 
 const copyright = computed(() => {
   if (!props.block.credits || !props.block.credits.copyright) { return null }
-  return marked.parse(props.block.credits.copyright, { renderer })
+  return BlockStyle.getRenderedInlineText(props.block.credits.copyright)
 })
 </script>

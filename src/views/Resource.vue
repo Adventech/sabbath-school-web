@@ -56,7 +56,7 @@ export default {
     const resourceType = this.$route.params.resourceType
     const resourceName = this.$route.params.resourceName
     await this.getResource(resourceType, resourceName)
-    await this.getResourceProgress()
+    // await this.getResourceProgress()
     await this.setRecent()
     this.emitter.on('update-document-progress', this.updateDocumentProgress)
 

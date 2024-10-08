@@ -8,11 +8,14 @@ module.exports = {
   ],
   safelist: [
     'font-bold',
+    '!text-start', '!text-end', '!text-center',
+    '!align-sub', '!align-super',
+    '!bg-left', '!bg-right', '!bg-center', '!bg-bottom', '!bg-top',
     {
-      pattern: /([pm])([tblr])?-[0-9.]+/,
+      pattern: /^!?([pm])([tblr])?-[0-9.]+$/,
     },
     {
-      pattern: /text-(3xs|2xs|xs|sm|base|lg|xl|2xl|3xl|4xl|start|end|center)+/,
+      pattern: /^!?text-(3xs|2xs|xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl|10xl)$/,
     },
     {
       pattern: /align-(sub|super)+/,
@@ -51,6 +54,12 @@ module.exports = {
         '2xl': '1.953rem',
         '3xl': '2.441rem',
         '4xl': '3.052rem',
+        '5xl': '3.815rem',
+        '6xl': '4.768rem',
+        '7xl': '5.96rem',
+        '8xl': '7.451rem',
+        '9xl': '9.313rem',
+        '10xl': '11.642rem',
       },
       maxWidth: {
         'ss-cover': '250px',

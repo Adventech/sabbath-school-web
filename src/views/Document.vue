@@ -170,7 +170,8 @@ export default {
     return {
       getDocument: () => this.document,
       getDocumentUserInput: () => this.documentUserInput,
-      getDefaultStyles: () => this.document?.defaultStyles
+      getDefaultStyles: () => this.document?.defaultStyles,
+      getStyle: () => this.document?.style,
     }
   },
   data () {

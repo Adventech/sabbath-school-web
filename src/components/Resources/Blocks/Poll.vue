@@ -17,9 +17,9 @@
 </template>
 
 <script>
+import { marked } from "marked"
 import { authStore } from '@/stores/auth'
 import { CheckCircleIcon } from '@heroicons/vue/24/solid'
-import { marked } from "../Renderer.js"
 
 export default {
   components: { CheckCircleIcon },

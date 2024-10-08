@@ -8,6 +8,8 @@ export default {
         const v = createApp(ContextMenuView)
         v.config.globalProperties.emitter = emitter
 
+        emitter.on('comment', () => { vue.config.globalProperties.emitter.emit('comment') })
+
         emitter.on('highlight', (color) => { vue.config.globalProperties.emitter.emit('highlight', color) })
         v.mount(document.body.appendChild(document.createElement('div')))
 

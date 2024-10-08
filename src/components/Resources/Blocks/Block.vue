@@ -1,7 +1,7 @@
 <template>
   <div
-      :class="wrapperClassesAndStyle.class"
-      :style="wrapperClassesAndStyle.style">
+      :class="wrapperStyle.class"
+      :style="wrapperStyle.style">
     <component
         v-if="blocks[block.type] && blocks[block.type].component"
         v-on="blocks[block.type].on"
@@ -9,8 +9,8 @@
         :is="blocks[block.type].component"
         :block="block"
         :parent="parent"
-        :class="`${blockClassesAndStyle.class} ${textClassesAndStyle.class}`"
-        :style="`${blockClassesAndStyle.style}; ${textClassesAndStyle.style}`"
+        :class="`${blockStyle.class} ${blockTextStyle.class}`"
+        :style="`${blockStyle.style}; ${blockTextStyle.style}`"
         :userInput="userInput"
     >
       <template
@@ -19,7 +19,6 @@
         <Block
             :block="item"
             :parent="block"
-            :nested="true"
         ></Block>
       </template>
     </component>
@@ -29,8 +28,6 @@
 <script>
 import { shallowRef } from 'vue'
 import { authStore } from '@/stores/auth'
-import { getBlockStyleClass } from '@/plugins/Theme/BlockStyle.js'
-import { getTextStyleAndClass } from "@/plugins/Theme/TextStyle.js"
 
 import List from '@/components/Resources/Blocks/List.vue'
 import ListItem from '@/components/Resources/Blocks/ListItem.vue'
@@ -55,15 +52,15 @@ import ListItemChecklist from '@/components/Resources/Blocks/ListItemChecklist.v
 import Excerpt from '@/components/Resources/Blocks/Excerpt.vue'
 import ExcerptItem from '@/components/Resources/Blocks/ExcerptItem.vue'
 import Story from '@/components/Resources/Blocks/Story.vue'
+import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   name: 'Block',
   props: [
     'block',
-    'nested',
     'parent',
   ],
-  inject: ['getDefaultStyles', 'getDocument', 'getDocumentUserInput'],
+  inject: ['getStyle', 'getDefaultStyles', 'getDocument', 'getDocumentUserInput'],
   computed: {
     document() {
       return this.getDocument()
@@ -73,32 +70,28 @@ export default {
       return this.getDefaultStyles()
     },
 
+    style () {
+      return this.getStyle()
+    },
+
     userInput () {
       return this.getDocumentUserInput().filter(i => i.blockId === this.block.id) ?? []
     },
 
-    blockClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "block") }
+    blockStyle () {
+      return BlockStyle.getElementStyle(this.style?.blocks, 'block', this.block)
     },
 
-    textClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      let b = { ...ret, ...getTextStyleAndClass(this.defaultStyles, this.block, this.nested, "text") }
-      return b
+    wrapperStyle () {
+      return BlockStyle.getElementStyle(this.style?.blocks, 'wrapper', this.block)
     },
 
-    wrapperClassesAndStyle () {
-      let ret = { class: "", style: "" }
-      if (!this.block.id || !this.defaultStyles) return ret
-      return { ...ret, ...getBlockStyleClass(this.defaultStyles, this.block, this.nested, "wrapper") }
+    blockTextStyle () {
+      return BlockStyle.getTextStyle(this.style?.blocks, '', this.block)
     },
   },
   data () {
     return {
-      getBlockStyleClass,
       blocks: {
         'list': { component: shallowRef(List), on: {}},
         'paragraph': { component: shallowRef(Paragraph), on: { highlight: (highlights) => { this.saveHighlight(highlights) }}, annotation: true},

@@ -10,9 +10,10 @@
 </template>
 
 <script>
+import { marked } from "marked"
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/vue/24/solid'
-import { marked } from "../Renderer.js"
+
 export default {
   components: { CheckCircleIcon, CheckCircleIconSolid },
   props: ['block', 'parent', 'userInput'],

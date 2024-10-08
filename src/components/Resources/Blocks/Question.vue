@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { marked, renderer } from "@/components/Resources/Renderer.js"
+import { BlockStyle } from "../Style/BlockStyle"
 
 const debounce = function (fn, wait) {
   let timer
@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted () {
-    this.questionText = marked.parse(this.block.markdown, { renderer })
+    this.questionText = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
   methods: {
     debounce: debounce((emit, e) => { emit('answered', e) }, 1000)
