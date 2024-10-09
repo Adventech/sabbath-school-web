@@ -12,13 +12,10 @@ import { BlockStyle } from "../Style/BlockStyle"
 export default {
   props: ['block', 'userInput', 'parent'],
   mixins: [HighlighterMixin],
-  data () {
-    return {
-      paragraphText: null,
+  computed: {
+    paragraphText () {
+      return BlockStyle.getRenderedInlineText(this.block.markdown)
     }
-  },
-  mounted () {
-    this.paragraphText = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
 }
 </script>

@@ -32,16 +32,15 @@ export default {
     blockUserInput: function () {
       if (!this.userInput) return null
       return this.userInput.find(i => i.inputType === this.block.type)
+    },
+    questionText () {
+      return BlockStyle.getRenderedInlineText(this.block.markdown)
     }
   },
   data () {
     return {
       answer: null,
-      questionText: null
     }
-  },
-  mounted () {
-    this.questionText = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
   methods: {
     debounce: debounce((emit, e) => { emit('answered', e) }, 1000)

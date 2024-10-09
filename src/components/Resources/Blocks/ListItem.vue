@@ -10,13 +10,10 @@ import { BlockStyle } from "../Style/BlockStyle"
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
   mixins: [HighlighterMixin],
-  data () {
-    return {
-      listItemValue: null,
+  computed: {
+    listItemValue () {
+      return BlockStyle.getRenderedInlineText(this.block.markdown)
     }
-  },
-  async mounted () {
-    this.listItemValue = BlockStyle.getRenderedInlineText(this.block.markdown)
   },
 }
 </script>

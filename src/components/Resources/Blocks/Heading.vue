@@ -1,5 +1,5 @@
 <template>
-  <p :class="`select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="render(block.markdown)"></p>
+  <p :class="`select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="headingText"></p>
 </template>
 
 <script>
@@ -7,11 +7,11 @@ import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
-  methods: {
-    render: function (text) {
-      return BlockStyle.getRenderedInlineText(text)
+  computed: {
+    headingText () {
+      return BlockStyle.getRenderedInlineText(this.block.markdown)
     }
-  }
+  },
 }
 </script>
 

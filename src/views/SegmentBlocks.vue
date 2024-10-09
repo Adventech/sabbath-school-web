@@ -11,7 +11,7 @@
     </div>
 
     <div
-         class="w-full bg-no-repeat bg-cover rounded-t flex flex-col justify-end bg-center bg-auto "
+         class="w-full bg-no-repeat bg-cover flex flex-col justify-end bg-center bg-auto "
          :class="{'h-64 md:h-ss-cover': cover}"
          :style="`background-image:url('${cover}');`"
     >
