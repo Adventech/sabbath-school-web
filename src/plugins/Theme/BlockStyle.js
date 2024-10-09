@@ -263,6 +263,10 @@ export const ElementStyle = function (template, baseStyle, keyPath, block) {
         backgroundColor && blockStyleCSS.push(`background-color: ${backgroundColor}`)
         backgroundImage && blockStyleCSS.push(`background-image: url('${backgroundImage}'); background-size: contain; background-repeat: no-repeat;`)
         backgroundPosition && blockStyleClass.push(positionUnitsToClass(backgroundPosition))
+    } else if (themeStore().color === THEME_COLOR.DARK) {
+        backgroundColor && blockStyleClass.push(`bg-gray-900`)
+    } else if (themeStore().color === THEME_COLOR.SEPIA) {
+        backgroundColor && blockStyleClass.push(`bg-amber-50`)
     }
 
     rounded && blockStyleClass.push(`rounded`)
