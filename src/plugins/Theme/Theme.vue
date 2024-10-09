@@ -13,9 +13,9 @@
       <MenuItems class="z-20 absolute right-0 w-auto origin-top-left rounded-md bg-white shadow-lg border border-gray-200">
         <div>
           <div class="flex border-b border-gray-100">
-            <button @click="themeStore().setColor(THEME_COLOR.LIGHT)" class="flex-grow text-gray-500 hover:bg-gray-50 rounded-tl-md p-2 px-5 border-r border-gray-100">Light</button>
-            <button @click="themeStore().setColor(THEME_COLOR.SEPIA)" class="flex-grow text-gray-500 hover:bg-gray-50 p-2 px-5 border-r border-gray-100">Sepia</button>
-            <button @click="themeStore().setColor(THEME_COLOR.DARK)" class="flex-grow text-gray-500 hover:bg-gray-50 p-2 px-5 border-r border-gray-100">Dark</button>
+            <button @click="themeStore().setColor(THEME_COLOR.LIGHT)" class="text-base flex-grow text-gray-500 hover:bg-gray-50 rounded-tl-md p-2 px-5 border-r border-gray-100">Light</button>
+            <button @click="themeStore().setColor(THEME_COLOR.SEPIA)" class="text-base flex-grow text-gray-500 hover:bg-gray-50 p-2 px-5 border-r border-gray-100">Sepia</button>
+            <button @click="themeStore().setColor(THEME_COLOR.DARK)" class="text-base flex-grow text-gray-500 hover:bg-gray-50 p-2 px-5 border-r border-gray-100">Dark</button>
           </div>
           <div class="flex px-3 py-3 items-center">
             <span class="text-gray-500 mr-2 text-sm select-none">Aa</span>
