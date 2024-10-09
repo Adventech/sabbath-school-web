@@ -26,12 +26,9 @@ export default {
 <style lang="scss">
 .resource-link {
   @apply break-words;
-  &-sspm-bible {
-    @apply border-b-2 outline-none;
-  }
 
-  &-sspm-egw {
-    @apply border-b border-black outline-none;
+  &-sspm-egw, &-sspm-bible {
+    @apply outline-none underline underline-offset-4;
   }
 
   &-other {
