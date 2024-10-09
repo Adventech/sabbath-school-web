@@ -65,8 +65,8 @@
             :class="`story-slide-text story-slide-text-${currentSlide.alignment || 'top'} ${textStyle.class} story-slide-padding`"
             :style="`max-width: ${slideWidth}px; ${blockStyle.style}; ${textStyle.style}`"
             class="story-slide-text-position">
-          <div :class="{'justify-center flex flex-col': maxSlides === 1}" ref="imageSlide">
-            <p :style="`column-gap: 0; width: ${slideWidthWithoutPadding*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px;`"
+          <div :class="{'justify-center flex flex-col h-full': maxSlides === 1}" ref="imageSlide" :style="`height: ${maxHeight}px; max-height: ${maxHeight}px;`">
+            <p :style="`height: fit-content; column-gap: 0; width: ${slideWidthWithoutPadding*maxSlides}px; column-count:${maxSlides}; opacity: ${isFading ? 0 : 1}; margin-left: -${currentOffsetX}px;`"
                v-if="paragraphText" v-html="paragraphText">
             </p>
           </div>
@@ -204,7 +204,7 @@ export default {
     },
 
     maxHeight () {
-      return this.lineHeight * this.linesPerSlide
+      return this.lineHeight * this.linesPerSlide + 3.5
     },
 
     currentOffsetX () {
