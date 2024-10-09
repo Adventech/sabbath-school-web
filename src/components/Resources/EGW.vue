@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 pt-10 px-3 pb-5">
+  <div class="flex flex-col gap-3 py-5">
     <Block v-for="block in egwBlocks" :block="block" :key="`egw_block_${block.id}`"></Block>
   </div>
 </template>
