@@ -11,7 +11,7 @@
           <div class="grow order-1 md:order-2">
             <p class="resource-item-document-item-date" v-if="document.start_date && document.end_date">{{DayJS(document.start_date, 'DD/MM/YYYY').format('MMM DD')}} - {{DayJS(document.end_date, 'DD/MM/YYYY').format('MMM DD')}}</p>
             <p :class="{'font-bold':!inline && kind === 'blog' && document.cover}" class="resource-item-document-item-title">{{ document.title }}</p>
-            <p class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
+            <p :class="{'line-clamp-2': inline && kind === 'blog'}" class="resource-item-document-item-subtitle" v-if="document.subtitle">{{ document.subtitle }}</p>
           </div>
           <div v-if="!inline && kind === 'blog' && document.cover"
                class="shrink-0 order-2 md:order-1">
