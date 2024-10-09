@@ -265,7 +265,7 @@ export default {
       this.fullScreenImageWidthWithPadding = imageWidth
       this.fullScreenLineHeight = parseFloat(getComputedStyle(container).lineHeight)
 
-      this.fullScreenMaxHeight = this.fullScreenLineHeight * this.linesPerSlide + 5
+      this.fullScreenMaxHeight = this.fullScreenLineHeight * this.linesPerSlide + 10
       this.fullScreenMaxHeightWithPadding = this.fullScreenMaxHeight + parseFloat(getComputedStyle(container).paddingTop) + parseFloat(getComputedStyle(container).paddingBottom)
 
       this.fullScreenMaxSlides = Math.ceil((parseFloat(getComputedStyle(container).height) - parseFloat(getComputedStyle(container).paddingBottom) - parseFloat(getComputedStyle(container).paddingTop)) / this.fullScreenLineHeight / this.linesPerSlide)
