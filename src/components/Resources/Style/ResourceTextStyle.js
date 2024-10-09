@@ -43,7 +43,7 @@ export const ResourceSubtitleTextStyle = {
     template: {
         textSize: function (unit) {
             const unitMap = {
-                "xs": "lg",
+                "xs": "sm",
                 "sm": "base",
                 "base": "lg",
                 "lg": "xl",
