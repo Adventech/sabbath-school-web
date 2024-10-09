@@ -1,7 +1,7 @@
 <template>
   <div
-      :class="wrapperStyle.class"
-      :style="wrapperStyle.style">
+      :class="!ignoreStyles ? wrapperStyle.class : ''"
+      :style="!ignoreStyles ? wrapperStyle.style : ''">
     <component
         v-if="blocks[block.type] && blocks[block.type].component"
         v-on="blocks[block.type].on"
@@ -9,8 +9,8 @@
         :is="blocks[block.type].component"
         :block="block"
         :parent="parent"
-        :class="`${blockStyle.class} ${blockTextStyle.class}`"
-        :style="`${blockStyle.style}; ${blockTextStyle.style}`"
+        :class="!ignoreStyles ? `${blockStyle.class} ${blockTextStyle.class}` : ''"
+        :style="!ignoreStyles ? `${blockStyle.style}; ${blockTextStyle.style}` : ''"
         :userInput="userInput"
     >
       <template
@@ -19,6 +19,7 @@
         <Block
             :block="item"
             :parent="block"
+            :ignoreStyles="ignoreStyles"
         ></Block>
       </template>
     </component>
@@ -59,6 +60,7 @@ export default {
   props: [
     'block',
     'parent',
+    'ignoreStyles',
   ],
   inject: ['getStyle', 'getDefaultStyles', 'getDocument', 'getDocumentUserInput'],
   computed: {

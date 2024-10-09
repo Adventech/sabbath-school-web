@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col gap-3 py-5">
-    <Block v-for="block in egwBlocks" :block="block" :key="`egw_block_${block.id}`"></Block>
+  <div class="flex flex-col gap-3 p-4">
+    <Block v-for="block in egwBlocks" :block="block" :key="`egw_block_${block.id}`" :ignoreStyles="true"></Block>
   </div>
 </template>
 

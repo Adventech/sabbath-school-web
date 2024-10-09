@@ -1,6 +1,6 @@
 <template>
-  <div class="py-4">
-    <Block v-if="this.bibleExcerpt" :block="this.bibleExcerpt"></Block>
+  <div class="p-4">
+    <Block v-if="this.bibleExcerpt" :block="this.bibleExcerpt" :ignoreStyles="true"></Block>
   </div>
 </template>
 
