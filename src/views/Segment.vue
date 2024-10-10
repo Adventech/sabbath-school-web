@@ -2,19 +2,19 @@
   <div>
     <div v-if="sSegment" class="relative rounded">
       <SegmentBlocks v-if="sSegment.type === 'block'" :segment="sSegment">
-        <template #auxTheme>
+        <template v-if="!hiddenSegment" #auxTheme>
           <slot name="auxTheme"></slot>
         </template>
-        <template #auxAudio>
+        <template v-if="!hiddenSegment" #auxAudio>
           <slot name="auxAudio"></slot>
         </template>
-        <template #auxVideo>
+        <template v-if="!hiddenSegment" #auxVideo>
           <slot name="auxVideo"></slot>
         </template>
-        <template #auxPdf>
+        <template v-if="!hiddenSegment" #auxPdf>
           <slot name="auxPdf"></slot>
         </template>
-        <template v-if="$slots.pdf && $slots.pdf().length" #pdf>
+        <template v-if="!hiddenSegment && ($slots.pdf && $slots.pdf().length)" #pdf>
           <slot name="pdf"></slot>
         </template>
       </SegmentBlocks>
@@ -56,7 +56,7 @@ import EGW from '@/components/Resources/EGW.vue'
 
 export default {
   components: { SegmentBlocks, SegmentPDF, SegmentStory, SegmentVideo, Popup, Bible, EGW, StoryAudio },
-  props: ['segment', 'segmentIndex'],
+  props: ['segment', 'segmentIndex', 'hiddenSegment'],
   provide () {
     return {
       getSegment: () => this.sSegment
@@ -83,6 +83,7 @@ export default {
   },
   async mounted () {
     this.emitter.on('bible-click', async (v) => {
+
       if (!v.blockId || !v.verse) return
       const block = this.findBlockById(this.sSegment.blocks, v.blockId)
       const verse = v.verse.replace(/sspmbible:\/\//i, '')
@@ -127,6 +128,18 @@ export default {
           if (found) {
             return found
           }
+        }
+
+        if (block.rows && block.rows.length) {
+          for (let row of block.rows) {
+            for (let column of row) {
+              const found = this.findBlockById(column.items, blockId)
+              if (found) {
+                return found
+              }
+            }
+          }
+
         }
       }
       return null;

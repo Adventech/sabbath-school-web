@@ -53,6 +53,7 @@ import ListItemChecklist from '@/components/Resources/Blocks/ListItemChecklist.v
 import Excerpt from '@/components/Resources/Blocks/Excerpt.vue'
 import ExcerptItem from '@/components/Resources/Blocks/ExcerptItem.vue'
 import Story from '@/components/Resources/Blocks/Story.vue'
+import Table from '@/components/Resources/Blocks/Table.vue'
 import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
@@ -117,6 +118,7 @@ export default {
         'excerpt': { component: shallowRef(Excerpt), on: {}, data: { parentBlockId: this.block.id }},
         'excerpt-item': { component: shallowRef(ExcerptItem), on: {}},
         'story': { component: shallowRef(Story), on: {}},
+        'table': { component: shallowRef(Table), on: {}},
       }
     }
   },

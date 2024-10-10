@@ -1,7 +1,8 @@
 <template>
   <div>
     <div :class="[{'absolute right-5 top-5': cover}, {'pt-5 pr-5': !cover}]" class="flex justify-end">
-      <div class="auxiliary auxiliary-light"
+      <div v-if="hasAuxiliary"
+           class="auxiliary auxiliary-light"
            :class="[{'auxiliary-dark': cover || themeStore().color === THEME_COLOR.DARK}]" >
         <slot name="auxTheme"></slot>
         <slot name="auxAudio"></slot>
@@ -62,12 +63,15 @@ export default {
     cover () {
       return this.segment.cover || this.document.cover
     },
+
     document () {
       return this.getDocument()
     },
+
     defaultStyles() {
       return this.getDefaultStyles()
     },
+
     style() {
       return this.getStyle()
     },
@@ -94,6 +98,13 @@ export default {
 
     segmentSubtitleTextStyle () {
       return SegmentSubtitleTextStyle.getTextStyle(this.segment.style ?? this.style, 'segment.subtitle')
+    },
+
+    hasAuxiliary () {
+      return (this.$slots.auxPdf && this.$slots.auxPdf().length > 0)
+          || (this.$slots.auxTheme && this.$slots.auxTheme().length > 0)
+          || (this.$slots.auxAudio && this.$slots.auxAudio().length > 0)
+          || (this.$slots.auxVideo && this.$slots.auxVideo().length > 0)
     },
   },
   data () {

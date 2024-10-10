@@ -111,10 +111,8 @@
       <Popup :open="hiddenSegmentOpen"
              @closed="hiddenSegmentOpen = false"
              :noPadding="true"
-             :large="true"
-             :noControls="true"
-      >
-        <Segment :segmentIndex="hiddenSegmentIndex"></Segment>
+             :large="true">
+        <Segment :segmentIndex="hiddenSegmentIndex" :hiddenSegment="true"></Segment>
       </Popup>
 
       <Popup :open="commentInputOpen" @closed="commentInputOpen = false">
