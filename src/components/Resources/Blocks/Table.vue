@@ -17,7 +17,7 @@
       </thead>
       <tbody>
       <tr v-for="row in block.rows">
-        <td v-for="column in row">
+        <td v-for="column in row.items">
           <template
               v-for="item in column.items"
               :key="item.id">
