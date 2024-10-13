@@ -1,7 +1,7 @@
 import { marked } from "marked"
 import { InlineTextStyle } from "@/plugins/Theme/TextStyle"
 
-export const StyledRenderer = function (template) {
+export const StyledRenderer = function (template, blockData, userData, contextData) {
     const renderer = new marked.Renderer()
 
     if (template.renderLink) {
@@ -12,6 +12,42 @@ export const StyledRenderer = function (template) {
 
             if ((href.indexOf("sspmEGW://") === 0) || (href.indexOf("sspmegw://") === 0)) {
                 return `<a class="resource-link resource-link-sspm-egw" title="${title ?? ""}" href="${href.replace(/sspmegw/i, 'sspmEGW')}">${text}</a>`
+            }
+
+            if ((href.indexOf("sspmCompletion://") === 0) || (href.indexOf("sspmCompletion://") === 0)) {
+                const id = href.replace(/sspmCompletion:\/\//i, '')
+                let classes = ""
+                let t = text
+                let hasData = false
+
+                if (blockData && blockData.completion && blockData.completion[id]) {
+
+                    // If contextData exists even if empty string take precedence over what we got from API
+                    if (contextData && contextData.completion && contextData.completion[id] != null) {
+                        t = contextData.completion[id]
+                        hasData = true
+                    } else if (userData) {
+                        for (let userDataItem of userData) {
+                            if (userDataItem.completion && userDataItem.completion[id]){
+                                t = userDataItem.completion[id]
+                                hasData = true
+                            }
+                        }
+                    }
+
+                    // In case if there is no word entered or new word repeat the placeholder
+                    if (t.length === 0) {
+                        t = blockData.completion[id].placeholder.repeat(blockData.completion[id].correctCompletion ? blockData.completion[id].length : 10)
+                    }
+
+                    if (hasData) {
+                        if (blockData.completion[id].correctCompletion) {
+                            classes += t === blockData.completion[id].correctCompletion ? "resource-link-sspm-completion-correct" : "resource-link-sspm-completion-incorrect"
+                        }
+                    }
+                }
+
+                return `<a class="resource-link resource-link-sspm-completion ${classes}" href="${href}">${t}</a>`
             }
 
             return `<a class="resource-link resource-link-other" title="${title ?? ""}" href="${href}" target="_blank">${text}</a>`

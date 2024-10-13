@@ -97,7 +97,12 @@ export default {
     return {
       blocks: {
         'list': { component: shallowRef(List), on: {}},
-        'paragraph': { component: shallowRef(Paragraph), on: { highlight: (highlights) => { this.saveHighlight(highlights) }}, annotation: true},
+        'paragraph': { component: shallowRef(Paragraph), on: {
+            highlight: (highlights) => { this.saveHighlight(highlights) },
+            completion: (completion) => { this.saveCompletion(completion) },
+          },
+          annotation: true
+        },
         'blockquote': { component: shallowRef(Blockquote), on: {}},
         'collapse': { component: shallowRef(Collapse), on: {}},
         'heading': { component: shallowRef(Heading), on: {}},
@@ -108,7 +113,11 @@ export default {
         'audio': { component: shallowRef(Audio), on: {}},
         'video': { component: shallowRef(Video), on: {}},
         'poll': { component: shallowRef(Poll), on: {}},
-        'list-item': { component: shallowRef(ListItem), on: { highlight: (highlights) => { this.saveHighlight(highlights) }}},
+        'list-item': { component: shallowRef(ListItem), on: {
+            highlight: (highlights) => { this.saveHighlight(highlights) },
+            completion: (completion) => { this.saveCompletion(completion) },
+          }
+        },
         'slide': { component: shallowRef(Slide), on: {}},
         'appeal': { component: shallowRef(Appeal), on: { appeal: (appeal) => { this.saveAppeal(appeal) } }},
         'multiple-choice': { component: shallowRef(MultipleChoice), on: { choice: (choice) => { this.saveChoice(choice) } }, data: { answer: this.block.answer }},
@@ -178,6 +187,18 @@ export default {
             {
               blockId: this.block.id,
               highlights
+            }
+        )
+      } catch (e) {}
+    },
+
+    saveCompletion: async function (completion) {
+      if (!authStore().isLoggedIn) return
+      try {
+        await this.$apiAuthResources.post(`/resources/user/input/completion/${this.document.id}/${this.block.id}`,
+            {
+              blockId: this.block.id,
+              completion
             }
         )
       } catch (e) {}

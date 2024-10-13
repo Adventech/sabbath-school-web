@@ -7,14 +7,20 @@
 
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
+import CompletionMixin from '@/plugins/Completion/CompletionMixin.js'
 import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   props: ['block', 'userInput', 'parent'],
-  mixins: [HighlighterMixin],
+  mixins: [HighlighterMixin, CompletionMixin],
   computed: {
     paragraphText () {
-      return BlockStyle.getRenderedInlineText(this.block.markdown)
+      return BlockStyle.getRenderedInlineText(
+          this.block.markdown,
+          this.block.data,
+          this.userInput,
+          this.contextData,
+        )
     }
   },
 }
@@ -26,6 +32,17 @@ export default {
 
   &-sspm-egw, &-sspm-bible {
     @apply outline-none underline underline-offset-4;
+  }
+
+  &-sspm-completion {
+    @apply px-2 rounded bg-gray-200 select-none;
+    &-correct {
+      @apply bg-green-200;
+    }
+
+    &-incorrect {
+      @apply bg-red-100;
+    }
   }
 
   &-other {

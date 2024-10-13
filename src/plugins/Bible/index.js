@@ -24,6 +24,14 @@ export default {
                             );
                             event.preventDefault();
                         }
+
+                        // Check for completion link class
+                        if (linkElement.classList.contains("resource-link-sspm-completion")) {
+                            vue.config.globalProperties.emitter.emit('completion-click',
+                                { completionId: linkElement.getAttribute("href"), userCompletion: linkElement.text, ...binding.value }
+                            );
+                            event.preventDefault();
+                        }
                     }
                 });
             }

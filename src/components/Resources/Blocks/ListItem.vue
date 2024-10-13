@@ -5,14 +5,20 @@
 
 <script>
 import HighlighterMixin from '@/plugins/Highlighter/HighlighterMixin.js'
+import CompletionMixin from '@/plugins/Completion/CompletionMixin.js'
 import { BlockStyle } from "../Style/BlockStyle"
 
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
-  mixins: [HighlighterMixin],
+  mixins: [HighlighterMixin, CompletionMixin],
   computed: {
     listItemValue () {
-      return BlockStyle.getRenderedInlineText(this.block.markdown)
+      return BlockStyle.getRenderedInlineText(
+          this.block.markdown,
+          this.block.data,
+          this.userInput,
+          this.contextData,
+      )
     }
   },
 }

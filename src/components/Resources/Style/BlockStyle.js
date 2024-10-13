@@ -84,8 +84,8 @@ export const BlockStyle = {
         return TextStyle(this.template, baseStyle, keyPath, block)
     },
 
-    getRenderedInlineText: function (text) {
-        const renderer = StyledRenderer(this.template)
+    getRenderedInlineText: function (text, blockData, userData, contextData) {
+        const renderer = StyledRenderer(this.template, blockData, userData, contextData)
         return marked.parse(text, { renderer })
     }
 }
