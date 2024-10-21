@@ -39,6 +39,8 @@ export default {
           .replace(/^sabbath-school-stage/ig, 'sabbath-school')
           .replace(/\.|-/g, '_').toUpperCase().trim()
 
+      if (domain === 'LOCALHOST') return ''
+
       return import.meta.env[`VITE_APP_PSPDF_KEY_${domain}`] || import.meta.env[`VITE_APP_PSPDF_KEY`]
     }
   },
