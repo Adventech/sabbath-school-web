@@ -14,11 +14,13 @@ export default {
       selected: false,
     }
   },
-  mounted () {
-    this.emitter.emit(`excerpt-mounted-${this.parent.id}`)
+  created () {
     this.emitter.on(`excerpt-selected-${this.parent.id}`, (excerptId) => {
       this.selected = excerptId === this.block.id
     })
+  },
+  mounted () {
+    this.emitter.emit(`excerpt-mounted-${this.parent.id}`)
   },
 }
 </script>
