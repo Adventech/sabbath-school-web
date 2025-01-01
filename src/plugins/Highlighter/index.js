@@ -12,7 +12,7 @@ class Highlighter {
     }
 
     findNextTag (str) {
-        let match = str.match(/<[^<>]+>/)
+        let match = str.match(/<[^<>]+>/g)
         return match ? match.index : null
     }
 
@@ -99,6 +99,32 @@ class Highlighter {
         await this.clearHighlights(element)
 
         highlights = highlight ? await this.filterOverlappingHighlights(highlight, highlights) : highlights
+
+        function filterRedundantHighlights(highlights) {
+            // Sort highlights by startIndex and endIndex for proper overlap comparison
+            const sortedHighlights = highlights.sort(
+                (a, b) => a.startIndex - b.startIndex || b.endIndex - a.endIndex
+            );
+
+            const filtered = [];
+
+            for (const current of sortedHighlights) {
+                const isRedundant = filtered.some(
+                    other =>
+                        other.startIndex <= current.startIndex &&
+                        other.endIndex >= current.endIndex
+                );
+
+                if (!isRedundant) {
+                    filtered.push(current);
+                }
+            }
+
+            return filtered;
+        }
+
+        highlights = filterRedundantHighlights(highlights)
+
         let ret = []
         let absoluteHighlights = []
         let elementInnerHTML = this.normalizeInnerHTML(element.firstChild.innerHTML)
@@ -122,7 +148,7 @@ class Highlighter {
                     && startIndex.tagBoundaries.id === endIndex.tagBoundaries.id)
                 || !startIndex.insideTag && !endIndex.insideTag
             ) {
-                absoluteHighlights.push({startIndex: startIndex.position, endIndex: endIndex.position+1, color: highlight.color})
+                absoluteHighlights.push({startIndex: startIndex.position, endIndex: endIndex.position, color: highlight.color})
                 return
             }
 
