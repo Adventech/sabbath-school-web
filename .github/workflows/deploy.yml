@@ -23,9 +23,6 @@ jobs:
           cmd: install
       - run: yarn
       - run: npx vite build `[[ "${{ steps.extract_branch.outputs.branch }}" = "stage" ]] && echo '--mode stage'`
-      - run: curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
-      - run: unzip awscli-bundle.zip
-      - run: ./awscli-bundle/install -b ~/bin/aws
       - name: Deploy
         run: aws s3 cp dist/ s3://sabbath-school`[[ "${{ steps.extract_branch.outputs.branch }}" = "stage" ]] && echo '-stage'`.adventech.io --acl "public-read" --region us-east-1 --no-progress --recursive
         env:
