@@ -468,6 +468,11 @@ export default {
           "en": "Hmong",
           "code": "hmn",
         },
+        {
+          "native": "ትግርኛ",
+          "en": "Tigrinya",
+          "code": "ti",
+        },
       ]
     }
   },

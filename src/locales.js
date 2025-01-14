@@ -522,6 +522,12 @@ const locales = [
         "code": "hmn",
         "flag": "🇻🇳",
     },
+    {
+        "native": "ትግርኛ",
+        "en": "Tigrinya",
+        "code": "ti",
+        "flag": "🇪🇹",
+    },
 ]
 
 export default locales
