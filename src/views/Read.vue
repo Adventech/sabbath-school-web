@@ -36,7 +36,7 @@
     </div>
     <div class="mt-4 ml-0 md:ml-6 md:mt-0 mb-4 md:mb-0 grow order-0 md:order-1 md:w-3/12 lg:w-9/12 xl:w-10/12">
       <div v-if="lesson" class="rounded border border-1 border-gray-150 h-full">
-        <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t h-ss-cover bg-center bg-cover flex flex-col">
+        <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t min-h-ss-cover bg-center bg-cover flex flex-col">
           <div class="flex justify-end p-2">
             <div class="pb-2 pt-3 px-5 bg-black/[.6] flex rounded-lg">
               <ReaderOptions class="mt-2"></ReaderOptions>
