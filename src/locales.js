@@ -528,6 +528,12 @@ const locales = [
         "code": "ti",
         "flag": "🇪🇹",
     },
+    {
+        "native": "Afaan Oromoo",
+        "en": "Oromo",
+        "code": "om",
+        "flag": "🇪🇹",
+    },
 ]
 
 export default locales

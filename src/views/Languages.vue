@@ -473,6 +473,11 @@ export default {
           "en": "Tigrinya",
           "code": "ti",
         },
+        {
+          "native": "Afaan Oromoo",
+          "en": "Oromo",
+          "code": "om",
+        },
       ]
     }
   },
