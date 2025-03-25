@@ -7,7 +7,7 @@
             <AIJLogo class="w-16 md:w-32 fill-[#F4793B]"/>
           </a>
           <div class="w-0.5 h-8 bg-orange-100"></div>
-          <a href="https://babies.aliveinjesus.info" class="aij-header-inner-logo-title">Beginner</a>
+          <a href="https://beginner.aliveinjesus.info" class="aij-header-inner-logo-title">Beginner</a>
         </div>
         <nav class="aij-header-inner-menu">
           <div class="aij-header-inner-menu-nav">
@@ -71,22 +71,26 @@
                 <MenuItems class="aij-header-dropdown">
                   <div>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info/about-us" class="aij-header-dropdown-button">About</a>
+                      <a href="https://beginner.aliveinjesus.info/students" class="aij-header-dropdown-button">Students</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info/parents" class="aij-header-dropdown-button">Parents</a>
+                      <a href="https://beginner.aliveinjesus.info/teachers" class="aij-header-dropdown-button">Teachers</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info/teachers" class="aij-header-dropdown-button">Teachers</a>
+                      <a href="https://beginner.aliveinjesus.info/media" class="aij-header-dropdown-button">Media</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info/handouts" class="aij-header-dropdown-button">Handouts</a>
+                      <a href="https://beginner.aliveinjesus.info/training" class="aij-header-dropdown-button">Training</a>
+                    </MenuItem>
+
+                    <MenuItem>
+                      <a href="https://aliveinjesus.info/" class="aij-header-dropdown-button">AIJ Home</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info/training" class="aij-header-dropdown-button">Training</a>
+                      <a href="https://babies.aliveinjesus.info/" class="aij-header-dropdown-button">Babies</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info" class="aij-header-dropdown-button">Kindergarten</a>
+                      <a href="https://kindergarten.aliveinjesus.info" class="aij-header-dropdown-button">Kindergarten</a>
                     </MenuItem>
                     <MenuItem>
                       <a href="https://primary.aliveinjesus.info" class="aij-header-dropdown-button">Primary</a>

@@ -87,7 +87,13 @@
                       <a href="https://babies.aliveinjesus.info/training" class="aij-header-dropdown-button">Training</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://babies.aliveinjesus.info" class="aij-header-dropdown-button">Kindergarten</a>
+                      <a href="https://aliveinjesus.info/" class="aij-header-dropdown-button">AIJ Home</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="https://beginner.aliveinjesus.info/" class="aij-header-dropdown-button">Beginner</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="https://kindergarten.aliveinjesus.info" class="aij-header-dropdown-button">Kindergarten</a>
                     </MenuItem>
                     <MenuItem>
                       <a href="https://primary.aliveinjesus.info" class="aij-header-dropdown-button">Primary</a>
