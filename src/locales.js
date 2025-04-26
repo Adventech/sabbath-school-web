@@ -534,6 +534,12 @@ const locales = [
         "code": "om",
         "flag": "🇪🇹",
     },
+    {
+        "native": "Azərbaycan",
+        "en": "Azerbaijani",
+        "code": "az",
+        "flag": "🇦🇿",
+    },
 ]
 
 export default locales

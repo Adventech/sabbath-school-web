@@ -478,6 +478,11 @@ export default {
           "en": "Oromo",
           "code": "om",
         },
+        {
+          "native": "Azərbaycan",
+          "en": "Azerbaijani",
+          "code": "az",
+        },
       ]
     }
   },
