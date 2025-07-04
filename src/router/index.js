@@ -76,6 +76,12 @@ const sspmroutes = [
   },
 
   {
+    path: '/scope-and-sequence',
+    name: 'scope',
+    component: () => import('../views/ABSG/ABSGScopeAndSequence.vue')
+  },
+
+  {
     path: '/contact',
     name: 'contact',
     component: () => import('../views/ABSG/ABSGContact.vue')

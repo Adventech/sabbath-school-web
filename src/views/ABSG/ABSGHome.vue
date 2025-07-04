@@ -14,7 +14,7 @@
       <div class="sspm-container flex flex-col gap-10 py-10">
         <div class="text-center lg:max-w-[36.3%] m-auto">
           <p class="text-sspm-accent font-bold text-3xl">Study</p>
-          <p class="text-black/80">Deepen your understanding of Scripture with current and past editions of the Adult Bible Study Guide.</p>
+          <p class="text-black/80">Study the Bible with current and past editions of the Adult Bible Study Guide.</p>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -58,7 +58,7 @@
         <div class="sspm-teacher-helps-image"></div>
         <div class="sspm-teacher-helps-text">
           <p class="sspm-teacher-helps-text-title">Teacher Helps</p>
-          <p class="sspm-teacher-helps-text-subtitle">Deepen your understanding of God’s Word with the current Sabbath School lesson, designed for personal study and group discussion.</p>
+          <p class="sspm-teacher-helps-text-subtitle">Prepare to lead your Sabbath School class using excellent resources and media that will equip you to teach the Bible with clarity.</p>
           <div>
             <router-link :to="{name: 'study', params: {type: 'teach'}}" class="sspm-teacher-helps-text-cta">Learn More</router-link>
           </div>
@@ -68,9 +68,9 @@
         <div class="sspm-media-image"></div>
         <div class="sspm-media-text">
           <p class="sspm-media-text-title">Media</p>
-          <p class="sspm-media-text-subtitle">Learn valuable Scriptural insights from experienced teachers and particiapnts studying the Sabbath School lesson.</p>
+          <p class="sspm-media-text-subtitle">Learn valuable Scriptural insights from experienced teachers and participants studying the Sabbath School lesson.</p>
           <div>
-            <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" class="sspm-teacher-helps-text-cta">Learn More</router-link>
+            <router-link :to="`${document.index.replace('en/ss', '/en')}/videos`" class="sspm-teacher-helps-text-cta">Learn More</router-link>
           </div>
         </div>
       </div>

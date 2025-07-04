@@ -1,12 +1,13 @@
 <template>
-  <router-link :to="to" class="sspm-learn-more" :class="classes"><span class="shrink-0">Learn More</span><ArrowUpRight class="shrink-0 w-4 h-4"/></router-link>
+  <a v-if="href" :href="href" class="sspm-learn-more" :class="classes"><span class="shrink-0">Learn More</span><ArrowUpRight class="shrink-0 w-4 h-4"/></a>
+  <router-link v-else :to="to" class="sspm-learn-more" :class="classes"><span class="shrink-0">Learn More</span><ArrowUpRight class="shrink-0 w-4 h-4"/></router-link>
 </template>
 
 <script>
 import ArrowUpRight from '@/assets/img/arrow-up-right.svg'
 export default {
   components: { ArrowUpRight },
-  props: ['to', 'classes']
+  props: ['to', 'classes', 'href']
 }
 </script>
 

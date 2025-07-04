@@ -4,12 +4,12 @@
 
       <router-link to="/"><ABSGLogo /></router-link>
 
-      <div v-if="!useLang" class="flex items-center gap-10">
+      <div class="flex items-center gap-10">
         <nav class="absg-header-inner-menu">
           <div class="absg-header-inner-menu-nav">
-            <ul><router-link :to="{'name': 'this-week'}">This Week</router-link></ul>
+            <ul v-if="!useLang"><router-link :to="{'name': 'this-week'}">This Week</router-link></ul>
 
-            <Menu as="ul" class="relative">
+            <Menu v-if="!useLang"  as="ul" class="relative">
               <MenuButton class="flex items-center">
                 Study
               </MenuButton>
@@ -33,14 +33,13 @@
               </transition>
             </Menu>
 
-            <ul><router-link :to="{'name': 'study', params: {type: 'teach'}}">Teach</router-link></ul>
+            <ul v-if="!useLang" ><router-link :to="{'name': 'study', params: {type: 'teach'}}">Teach</router-link></ul>
 
-            <ul><router-link :to="{'name': 'media'}">Media</router-link></ul>
-            <ul><router-link :to="{'name': 'about'}">About</router-link></ul>
+            <ul v-if="!useLang" ><router-link :to="{'name': 'media'}">Media</router-link></ul>
 
             <Menu as="ul" class="relative">
               <MenuButton class="flex items-center">
-                Passcode Access
+                More Sabbath School
               </MenuButton>
               <transition
                   enter-active-class="transition duration-100 ease-out"
@@ -52,27 +51,38 @@
                 <MenuItems class="absg-header-dropdown">
                   <div>
                     <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/translator" target="_blank">Translators</a>
+                      <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/residents" target="_blank">Manuscript Evaluation – Residents</a>
+                      <a href="https://sspmadventist.org/sabbathschool/history">History</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/world" target="_blank">Manuscript Evaluation – World</a>
+                      <a href="https://sspmadventist.org/sabbathschool/alive">Strategy</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/resource-login" target="_blank">Publishing House Resource Login</a>
+                      <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="https://www.inversebible.org/">Young Adult</a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>
                     </MenuItem>
                   </div>
                 </MenuItems>
               </transition>
             </Menu>
 
+            <ul><router-link :to="{'name': 'about'}">About</router-link></ul>
+
             <ul><router-link :to="{'name': 'contact'}">Contact</router-link></ul>
 
             <Menu as="ul" class="relative">
               <MenuButton class="flex items-center">
-                🇺🇸 English
+                {{ currentLang.flag }} {{ currentLang.native }}
               </MenuButton>
               <transition
                   enter-active-class="transition duration-100 ease-out"
@@ -123,12 +133,9 @@
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>
                   <MenuItem>
-                    <router-link :to="{'name': 'about'}">About</router-link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Menu as="ul" class="relative px-2">
+                    <Menu as="ul" class="relative pl-2">
                       <MenuButton class="flex items-center">
-                        🇺🇸 English
+                        More Sabbath School
                       </MenuButton>
                       <transition
                           enter-active-class="transition duration-100 ease-out"
@@ -137,10 +144,28 @@
                           leave-active-class="transition duration-75 ease-in"
                           leave-from-class="transform scale-100 opacity-100"
                           leave-to-class="transform scale-95 opacity-0">
-                        <MenuItems class="absg-header-dropdown max-h-64 overflow-x-scroll">
+                        <MenuItems class="absg-header-dropdown">
                           <div>
-                            <MenuItem v-for="l in locales">
-                              <router-link :to="l.code === 'en' ? '/' : {'name': 'language', params: {'resourceLanguage': l.code}}">{{ l.flag }} {{ l.native }}</router-link>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool/history">History</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool/alive">Strategy</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://www.inversebible.org/">Young Adult</a>
+                            </MenuItem>
+                            <MenuItem>
+                              <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>
                             </MenuItem>
                           </div>
                         </MenuItems>
@@ -148,98 +173,7 @@
                     </Menu>
                   </MenuItem>
                   <MenuItem>
-                    <router-link :to="{'name': 'contact'}">Contact</router-link>
-                  </MenuItem>
-                </div>
-              </MenuItems>
-            </transition>
-          </Menu>
-        </div>
-
-        <div class="w-[1px] h-100 bg-gray-300">&nbsp;</div>
-
-        <SDALogoAIJ class="w-8 md:w-10" />
-      </div>
-      <div v-else class="flex items-center gap-10">
-        <nav class="absg-header-inner-menu">
-          <div class="absg-header-inner-menu-nav">
-
-            <ul><router-link :to="{'name': 'about'}">About</router-link></ul>
-
-            <Menu as="ul" class="relative">
-              <MenuButton class="flex items-center">
-                Passcode Access
-              </MenuButton>
-              <transition
-                  enter-active-class="transition duration-100 ease-out"
-                  enter-from-class="transform scale-95 opacity-0"
-                  enter-to-class="transform scale-100 opacity-100"
-                  leave-active-class="transition duration-75 ease-in"
-                  leave-from-class="transform scale-100 opacity-100"
-                  leave-to-class="transform scale-95 opacity-0">
-                <MenuItems class="absg-header-dropdown">
-                  <div>
-                    <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/translator" target="_blank">Translators</a>
-                    </MenuItem>
-                    <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/residents" target="_blank">Manuscript Evaluation – Residents</a>
-                    </MenuItem>
-                    <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/world" target="_blank">Manuscript Evaluation – World</a>
-                    </MenuItem>
-                    <MenuItem>
-                      <a href="https://www.adultbiblestudyguide.org/resource-login" target="_blank">Publishing House Resource Login</a>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
-
-            <ul><router-link :to="{'name': 'contact'}">Contact</router-link></ul>
-
-            <Menu as="ul" class="relative">
-              <MenuButton class="flex items-center">
-                {{ currentLang.flag }} {{ currentLang.native }}
-              </MenuButton>
-              <transition
-                  enter-active-class="transition duration-100 ease-out"
-                  enter-from-class="transform scale-95 opacity-0"
-                  enter-to-class="transform scale-100 opacity-100"
-                  leave-active-class="transition duration-75 ease-in"
-                  leave-from-class="transform scale-100 opacity-100"
-                  leave-to-class="transform scale-95 opacity-0">
-                <MenuItems class="absg-header-dropdown max-h-64 overflow-x-scroll">
-                  <div>
-                    <MenuItem v-for="l in locales">
-                      <router-link :to="l.code === 'en' ? '/' : {'name': 'language', params: {'resourceLanguage': l.code}}">{{ l.flag }} {{ l.native }}</router-link>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
-          </div>
-        </nav>
-
-        <div class="absg-header-inner-menu-mobile-nav">
-          <Menu as="ul" class="relative">
-            <MenuButton class="absg-header-inner-menu-mobile-nav-button">
-              <Bars3Icon class="w-5 md:w-8 absg-header-inner-menu-mobile-nav-button-icon" />
-            </MenuButton>
-            <transition
-                enter-active-class="transition duration-100 ease-out"
-                enter-from-class="transform scale-95 opacity-0"
-                enter-to-class="transform scale-100 opacity-100"
-                leave-active-class="transition duration-75 ease-in"
-                leave-from-class="transform scale-100 opacity-100"
-                leave-to-class="transform scale-95 opacity-0">
-              <MenuItems class="absg-header-dropdown">
-                <div>
-                  <MenuItem>
                     <router-link :to="{'name': 'about'}">About</router-link>
-                  </MenuItem>
-                  <MenuItem>
-                    <router-link :to="{'name': 'contact'}">Contact</router-link>
                   </MenuItem>
                   <MenuItem>
                     <Menu as="ul" class="relative px-2">
@@ -262,6 +196,9 @@
                         </MenuItems>
                       </transition>
                     </Menu>
+                  </MenuItem>
+                  <MenuItem>
+                    <router-link :to="{'name': 'contact'}">Contact</router-link>
                   </MenuItem>
                 </div>
               </MenuItems>
@@ -328,7 +265,7 @@ if (route.params.resourceLanguage && route.params.resourceLanguage !== 'en') {
   }
 
   &-dropdown {
-    @apply z-10 absolute left-0 mt-4 mr-3 origin-top-right rounded-md bg-white shadow-md w-48 p-2;
+    @apply z-10 absolute -left-8 mt-4 mr-3 origin-top-right rounded-md bg-white shadow-md w-48 p-2;
     &-button {
       @apply block text-left text-gray-500 hover:bg-orange-100 m-3 py-2 px-6 rounded hover:text-orange-600;
     }

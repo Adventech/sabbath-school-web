@@ -94,7 +94,8 @@ module.exports = {
         'sspm-accent-800': '#00506B',
         'sspm-accent-900': '#002D47',
         'sspm-accent-50': '#E3F3F7',
-},
+        'sspm-accent-1000': '#2F557F',
+      },
       height: {
         'ss-cover': '335px',
         'ss-cover-small': '15rem'

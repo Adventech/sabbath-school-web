@@ -176,7 +176,7 @@
         </div>
       </template>
       <template v-else-if="video && videoEnabled && document && ['hope-ss-videos', 'more-videos', 'talking-points-videos'].includes(segmentName)">
-        <ABSGDocumentVideo :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video" class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0" />
+        <ABSGDocumentVideo :selectDefault="segmentName !== 'more-videos'" :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video" class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0" />
       </template>
       <template v-else>
         <div
@@ -508,6 +508,8 @@ export default {
             this.video = [this.video.find((v) => /Talking Points/.test(v.artist))] ?? [this.video[0]]
           } else if (/hope-ss/.test(segmentName)) {
             this.video = [this.video.find((v) => /Hope Sabbath/.test(v.artist))] ?? [this.video[0]]
+          } else {
+            this.video = this.video.filter((v) => !/(Talking Points|Hope Sabbath)/.test(v.artist))
           }
         } else {
           try {

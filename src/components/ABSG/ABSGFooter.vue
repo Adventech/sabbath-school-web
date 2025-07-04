@@ -10,7 +10,10 @@
         </ul>
 
         <ul class="footer-absg-menu-links">
-          <li><a href="https://identity.adventist.org/legal"><ABSGFooterLink /> Trademark and Logo Usage</a></li>
+          <li><a href="https://www.adultbiblestudyguide.org/translator"><ABSGFooterLock class="w-3" /> Translators</a></li>
+          <li><a href="https://www.adultbiblestudyguide.org/residents"><ABSGFooterLock class="w-3" /> Manuscript Evaluation – Residents</a></li>
+          <li><a href="https://www.adultbiblestudyguide.org/world"><ABSGFooterLock class="w-3" /> Manuscript Evaluation – World</a></li>
+          <li><a href="https://www.adultbiblestudyguide.org/resource-login"><ABSGFooterLock class="w-3" /> Publishing House Resource Login</a></li>
           <li><a href="https://www.adventist.org/en/copyright/legal-notic/"><ABSGFooterLink /> Legal Notice</a></li>
           <li><a href="https://privacy.adventist.org/"><ABSGFooterLink /> Privacy Policy</a></li>
           <li><router-link :to="{'name': 'contact'}"><ABSGFooterLink /> Contact</router-link></li>
@@ -26,6 +29,7 @@
 </template>
 
 <script setup>
+import ABSGFooterLock from '@/assets/img/lock-icon.svg'
 import ABSGFooterLink from '@/assets/img/aij-footer-link.svg'
 import { ref } from 'vue'
 

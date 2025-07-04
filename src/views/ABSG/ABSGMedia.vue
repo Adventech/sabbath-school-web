@@ -34,8 +34,7 @@ export default {
             .find(doc => doc) || (resourceData.sections[0]?.documents[0] || null)
 
         if (foundDoc) {
-          this.$router.push({ name: 'document', params: { resourceLanguage: 'en', resourceName: resource.name, documentName: foundDoc.name, segmentName: 'audio' }})
-
+          this.$router.push({ name: 'document', params: { resourceLanguage: 'en', resourceName: resource.name, documentName: foundDoc.name, segmentName: 'videos' }})
         }
       } catch (e) {
         console.error(e)

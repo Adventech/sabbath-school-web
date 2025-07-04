@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-5">
       <div class="text-3xl font-bold">{{ currentVideo?.title ?? title }}</div>
 
-      <div class="max-w-screen">
+      <div v-show="s || selectDefault" class="max-w-screen">
         <video class="aspect-[16/9] rounded-lg sspm-video" playsinline controls></video>
       </div>
     </div>
@@ -42,12 +42,13 @@ import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/vue/24/solid'
 import Plyr from "plyr"
 export default {
   components: { ChevronRightIcon, ChevronLeftIcon, Splide, SplideSlide },
-  props: ['segmentName', 'video', 'title', 'date'],
+  props: ['segmentName', 'video', 'title', 'date', 'selectDefault'],
   data () {
     return {
       player: null,
       videos: null,
       currentVideo: null,
+      s: false,
       playing: false,
     }
   },
@@ -57,7 +58,9 @@ export default {
 
     this.videos = this.video
 
-    if (this.videos && this.videos.length > 0) {
+    if (this.$route.query.video) { this.s = true }
+
+    if (this.videos && this.videos.length > 0 && (this.selectDefault || this.$route.query.video)) {
       this.$nextTick(() => {
         this.player = new Plyr('.sspm-video')
 
@@ -87,6 +90,31 @@ export default {
   },
   watch: {
     currentVideo(newVideo, oldVideo) {
+      if (!this.player) {
+        this.$nextTick(() => {
+          this.player = new Plyr('.sspm-video')
+
+          this.s = true
+
+          this.currentVideo = this.videos[0].clips[0]
+
+          let self = this
+          let playing = function (e) {
+            self.playing = e.detail.plyr.playing
+          }
+          this.player.on('playing', playing)
+          this.player.on('pause', playing)
+
+          this.player.source = {
+            type: 'video',
+            sources: [{src: this.currentVideo.src, title: this.currentVideo.title}],
+            poster: this.currentVideo.thumbnail
+          }
+
+          if (!this.selectDefault) { this.player.play() }
+        })
+      }
+
       if (newVideo && this.player) {
         this.player.source = {
           type: 'video',

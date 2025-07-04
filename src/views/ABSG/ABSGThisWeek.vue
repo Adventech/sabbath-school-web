@@ -23,7 +23,7 @@
           <p class="text-sspm-accent-600 font-bold">This Week's</p>
           <p class="text-3xl font-bold">Teacher helps</p>
           <div class="flex justify-between gap-10">
-            <p class="text-black/80">Deepen your understanding of God’s Word with the current Sabbath School lesson, designed for personal study and group discussion.</p>
+            <p class="text-black/80">Prepare to lead your Sabbath School class using excellent resources and media that will equip you to teach the Bible with clarity.</p>
           </div>
         </div>
 
@@ -104,7 +104,7 @@
       <div class="bg-sspm-accent-900 p-4 lg:p-10 rounded-xl flex flex-col gap-12">
         <div class="text-center m-auto flex flex-col gap-5">
           <p class="text-sspm-accent-600 font-bold">Videos on this week's lesson</p>
-          <p class="text-white text-2xl font-bold leading-tight">Some Principles of Prophecy</p>
+          <p class="text-white text-2xl font-bold leading-tight">{{ currentDocument.title }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-stretch items-center justify-center">
@@ -115,13 +115,13 @@
                 <span class="px-3 py-1 rounded-full bg-sspm-accent-50 text-sspm-accent-600 text-xs">{{ v.artist }}</span>
               </div>
               <p class="text-lg leading-tight"><strong>{{ v.clips[0].title }}</strong></p>
-              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/more-videos?video=${v.clips[0].id}`"></ABSGLearnMore>
+              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/videos?video=${v.clips[0].id}`"></ABSGLearnMore>
             </div>
           </div>
         </div>
 
         <div class="mx-auto">
-          <router-link :to="`${currentDocument.index.replace('en/ss', '/en')}/more-videos`" class="rounded-full px-5 py-3 bg-sspm-accent-600 text-white/80">View More</router-link>
+          <router-link :to="`${currentDocument.index.replace('en/ss', '/en')}/videos`" class="rounded-full px-5 py-3 bg-sspm-accent-600 text-white/80">View More</router-link>
         </div>
       </div>
     </div>
