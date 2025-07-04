@@ -266,6 +266,7 @@ if (route.params.resourceLanguage && route.params.resourceLanguage !== 'en') {
 
   &-dropdown {
     @apply z-10 absolute -left-8 mt-4 mr-3 origin-top-right rounded-md bg-white shadow-md w-48 p-2;
+    z-index: 999999;
     &-button {
       @apply block text-left text-gray-500 hover:bg-orange-100 m-3 py-2 px-6 rounded hover:text-orange-600;
     }

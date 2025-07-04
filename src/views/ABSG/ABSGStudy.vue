@@ -25,7 +25,7 @@
     <div class="sspm-container">
       <div v-if="feed && feed.resources && feed.resources.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 items-stretch items-center">
         <router-link :to="
-          resourceType === 'teach' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: this.document ? this.document.name : '01', segmentName: 'teacher-comments' }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }}
+          $route.params.type === 'teach' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: this.document ? this.document.name : '01', segmentName: 'teacher-comments' }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }}
         " v-for="r in feed.resources" class="flex flex-col gap-3">
           <div class="">
             <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
@@ -56,6 +56,7 @@ export default {
   },
   async mounted () {
     const resourceType = this.$route.params.type
+
     const title = useTitle()
     if (resourceType === 'easy-reading') {
       this.resourceType = 'Easy Reading'
@@ -66,7 +67,6 @@ export default {
     } else {
       title.value = `Standard Adult - Adult Bible Study Guides`
     }
-    this.resourceType = resourceType
 
     await this.getResources()
   },
