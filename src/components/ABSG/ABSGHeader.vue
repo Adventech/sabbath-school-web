@@ -126,6 +126,28 @@
                     <router-link :to="{'name': 'about'}">About</router-link>
                   </MenuItem>
                   <MenuItem>
+                    <Menu as="ul" class="relative px-2">
+                      <MenuButton class="flex items-center">
+                        🇺🇸 English
+                      </MenuButton>
+                      <transition
+                          enter-active-class="transition duration-100 ease-out"
+                          enter-from-class="transform scale-95 opacity-0"
+                          enter-to-class="transform scale-100 opacity-100"
+                          leave-active-class="transition duration-75 ease-in"
+                          leave-from-class="transform scale-100 opacity-100"
+                          leave-to-class="transform scale-95 opacity-0">
+                        <MenuItems class="absg-header-dropdown max-h-64 overflow-x-scroll">
+                          <div>
+                            <MenuItem v-for="l in locales">
+                              <router-link :to="l.code === 'en' ? '/' : {'name': 'language', params: {'resourceLanguage': l.code}}">{{ l.flag }} {{ l.native }}</router-link>
+                            </MenuItem>
+                          </div>
+                        </MenuItems>
+                      </transition>
+                    </Menu>
+                  </MenuItem>
+                  <MenuItem>
                     <router-link :to="{'name': 'contact'}">Contact</router-link>
                   </MenuItem>
                 </div>
@@ -218,6 +240,28 @@
                   </MenuItem>
                   <MenuItem>
                     <router-link :to="{'name': 'contact'}">Contact</router-link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Menu as="ul" class="relative px-2">
+                      <MenuButton class="flex items-center">
+                        {{ currentLang.flag }} {{ currentLang.native }}
+                      </MenuButton>
+                      <transition
+                          enter-active-class="transition duration-100 ease-out"
+                          enter-from-class="transform scale-95 opacity-0"
+                          enter-to-class="transform scale-100 opacity-100"
+                          leave-active-class="transition duration-75 ease-in"
+                          leave-from-class="transform scale-100 opacity-100"
+                          leave-to-class="transform scale-95 opacity-0">
+                        <MenuItems class="absg-header-dropdown max-h-64 overflow-x-scroll">
+                          <div>
+                            <MenuItem v-for="l in locales">
+                              <router-link :to="l.code === 'en' ? '/' : {'name': 'language', params: {'resourceLanguage': l.code}}">{{ l.flag }} {{ l.native }}</router-link>
+                            </MenuItem>
+                          </div>
+                        </MenuItems>
+                      </transition>
+                    </Menu>
                   </MenuItem>
                 </div>
               </MenuItems>
