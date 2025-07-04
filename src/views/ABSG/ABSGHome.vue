@@ -21,7 +21,7 @@
           <p class="text-xl">Standard Adult</p>
 
           <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
-            <router-link :to="{'name': 'publication', params: {resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
+            <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
               <div class="">
                 <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
               </div>
@@ -70,7 +70,7 @@
           <p class="sspm-media-text-title">Media</p>
           <p class="sspm-media-text-subtitle">Learn valuable Scriptural insights from experienced teachers and particiapnts studying the Sabbath School lesson.</p>
           <div>
-            <router-link :to="`${document.index.replace('en/ss', '')}/audio`" class="sspm-teacher-helps-text-cta">Learn More</router-link>
+            <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" class="sspm-teacher-helps-text-cta">Learn More</router-link>
           </div>
         </div>
       </div>

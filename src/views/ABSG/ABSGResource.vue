@@ -25,7 +25,8 @@ export default {
   },
   methods: {
     getResource: async function (resourceName) {
-      const resource = await this.$apiResources.get(`en/ss/${resourceName}/sections/index.json`)
+      const resourceLanguage = this.$route.params.resourceLanguage
+      const resource = await this.$apiResources.get(`${resourceLanguage}/ss/${resourceName}/sections/index.json`)
       this.resource = resource.data
       this.loading = false
       const title = useTitle()

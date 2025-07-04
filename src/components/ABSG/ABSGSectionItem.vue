@@ -5,7 +5,7 @@
     <div class="resource-item-document-list">
       <RouterLinkWithExternal v-for="document in section.documents"
                    :externalURL="document.externalURL"
-                   :to="{'name': 'document', params: {'resourceName': document.resourceName, 'documentName': document.name}}"
+                   :to="{'name': 'document', params: {'resourceLanguage': $route.params.resourceLanguage, 'resourceName': document.resourceName, 'documentName': document.name}}"
                    class="resource-item-document-item flex justify-between items-center gap-2">
         <div class="flex flex-row items-center justify-between w-full gap-4">
           <div class="grow order-1 md:order-2 flex items-center gap-4">

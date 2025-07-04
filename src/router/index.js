@@ -94,13 +94,19 @@ const sspmroutes = [
   },
 
   {
-    path: '/:resourceName',
+    path: '/lang/:resourceLanguage',
+    name: 'language',
+    component: () => import('../views/ABSG/ABSGStudyNonEnglish.vue')
+  },
+
+  {
+    path: '/:resourceLanguage/:resourceName',
     name: 'publication',
     component: () => import('../views/ABSG/ABSGResource.vue')
   },
 
   {
-    path: '/:resourceName/:documentName/:segmentName?',
+    path: '/:resourceLanguage/:resourceName/:documentName/:segmentName?',
     name: 'document',
     component: () => import('../views/ABSG/ABSGDocument.vue')
   },

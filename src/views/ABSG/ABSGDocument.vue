@@ -7,11 +7,11 @@
       <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right shrink-0">
         <div class="flex flex-col gap-5">
           <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
-            <router-link tag="div" :to="`${resource.index.replace('en/ss', '')}`" class="shrink-0">
+            <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}" class="shrink-0">
               <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" />
             </router-link>
             <div class="flex flex-col p-2 gap-2">
-              <router-link tag="div" :to="`${resource.index.replace('en/ss', '')}`" class="font-bold">
+              <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}"  class="font-bold">
                 {{ resource.title }}
               </router-link>
               <p v-if="resource.subtitle" class="text-gray-400 line-clamp-4">{{ resource.subtitle }}</p>
@@ -22,7 +22,7 @@
             <div>
               <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2 w-full focus:outline-none text-left">
                 <div class="flex items-center justify-between">
-                  <span>Week {{ document.name.replace(/^0/g, '') }}. {{ document.title }}</span>
+                  <span>{{ document.title }}</span>
                   <span class="pointer-events-none flex items-center">
                   <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
@@ -41,8 +41,8 @@
               <MenuItems class="absolute max-h-56 w-full overflow-auto left-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                 <div v-for="(d, index) in resource.sections[0].documents" class="p-1">
                   <MenuItem v-slot="{ active }">
-                    <router-link :to="`${d.index.replace('en/ss', '')}`" class="text-start text-gray-900 group flex w-full items-center px-2 py-2 text-sm justify-between">
-                      <span>Week {{index + 1}}. {{ d.title }}</span>
+                    <router-link :to="{'name': 'document', params: {resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name, documentName: d.name}}" class="text-start text-gray-900 group flex w-full items-center px-2 py-2 text-sm justify-between">
+                      <span>{{ d.sequence }}. {{ d.title }}</span>
                       <span>
                         <CheckIcon v-if="document.id === d.id" class="w-5" />
                       </span>
@@ -61,7 +61,13 @@
             </div>
             <div v-if="lessonsOpened" class="flex flex-col gap-3">
               <router-link
-                  v-for="(s, index) in document.segments" :to="`${s.index.replace('en/ss', '')}`">
+                  v-for="(s, index) in document.segments" :to="{'name': 'document', params: {
+                      resourceLanguage: $route.params.resourceLanguage,
+                      resourceName: resource.name,
+                      documentName: document.name,
+                      segmentName: s.name,
+                    }
+                  }">
                 <div class="flex flex-col">
                   <div class="text-gray-400 text-sm" v-if="s.date">{{ DayJS(s.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
                   <div :class="{'text-sspm-accent-600': !segment && selectedSegmentIndex === index}">{{ s.title }}</div>
@@ -71,83 +77,86 @@
             </div>
           </div>
 
-          <div v-if="teacherCommentsEnabled || (hopeSabbathSchoolOutlineEnabled  || hopeSabbathSchoolVideoEnabled) || (talkingPointsOutlineEnabled || talkingPointsVideoEnabled)" class="bg-gray-100 p-3 rounded text-left flex flex-col gap-3">
-            <div class="flex justify-between items-center cursor-pointer" @click="teacherHelpsOpened = !teacherHelpsOpened">
-              <span>Teacher Helps</span>
-              <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': teacherHelpsOpened}"/>
-            </div>
-            <div v-if="teacherHelpsOpened" class="flex flex-col gap-3">
-              <router-link
-                  v-if="teacherCommentsEnabled"
-                  :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'teacher-comments'}}">
-                <div :class="{'text-sspm-accent-600': segmentName === 'teacher-comments'}">Teacher Comments</div>
-              </router-link>
+          <div v-if="$route.params.resourceLanguage === 'en'" class="flex flex-col gap-5">
 
-              <div v-if="hopeSabbathSchoolOutlineEnabled || hopeSabbathSchoolVideoEnabled" class="flex flex-col gap-3">
-                <div @click="hopeSabbathSchoolOpened=!hopeSabbathSchoolOpened" class="cursor-pointer flex justify-between">
-                  <span>Hope Sabbath School</span>
-                  <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': hopeSabbathSchoolOpened}"/>
-                </div>
-                <div v-if="hopeSabbathSchoolOpened" class="px-2">
-                  <router-link
-                      v-if="hopeSabbathSchoolOutlineEnabled"
-                      :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'hope-ss'}}">
-                    <div :class="{'text-sspm-accent-600': segmentName === 'hope-ss'}">Outlines</div>
-                  </router-link>
-
-                  <router-link
-                      v-if="hopeSabbathSchoolVideoEnabled"
-                      :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'hope-ss-videos'}}">
-                    <div :class="{'text-sspm-accent-600': segmentName === 'hope-ss-videos'}">Videos</div>
-                  </router-link>
-                </div>
+            <div v-if="teacherCommentsEnabled || (hopeSabbathSchoolOutlineEnabled  || hopeSabbathSchoolVideoEnabled) || (talkingPointsOutlineEnabled || talkingPointsVideoEnabled)" class="bg-gray-100 p-3 rounded text-left flex flex-col gap-3">
+              <div class="flex justify-between items-center cursor-pointer" @click="teacherHelpsOpened = !teacherHelpsOpened">
+                <span>Teacher Helps</span>
+                <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': teacherHelpsOpened}"/>
               </div>
+              <div v-if="teacherHelpsOpened" class="flex flex-col gap-3">
+                <router-link
+                    v-if="teacherCommentsEnabled"
+                    :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'teacher-comments'}}">
+                  <div :class="{'text-sspm-accent-600': segmentName === 'teacher-comments'}">Teacher Comments</div>
+                </router-link>
 
-              <div v-if="talkingPointsOutlineEnabled || talkingPointsVideoEnabled" class="flex flex-col gap-3">
-                <div @click="talkingPointsOpened=!talkingPointsOpened" class="cursor-pointer flex justify-between">
-                  <span>Talking Points</span>
-                  <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': talkingPointsOpened}"/>
-                </div>
-                <div v-if="talkingPointsOpened" class="px-2">
-                  <router-link
-                      v-if="talkingPointsOutlineEnabled"
-                      :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'talking-points'}}">
-                    <div :class="{'text-sspm-accent-600': segmentName === 'talking-points'}">Outlines</div>
-                  </router-link>
+                <div v-if="hopeSabbathSchoolOutlineEnabled || hopeSabbathSchoolVideoEnabled" class="flex flex-col gap-3">
+                  <div @click="hopeSabbathSchoolOpened=!hopeSabbathSchoolOpened" class="cursor-pointer flex justify-between">
+                    <span>Hope Sabbath School</span>
+                    <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': hopeSabbathSchoolOpened}"/>
+                  </div>
+                  <div v-if="hopeSabbathSchoolOpened" class="px-2">
+                    <router-link
+                        v-if="hopeSabbathSchoolOutlineEnabled"
+                        :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'hope-ss'}}">
+                      <div :class="{'text-sspm-accent-600': segmentName === 'hope-ss'}">Outlines</div>
+                    </router-link>
 
-                  <router-link
-                      v-if="talkingPointsVideoEnabled"
-                      :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'talking-points-videos'}}">
-                    <div :class="{'text-sspm-accent-600': segmentName === 'talking-points-videos'}">Videos</div>
-                  </router-link>
+                    <router-link
+                        v-if="hopeSabbathSchoolVideoEnabled"
+                        :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'hope-ss-videos'}}">
+                      <div :class="{'text-sspm-accent-600': segmentName === 'hope-ss-videos'}">Videos</div>
+                    </router-link>
+                  </div>
                 </div>
+
+                <div v-if="talkingPointsOutlineEnabled || talkingPointsVideoEnabled" class="flex flex-col gap-3">
+                  <div @click="talkingPointsOpened=!talkingPointsOpened" class="cursor-pointer flex justify-between">
+                    <span>Talking Points</span>
+                    <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': talkingPointsOpened}"/>
+                  </div>
+                  <div v-if="talkingPointsOpened" class="px-2">
+                    <router-link
+                        v-if="talkingPointsOutlineEnabled"
+                        :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'talking-points'}}">
+                      <div :class="{'text-sspm-accent-600': segmentName === 'talking-points'}">Outlines</div>
+                    </router-link>
+
+                    <router-link
+                        v-if="talkingPointsVideoEnabled"
+                        :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'talking-points-videos'}}">
+                      <div :class="{'text-sspm-accent-600': segmentName === 'talking-points-videos'}">Videos</div>
+                    </router-link>
+                  </div>
+                </div>
+
+                <router-link
+                    v-if="videoEnabled"
+                    :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'more-videos'}}">
+                  <div :class="{'text-sspm-accent-600': segmentName === 'more-videos'}">More Videos</div>
+                </router-link>
               </div>
-
-              <router-link
-                  v-if="videoEnabled"
-                  :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'more-videos'}}">
-                <div :class="{'text-sspm-accent-600': segmentName === 'more-videos'}">More Videos</div>
-              </router-link>
             </div>
-          </div>
 
-          <div v-if="audioEnabled || videoEnabled" class="bg-gray-100 p-3 rounded text-left flex flex-col gap-3">
-            <div class="flex justify-between items-center cursor-pointer" @click="mediaOpened = !mediaOpened">
-              <span>Media</span>
-              <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': mediaOpened}"/>
-            </div>
-            <div v-if="mediaOpened" class="flex flex-col gap-3">
-              <router-link
-                  v-if="audioEnabled"
-                  :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'audio'}}">
-                <div :class="{'text-sspm-accent-600': segmentName === 'audio'}">Audio</div>
-              </router-link>
+            <div v-if="audioEnabled || videoEnabled" class="bg-gray-100 p-3 rounded text-left flex flex-col gap-3">
+              <div class="flex justify-between items-center cursor-pointer" @click="mediaOpened = !mediaOpened">
+                <span>Media</span>
+                <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': mediaOpened}"/>
+              </div>
+              <div v-if="mediaOpened" class="flex flex-col gap-3">
+                <router-link
+                    v-if="audioEnabled"
+                    :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'audio'}}">
+                  <div :class="{'text-sspm-accent-600': segmentName === 'audio'}">Audio</div>
+                </router-link>
 
-              <router-link
-                  v-if="videoEnabled"
-                  :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'videos'}}">
-                <div :class="{'text-sspm-accent-600': segmentName === 'videos'}">Videos</div>
-              </router-link>
+                <router-link
+                    v-if="videoEnabled"
+                    :to="{name: 'document', params: {resourceName: resource.name, documentName: document.name, segmentName: 'videos'}}">
+                  <div :class="{'text-sspm-accent-600': segmentName === 'videos'}">Videos</div>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -156,8 +165,8 @@
       <template v-if="isMedia">
         <div  class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
           <div class="flex">
-            <router-link :to="`${document.index.replace('en/ss', '')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
-            <router-link :to="`${document.index.replace('en/ss', '')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
+            <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
+            <router-link :to="`${document.index.replace('en/ss', '/en')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
           </div>
 
           <div>
@@ -165,8 +174,6 @@
             <ABSGDocumentVideo v-if="video && videoEnabled && segmentName === 'videos'" :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video"/>
           </div>
         </div>
-
-
       </template>
       <template v-else-if="video && videoEnabled && document && ['hope-ss-videos', 'more-videos', 'talking-points-videos'].includes(segmentName)">
         <ABSGDocumentVideo :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video" class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0" />
@@ -394,7 +401,7 @@ export default {
     },
 
     async getResourceFonts () {
-      let response = await this.$apiResources.get(`en/ss/${this.$route.params.resourceName}/sections/index.json`)
+      let response = await this.$apiResources.get(`${this.$route.params.resourceLanguage}/ss/${this.$route.params.resourceName}/sections/index.json`)
       this.resource = response.data
       if (this.resource.fonts) {
         for (let font of this.resource.fonts) {
@@ -405,17 +412,18 @@ export default {
     },
 
     async getDocument () {
+      const resourceLanguage = this.$route.params.resourceLanguage
       const resourceType = "ss"
       const resourceName = this.$route.params.resourceName
       const documentName = this.$route.params.documentName
       let segmentName = this.$route.params.segmentName
 
-      const resource = await this.$apiResources.get(`en/${resourceType}/${resourceName}/${documentName}/index.json`)
+      const resource = await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/${documentName}/index.json`)
       this.document = resource.data
 
       // getting audio
       try {
-        this.audio = (await this.$apiResources.get(`en/${resourceType}/${resourceName}/audio.json`)).data
+        this.audio = (await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/audio.json`)).data
         this.audioEnabled = true
       } catch (e) {
         console.error(e)
@@ -423,7 +431,7 @@ export default {
 
       // getting video
       try {
-        const video = (await this.$apiResources.get(`en/${resourceType}/${resourceName}/video.json`)).data
+        const video = (await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/video.json`)).data
         this.video = video
         this.videoEnabled = true
 
@@ -441,7 +449,7 @@ export default {
           const previousQuarter = `${year}-0${quarter}`
 
           try {
-            const prevVideo = (await this.$apiResources.get(`en/${resourceType}/${previousQuarter}/video.json`)).data
+            const prevVideo = (await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${previousQuarter}/video.json`)).data
 
             this.video = this.mergeArtists(this.video, prevVideo)
           } catch (e) {}

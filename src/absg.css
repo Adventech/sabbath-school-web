@@ -1,5 +1,5 @@
 .sspm-container {
-    @apply container mx-auto px-10 lg:px-24;
+    @apply container mx-auto px-4 md:px-10 lg:px-24;
 }
 
 @font-face {

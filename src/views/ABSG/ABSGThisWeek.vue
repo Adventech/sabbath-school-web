@@ -3,7 +3,7 @@
     <div class="sspm-container">
 
       <div v-if="currentDocument && currentResource" class="sspm-this-week" :style="`background-image: url('${currentDocument.cover}')`">
-        <div class="w-full text-center md:text-left  p-8 bg-gradient-to-b from-transparent to-black/70 w-full rounded-b-xl text-white flex flex-col items-start gap-10">
+        <div class="w-full text-center md:text-left p-8 bg-gradient-to-b from-transparent to-black/70 w-full rounded-b-xl text-white flex flex-col items-start gap-10">
           <div class="w-full flex flex-col gap-4">
             <p class="text-white">This Week's Lesson:</p>
             <p class="w-full text-3xl lg:max-w-[53.3%] xl:max-w-[33.3%] font-bold leading-tight">{{ currentDocument.title }}</p>
@@ -11,7 +11,7 @@
           </div>
 
           <div class="mx-auto md:mx-0">
-            <router-link :to="{name: 'document', params: {resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">View Online</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">View Online</router-link>
           </div>
         </div>
       </div>
@@ -24,7 +24,6 @@
           <p class="text-3xl font-bold">Teacher helps</p>
           <div class="flex justify-between gap-10">
             <p class="text-black/80">Deepen your understanding of God’s Word with the current Sabbath School lesson, designed for personal study and group discussion.</p>
-<!--            <ABSGLearnMore class="shrink-0" :to="'/'"></ABSGLearnMore>-->
           </div>
         </div>
 
@@ -33,7 +32,7 @@
             <div class="bg-center rounded-t-xl bg-cover bg-[url(/assets/img/sspm-teacher-helps.jpg)] min-h-64 w-full"></div>
             <div class="bg-white p-5 rounded-b-xl">
               <p class="text-lg"><strong>Teacher Comments</strong></p>
-              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '')}/teacher-comments`"></ABSGLearnMore>
+              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/teacher-comments`"></ABSGLearnMore>
             </div>
           </div>
 
@@ -41,7 +40,7 @@
             <div class="bg-center rounded-t-lg bg-cover bg-[url(/assets/img/sspm-hope-ss.png)] min-h-64 w-full"></div>
             <div class="bg-white p-5 rounded-b-xl">
               <p class="text-lg"><strong>Hope Sabbath School Outline</strong></p>
-              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '')}/hope-ss`"></ABSGLearnMore>
+              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/hope-ss`"></ABSGLearnMore>
             </div>
           </div>
 
@@ -49,7 +48,7 @@
             <div class="bg-center rounded-t-lg bg-cover bg-[url(/assets/img/sspm-talking-points.png)] min-h-64 w-full"></div>
             <div class="bg-white p-5 rounded-b-xl">
               <p class="text-lg"><strong>Talking Points Outline</strong></p>
-              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '')}/talking-points`"></ABSGLearnMore>
+              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/talking-points`"></ABSGLearnMore>
             </div>
           </div>
         </div>
@@ -64,7 +63,7 @@
       </div>
 
       <div v-if="currentResource && currentDocument" class="grid grid-cols-1 lg:grid-cols-2 items-center items-stretch">
-        <div class="px-10 py-10 lg:py-24 rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl bg-sspm-accent-50 flex items-center flex-1">
+        <div class="p-4 md:p-10 lg:py-24 rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl bg-sspm-accent-50 flex items-center flex-1">
           <div class="w-full flex flex-col gap-4">
             <div>
               <p class="text-sspm-accent-600 font-bold">This Week's lesson on audio</p>
@@ -102,7 +101,7 @@
 
 
     <div v-if="currentDocument" class="sspm-container">
-      <div class="bg-sspm-accent-900 p-10 rounded-xl flex flex-col gap-12  py-10">
+      <div class="bg-sspm-accent-900 p-4 lg:p-10 rounded-xl flex flex-col gap-12">
         <div class="text-center m-auto flex flex-col gap-5">
           <p class="text-sspm-accent-600 font-bold">Videos on this week's lesson</p>
           <p class="text-white text-2xl font-bold leading-tight">Some Principles of Prophecy</p>
@@ -116,13 +115,13 @@
                 <span class="px-3 py-1 rounded-full bg-sspm-accent-50 text-sspm-accent-600 text-xs">{{ v.artist }}</span>
               </div>
               <p class="text-lg leading-tight"><strong>{{ v.clips[0].title }}</strong></p>
-              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '')}/more-videos?video=${v.clips[0].id}`"></ABSGLearnMore>
+              <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/more-videos?video=${v.clips[0].id}`"></ABSGLearnMore>
             </div>
           </div>
         </div>
 
         <div class="mx-auto">
-          <router-link :to="`${currentDocument.index.replace('en/ss', '')}/more-videos`" class="rounded-full px-5 py-3 bg-sspm-accent-600 text-white/80">View More</router-link>
+          <router-link :to="`${currentDocument.index.replace('en/ss', '/en')}/more-videos`" class="rounded-full px-5 py-3 bg-sspm-accent-600 text-white/80">View More</router-link>
         </div>
       </div>
     </div>
@@ -233,10 +232,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.sspm-container {
-   @apply container mx-auto px-10 lg:px-24;
-}
+<style lang="scss" scoped>
+@import '@/absg.css';
 
 .sspm-this-week {
   @apply w-full pt-20 lg:pt-44 bg-cover rounded-xl flex items-end;
