@@ -37,7 +37,7 @@ export default {
     PSPSDFLicenseKey () {
       let domain = window.location.hostname
           .replace(/^app(-stage)?\.?/ig, '')
-          .replace(/-stage\.?/ig, '')
+          .replace(/-stage/ig, '')
           .replace(/^sabbath-school-stage/ig, 'sabbath-school')
           .replace(/\.|-/g, '_').toUpperCase().trim()
 
