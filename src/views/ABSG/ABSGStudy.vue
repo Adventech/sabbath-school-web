@@ -7,18 +7,18 @@
 
     <div v-if="teach" class="sspm-container">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="rounded-xl aspect-[4/3] md:aspect-[16/6] bg-cover bg-center bg-[url(/assets/img/sspm-scope-sequence.jpg)] flex items-end">
+        <router-link :to="{'name': 'scope'}" class="rounded-xl aspect-[4/3] md:aspect-[16/6] bg-cover bg-center bg-[url(/assets/img/sspm-scope-sequence.jpg)] flex items-end">
           <div class="md:flex justify-between w-full p-4 backdrop-blur-lg rounded-b-xl text-white">
             <p>Scope and Sequence</p>
             <ABSGLearnMore :to="{'name': 'scope'}" :classes="`!text-white`" />
           </div>
-        </div>
-        <div class="rounded-xl aspect-[4/3] md:aspect-[16/6] bg-cover bg-[url(/assets/img/sspm-teacher-training.jpg)] flex items-end">
+        </router-link>
+        <a :href="'https://sspmadventist.org/sabbathschool/alive/biblestudyandprayer'" class="rounded-xl aspect-[4/3] md:aspect-[16/6] bg-cover bg-[url(/assets/img/sspm-teacher-training.jpg)] flex items-end">
           <div class="md:flex justify-between w-full p-4 backdrop-blur-lg rounded-b-xl text-white">
             <p>Teacher Training</p>
             <ABSGLearnMore :href="'https://sspmadventist.org/sabbathschool/alive/biblestudyandprayer'" :classes="`!text-white`" />
           </div>
-        </div>
+        </a>
       </div>
     </div>
 

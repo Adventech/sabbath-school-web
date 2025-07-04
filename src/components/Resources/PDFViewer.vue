@@ -1,14 +1,14 @@
 <template>
-    <TabGroup>
-      <TabList v-if="pdfs.length > 1" class="border-b border-gray-200 p-4">
-        <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
-          <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
-        </Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel :unmount="false" class="pdf-content" v-for="(pdf, i) in pdfs" :class="`pdf-container-${i}`"></TabPanel>
-      </TabPanels>
-    </TabGroup>
+  <TabGroup v-if="defaultIndex >= 0" :defaultIndex="defaultIndex">
+    <TabList v-if="pdfs.length > 1" class="border-b border-gray-200 p-4">
+      <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
+        <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
+      </Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel :unmount="false" class="pdf-content" v-for="(pdf, i) in pdfs" :class="`pdf-container-${i}`"></TabPanel>
+    </TabPanels>
+  </TabGroup>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ import { authStore } from '@/stores/auth'
 const TOOLBAR_ITEMS_ALLOWED = ['zoom-in', 'zoom-out', 'zoom-mode' ,'spacer', 'ink', 'note', 'annotate', 'text-highlighter', 'layout-mode', 'search']
 
 export default {
-  props: ['pdfs'],
+  props: ['pdfs', 'selection'],
   inject: ['getDocument'],
   components: { TabGroup, TabList, Tab, TabPanels, TabPanel },
   data () {
@@ -27,6 +27,7 @@ export default {
       instances: {},
       annotations: {},
       eventListeners: {},
+      defaultIndex: -1,
     }
   },
   computed: {
@@ -36,6 +37,7 @@ export default {
     PSPSDFLicenseKey () {
       let domain = window.location.hostname
           .replace(/^app(-stage)?\.?/ig, '')
+          .replace(/-stage\.?/ig, '')
           .replace(/^sabbath-school-stage/ig, 'sabbath-school')
           .replace(/\.|-/g, '_').toUpperCase().trim()
 
@@ -45,6 +47,15 @@ export default {
     }
   },
   async mounted () {
+    const segmentName = this.$route.params.segmentName
+    if (segmentName === 'hope-ss') {
+      this.defaultIndex = this.pdfs.findIndex((p) => /Hope Sabbath/.test(p.title)) ?? 0
+    } else if (segmentName === 'talking-points') {
+      this.defaultIndex = this.pdfs.findIndex((p) => /Talking Points/.test(p.title)) ?? 0
+    } else {
+      this.defaultIndex = 0
+    }
+
     await this.getDocumentUserInput()
     await this.loadPdf()
   },
