@@ -3,63 +3,121 @@ import HomeView from '@/views/HomeView.vue'
 import locales from '@/locales'
 import { useLanguageStore } from '@/stores/language'
 
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/:lang',
+    name: 'quarterlies',
+    component: () => import('../views/Quarterlies.vue')
+  },
+  {
+    path: '/:lang/:quarter',
+    name: 'lessons',
+    component: () => import('../views/Lessons.vue')
+  },
+  {
+    path: '/:lang/:quarter/:lesson/:day?',
+    name: 'read',
+    component: () => import('../views/Read.vue')
+  },
+  {
+    path: '/language',
+    name: 'languages',
+    component: () => import('../views/Languages.vue')
+  },
+  {
+    path: '/resources/:lang/:resourceType',
+    name: 'resources',
+    component: () => import('../views/Resources.vue')
+  },
+  {
+    path: '/resources/:lang/:resourceType/:resourceName',
+    name: 'resource',
+    component: () => import('../views/Resource.vue')
+  },
+  {
+    path: '/resources/:lang/:resourceType/:resourceName/:documentName/:segmentName?',
+    name: 'document',
+    component: () => import('../views/Document.vue')
+  },
+  {
+    path: '/resources/:lang/categories',
+    name: 'categories',
+    component: () => import('../views/Categories.vue')
+  },
+  {
+    path: '/resources/:lang/category/:category',
+    name: 'category',
+    component: () => import('../views/Category.vue')
+  },
+]
+
+const sspmroutes = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/ABSG/ABSGHome.vue')
+  },
+
+  {
+    path: '/this-week',
+    name: 'this-week',
+    component: () => import('../views/ABSG/ABSGThisWeek.vue')
+  },
+
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/ABSG/ABSGAbout.vue')
+  },
+
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('../views/ABSG/ABSGContact.vue')
+  },
+
+  {
+    path: '/media',
+    name: 'media',
+    component: () => import('../views/ABSG/ABSGMedia.vue')
+  },
+
+  {
+    path: '/study/:type?',
+    name: 'study',
+    component: () => import('../views/ABSG/ABSGStudy.vue')
+  },
+
+  {
+    path: '/:resourceName',
+    name: 'publication',
+    component: () => import('../views/ABSG/ABSGResource.vue')
+  },
+
+  {
+    path: '/:resourceName/:documentName/:segmentName?',
+    name: 'document',
+    component: () => import('../views/ABSG/ABSGDocument.vue')
+  },
+
+
+]
+
+const getRoutes = function () {
+  return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? sspmroutes : routes
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
     return { top: 0, left: 0 }
   },
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/:lang',
-      name: 'quarterlies',
-      component: () => import('../views/Quarterlies.vue')
-    },
-    {
-      path: '/:lang/:quarter',
-      name: 'lessons',
-      component: () => import('../views/Lessons.vue')
-    },
-    {
-      path: '/:lang/:quarter/:lesson/:day?',
-      name: 'read',
-      component: () => import('../views/Read.vue')
-    },
-    {
-      path: '/language',
-      name: 'languages',
-      component: () => import('../views/Languages.vue')
-    },
-    {
-      path: '/resources/:lang/:resourceType',
-      name: 'resources',
-      component: () => import('../views/Resources.vue')
-    },
-    {
-      path: '/resources/:lang/:resourceType/:resourceName',
-      name: 'resource',
-      component: () => import('../views/Resource.vue')
-    },
-    {
-      path: '/resources/:lang/:resourceType/:resourceName/:documentName/:segmentName?',
-      name: 'document',
-      component: () => import('../views/Document.vue')
-    },
-    {
-      path: '/resources/:lang/categories',
-      name: 'categories',
-      component: () => import('../views/Categories.vue')
-    },
-    {
-      path: '/resources/:lang/category/:category',
-      name: 'category',
-      component: () => import('../views/Category.vue')
-    },
-  ]
+  routes: getRoutes()
 })
 
 /**

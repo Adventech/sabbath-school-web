@@ -1,7 +1,7 @@
 import axios from 'axios'
 import mitt from 'mitt'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import App from '@/App.vue'
+// import App from '@/App.vue'
 import router from '@/router'
 import DayJS from 'dayjs'
 import Bible from '@/plugins/Bible/'
@@ -17,6 +17,10 @@ import { VueHeadMixin, createHead } from '@unhead/vue'
 DayJS.extend(customParseFormat)
 
 import './style.css'
+
+const getApp = async function () {
+    return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? await import('@/ABSGApp.vue') : await import('@/App.vue')
+}
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_APP_API_HOST
@@ -81,27 +85,31 @@ axiosInstanceAuthResources.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-const app = createApp(App)
-const pinia = createPinia()
-const emitter = mitt()
-const head = createHead()
+getApp().then(({ default: App }) => {
+    const app = createApp(App)
+    const pinia = createPinia()
+    const emitter = mitt()
+    const head = createHead()
 
-pinia.use(piniaPluginPersistedstate)
+    pinia.use(piniaPluginPersistedstate)
 
-app.use(pinia)
-app.use(router)
-app.mixin(VueHeadMixin)
-app.use(head)
-app.use(Highlighter)
-app.use(ContextMenu)
-app.use(Bible)
+    app.use(pinia)
+    app.use(router)
+    app.mixin(VueHeadMixin)
+    app.use(head)
+    app.use(Highlighter)
+    app.use(ContextMenu)
+    app.use(Bible)
 
-app.config.globalProperties.$api = { ...axiosInstance }
-app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
-app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
-app.config.globalProperties.$apiAuthResources = { ...axiosInstanceAuthResources }
-app.config.globalProperties.emitter = emitter
+    app.config.globalProperties.$api = { ...axiosInstance }
+    app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
+    app.config.globalProperties.$apiAuth = { ...axiosInstanceAuth }
+    app.config.globalProperties.$apiAuthResources = { ...axiosInstanceAuthResources }
+    app.config.globalProperties.emitter = emitter
 
-app.component('Block', Block);
+    app.component('Block', Block);
 
-app.mount('#app')
+    app.mount('#app')
+
+})
+

@@ -88,7 +88,13 @@ module.exports = {
         'light': '#ffffff',
         'sepia': '#fbf0d9',
         'dark': '#000000',
-      },
+        'sspm-accent': '#00506B',
+        'sspm-secondary': '#E3F3F7',
+        'sspm-accent-600': '#0096B4',
+        'sspm-accent-800': '#00506B',
+        'sspm-accent-900': '#002D47',
+        'sspm-accent-50': '#E3F3F7',
+},
       height: {
         'ss-cover': '335px',
         'ss-cover-small': '15rem'

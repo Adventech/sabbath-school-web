@@ -4,7 +4,7 @@
                           :externalURL="block.resource?.externalURL || block.document?.externalURL"
                           :to="!block.segment ? (block.resource?.documentIndex ? `/resources/${block.resource.documentIndex}` : `/resources/${block.target}`) : ''">
     <div class="reference-block">
-      <div class="flex-none" v-if="block.resource">
+      <div class="flex-none" v-if="block.resource && !block.segment">
         <img class="w-12 h-12 rounded object-cover" :src="block.resource.covers.square" />
       </div>
       <div class="w-full">
