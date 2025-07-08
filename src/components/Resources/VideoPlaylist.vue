@@ -47,15 +47,18 @@ export default {
   },
   mounted () {
     if (this.video.length && this.video[0].clips.length) {
-      this.player = new Plyr('.ss-video')
-      let self = this
-      let playing = function (e) {
-        self.playing = e.detail.plyr.playing
-      }
-      this.player.on('playing', playing)
-      this.player.on('pause', playing)
-      let index = this.video[0].clips.findIndex((item) => item.targetIndex === self.target)
-      this.selectedVideo = this.video[0].clips[index || 0]
+      this.$nextTick(() => {
+        this.player = new Plyr('.ss-video')
+        let self = this
+
+        this.selectedVideo = this.video[0].clips[0]
+
+        let playing = function (e) {
+          self.playing = e.detail.plyr.playing
+        }
+        this.player.on('playing', playing)
+        this.player.on('pause', playing)
+      })
     }
   },
   beforeUnmount () {

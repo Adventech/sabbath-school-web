@@ -56,7 +56,7 @@ const routes = [
   },
 ]
 
-const sspmroutes = [
+const absgroutes = [
   {
     path: '/',
     name: 'home',
@@ -120,8 +120,52 @@ const sspmroutes = [
 
 ]
 
+const inverseroutes = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/InVerse/InVerseHome.vue')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/ABSG/ABSGAbout.vue')
+  },
+
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('../views/InVerse/InVerseContact.vue')
+  },
+
+  {
+    path: '/media',
+    name: 'media',
+    component: () => import('../views/InVerse/InVerseMedia.vue')
+  },
+
+  {
+    path: '/study',
+    name: 'study',
+    component: () => import('../views/InVerse/InVerseStudy.vue')
+  },
+
+  {
+    path: '/:resourceLanguage/:resourceName',
+    name: 'publication',
+    component: () => import('../views/InVerse/InVerseResource.vue')
+  },
+
+  {
+    path: '/:resourceLanguage/:resourceName/:documentName/:segmentName?',
+    name: 'document',
+    component: () => import('../views/InVerse/InVerseDocument.vue')
+  }
+]
+
 const getRoutes = function () {
-  return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? sspmroutes : routes
+  return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_INVERSE_HOST) ? inverseroutes :
+      (window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? absgroutes : routes)
 }
 
 const router = createRouter({

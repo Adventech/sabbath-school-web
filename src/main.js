@@ -19,7 +19,8 @@ DayJS.extend(customParseFormat)
 import './style.css'
 
 const getApp = async function () {
-    return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? await import('@/ABSGApp.vue') : await import('@/App.vue')
+    return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_INVERSE_HOST) ? await import('@/InVerseApp.vue') :
+        window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_ABSG_HOST) ? await import('@/ABSGApp.vue') : await import('@/App.vue')
 }
 
 const axiosInstance = axios.create({
