@@ -77,7 +77,7 @@ export default {
     await this.getResources()
 
     const title = useTitle()
-    title.value = `Adult Bible Study Guides - Sabbath School and Personal Ministries`
+    title.value = `InVerse Bible Study Guides - Sabbath School and Personal Ministries`
   },
   methods: {
     getResources: async function () {

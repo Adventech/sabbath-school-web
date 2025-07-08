@@ -30,7 +30,7 @@ export default {
       this.resource = resource.data
       this.loading = false
       const title = useTitle()
-      title.value = `${this.resource.title} - Adult Bible Study Guides`
+      title.value = `${this.resource.title} - InVerse Bible Study Guides`
     },
   },
   async mounted () {

@@ -50,7 +50,7 @@ export default {
   components: { ArrowUpRight },
   mounted () {
     const title = useTitle()
-    title.value = `Contact us - Adult Bible Study Guides`
+    title.value = `Contact us - InVerse Bible Study Guides`
   }
 }
 </script>
