@@ -9,7 +9,7 @@
           <div class="absg-header-inner-menu-nav">
             <ul><router-link :to="{'name': 'study'}">Study Guides</router-link></ul>
 
-<!--            <ul><router-link :to="{'name': 'study', params: {type: 'teach'}}">Teach</router-link></ul>-->
+            <ul><router-link :to="{'name': 'teach'}">Teach</router-link></ul>
 
             <ul><router-link :to="{'name': 'media'}">Media</router-link></ul>
 
@@ -52,7 +52,7 @@
               </transition>
             </Menu>
 
-<!--            <ul><router-link :to="{'name': 'about'}">About</router-link></ul>-->
+            <ul><router-link :to="{'name': 'about'}">About</router-link></ul>
 
             <ul><router-link :to="{'name': 'contact'}">Contact</router-link></ul>
           </div>
@@ -118,9 +118,9 @@
                       </transition>
                     </Menu>
                   </MenuItem>
-<!--                  <MenuItem>-->
-<!--                    <router-link :to="{'name': 'about'}">About</router-link>-->
-<!--                  </MenuItem>-->
+                  <MenuItem>
+                    <router-link :to="{'name': 'about'}">About</router-link>
+                  </MenuItem>
                   <MenuItem>
                     <router-link :to="{'name': 'contact'}">Contact</router-link>
                   </MenuItem>

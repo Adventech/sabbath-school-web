@@ -19,7 +19,7 @@ const directionCalc = function () {
 directionCalc()
 
 onMounted(() => {
-  let iconSource = '/assets/logo.png'
+  let iconSource = '/assets/inverse-favicon.png'
 
   let link = document.querySelector("link[rel*='icon']") || document.createElement('link')
   link.rel = 'icon'

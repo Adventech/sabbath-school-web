@@ -129,9 +129,13 @@ const inverseroutes = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/ABSG/ABSGAbout.vue')
+    component: () => import('../views/InVerse/InVerseAbout.vue')
   },
-
+  {
+    path: '/teach',
+    name: 'teach',
+    component: () => import('../views/InVerse/InVerseTeach.vue')
+  },
   {
     path: '/contact',
     name: 'contact',

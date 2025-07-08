@@ -9,7 +9,7 @@
 
       <div class="bg-gray-100 rounded-xl flex flex-col gap-10 p-10">
         <div class="mx-auto">
-          <p class="text-2xl font-bodld text-center">Editorial Team</p>
+          <p class="text-2xl font-bold text-center">Editorial Team</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-20">
