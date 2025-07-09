@@ -76,6 +76,9 @@
                     <router-link :to="{'name': 'study'}">Study Guides</router-link>
                   </MenuItem>
                   <MenuItem>
+                    <router-link :to="{'name': 'teach'}">Teach</router-link>
+                  </MenuItem>
+                  <MenuItem>
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>
                   <MenuItem>
