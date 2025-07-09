@@ -10,9 +10,9 @@
         </ul>
 
         <ul class="footer-absg-menu-links">
-          <li><a href="https://www.adventist.org/en/copyright/legal-notic/"><ABSGFooterLink /> Legal Notice</a></li>
-          <li><a href="https://privacy.adventist.org/"><ABSGFooterLink /> Privacy Policy</a></li>
-          <li><router-link :to="{'name': 'contact'}"><ABSGFooterLink /> Contact</router-link></li>
+          <li><a href="https://www.adventist.org/en/copyright/legal-notic/"><InVerseFooterLink /> Legal Notice</a></li>
+          <li><a href="https://privacy.adventist.org/"><InVerseFooterLink /> Privacy Policy</a></li>
+          <li><router-link :to="{'name': 'contact'}"><InVerseFooterLink /> Contact</router-link></li>
         </ul>
       </div>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import ABSGFooterLink from '@/assets/img/aij-footer-link.svg'
+import InVerseFooterLink from '@/assets/img/sspm-footer-link.svg'
 import { ref } from 'vue'
 
 const year = ref(new Date().getFullYear())
@@ -57,6 +57,9 @@ const year = ref(new Date().getFullYear())
       @apply uppercase flex flex-col font-normal text-xs gap-1;
       & > li > a {
         @apply flex flex-row gap-2 items-center;
+        & > svg {
+          @apply w-4;
+        }
       }
     }
   }

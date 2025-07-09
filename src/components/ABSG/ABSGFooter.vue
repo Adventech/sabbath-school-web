@@ -30,7 +30,7 @@
 
 <script setup>
 import ABSGFooterLock from '@/assets/img/lock-icon.svg'
-import ABSGFooterLink from '@/assets/img/aij-footer-link.svg'
+import ABSGFooterLink from '@/assets/img/sspm-footer-link.svg'
 import { ref } from 'vue'
 
 const year = ref(new Date().getFullYear())
@@ -62,6 +62,9 @@ const year = ref(new Date().getFullYear())
       @apply uppercase flex flex-col font-normal text-xs gap-1;
       & > li > a {
         @apply flex flex-row gap-2 items-center;
+        & > svg {
+          @apply w-4;
+        }
       }
     }
   }
