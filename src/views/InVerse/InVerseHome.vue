@@ -6,8 +6,8 @@
           <p class="w-full text-3xl font-black tracking-tight">InVerse Young<br/> Adult Bible Study Guide</p>
           <p class="w-full text-white/80 lg:max-w-[53.3%] xl:max-w-[33.3%]">InVerse is an in-depth, interactive Bible study guide that is loved by people all around the world! InVerse is designed for young adults ages 19-35 to use for personal Bible study and in Sabbath School and Bible study groups.</p>
           <div class="pt-4 flex gap-4 mx-auto md:mx-0">
-            <router-link role="button" :to="{'name': 'study'}" class="rounded-full border border-white/40 p-3 px-7 bg-sspm-accent-600">Start Learning</router-link>
-            <router-link role="button" :to="{'name': 'study'}" class="rounded-full border border-white/40 p-3 px-7 backdrop-blur">Learn more</router-link>
+            <router-link role="button" :to="{'name': 'study'}" class="text-xs sm:text-base rounded-full border border-white/40 p-3 px-7 bg-sspm-accent-600">Start Learning</router-link>
+            <router-link role="button" :to="{'name': 'study'}" class="text-xs sm:text-base rounded-full border border-white/40 p-3 px-7 backdrop-blur">Learn more</router-link>
           </div>
         </div>
       </div>

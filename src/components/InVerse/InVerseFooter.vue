@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-import ABSGFooterLock from '@/assets/img/lock-icon.svg'
 import ABSGFooterLink from '@/assets/img/aij-footer-link.svg'
 import { ref } from 'vue'
 

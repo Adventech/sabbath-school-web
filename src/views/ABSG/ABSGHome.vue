@@ -5,7 +5,9 @@
         <div class="w-full text-center md:text-left  p-8 bg-gradient-to-b from-transparent to-black/70 w-full rounded-b-xl text-white flex flex-col items-start gap-4">
           <p class="w-full text-3xl">Explore This Week</p>
           <p class="w-full text-white/80 lg:max-w-[53.3%] xl:max-w-[33.3%]">Deepen your understanding of God’s Word with the current Sabbath School lesson, designed for personal study and group discussion.</p>
-          <router-link role="button" :to="{'name': 'this-week'}" class="rounded-full border border-white/40 p-3 px-7 backdrop-blur">Learn more</router-link>
+          <div class="mx-auto md:mx-0 mt-4">
+            <router-link role="button" :to="{'name': 'this-week'}" class="rounded-full border border-white/40 p-3 px-7 backdrop-blur">Learn more</router-link>
+          </div>
         </div>
       </div>
     </div>

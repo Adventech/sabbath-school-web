@@ -39,7 +39,7 @@
 
             <Menu as="ul" class="relative">
               <MenuButton class="flex items-center">
-                More Sabbath School
+                More
               </MenuButton>
               <transition
                   enter-active-class="transition duration-100 ease-out"
@@ -133,9 +133,9 @@
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>
                   <MenuItem>
-                    <Menu as="ul" class="relative pl-2">
+                    <Menu as="ul" class="relative my-1 pl-2">
                       <MenuButton class="flex items-center">
-                        More Sabbath School
+                        More
                       </MenuButton>
                       <transition
                           enter-active-class="transition duration-100 ease-out"
@@ -176,7 +176,7 @@
                     <router-link :to="{'name': 'about'}">About</router-link>
                   </MenuItem>
                   <MenuItem>
-                    <Menu as="ul" class="relative px-2">
+                    <Menu as="ul" class="relative my-1 px-2">
                       <MenuButton class="flex items-center">
                         {{ currentLang.flag }} {{ currentLang.native }}
                       </MenuButton>
@@ -208,7 +208,7 @@
 
         <div class="w-[1px] h-100 bg-gray-300">&nbsp;</div>
 
-        <SDALogoAIJ class="w-8 md:w-10" />
+        <SDALogoAIJ class="w-8 md:w-10 mr-5 lg:mr-0" />
       </div>
     </div>
   </div>

@@ -15,7 +15,7 @@
 
             <Menu as="ul" class="relative">
               <MenuButton class="flex items-center">
-                More Sabbath School
+                More
               </MenuButton>
               <transition
                   enter-active-class="transition duration-100 ease-out"
@@ -30,16 +30,7 @@
                       <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://sspmadventist.org/sabbathschool/history">History</a>
-                    </MenuItem>
-                    <MenuItem>
-                      <a href="https://sspmadventist.org/sabbathschool/alive">Strategy</a>
-                    </MenuItem>
-                    <MenuItem>
                       <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
-                    </MenuItem>
-                    <MenuItem>
-                      <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
                     </MenuItem>
                     <MenuItem>
                       <a href="https://absg.sspmadventist.org">Adult</a>
@@ -82,9 +73,9 @@
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>
                   <MenuItem>
-                    <Menu as="ul" class="relative pl-2">
+                    <Menu as="ul" class="relative my-1 pl-2">
                       <MenuButton class="flex items-center">
-                        More Sabbath School
+                        More
                       </MenuButton>
                       <transition
                           enter-active-class="transition duration-100 ease-out"
@@ -99,16 +90,7 @@
                               <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
                             </MenuItem>
                             <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool/history">History</a>
-                            </MenuItem>
-                            <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool/alive">Strategy</a>
-                            </MenuItem>
-                            <MenuItem>
                               <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
-                            </MenuItem>
-                            <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
                             </MenuItem>
                             <MenuItem>
                               <a href="https://absg.sspmadventist.org/">Adult</a>
@@ -135,7 +117,7 @@
 
         <div class="w-[1px] h-100 bg-gray-300">&nbsp;</div>
 
-        <SDALogoAIJ class="w-8 md:w-10" />
+        <SDALogoAIJ class="w-8 md:w-10 mr-5 lg:mr-0" />
       </div>
     </div>
   </div>
