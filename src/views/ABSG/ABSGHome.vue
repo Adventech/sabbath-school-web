@@ -3,7 +3,7 @@
     <div class="sspm-container">
       <div class="sspm-hero">
         <div class="w-full text-center md:text-left  p-8 bg-gradient-to-b from-transparent to-black/70 w-full rounded-b-xl text-white flex flex-col items-start gap-4">
-          <p class="w-full text-3xl">Explore This Week</p>
+          <p class="w-full text-3xl font-black tracking-tight leading-tight">Explore This Week</p>
           <p class="w-full text-white/80 lg:max-w-[53.3%] xl:max-w-[33.3%]">Deepen your understanding of God’s Word with the current Sabbath School lesson, designed for personal study and group discussion.</p>
           <div class="mx-auto md:mx-0 mt-4">
             <router-link role="button" :to="{'name': 'this-week'}" class="rounded-full border border-white/40 p-3 px-7 backdrop-blur">Learn more</router-link>
@@ -15,7 +15,7 @@
     <div class="bg-gray-100">
       <div class="sspm-container flex flex-col gap-10 py-10">
         <div class="text-center lg:max-w-[36.3%] m-auto">
-          <p class="text-sspm-accent font-bold text-3xl">Study</p>
+          <p class="text-sspm-accent font-bold tracking-tight leading-tight mb-2 text-3xl">Study</p>
           <p class="text-black/80">Study the Bible with current and past editions of the Adult Bible Study Guide.</p>
         </div>
 

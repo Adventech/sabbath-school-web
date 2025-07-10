@@ -6,14 +6,14 @@
         <div class="w-full text-center md:text-left p-8 bg-gradient-to-b from-transparent to-black/70 w-full rounded-b-xl text-white flex flex-col items-start gap-10">
           <div class="w-full flex flex-col gap-4">
             <p class="text-white">This Week's Lesson:</p>
-            <p class="w-full text-3xl lg:max-w-[53.3%] xl:max-w-[33.3%] font-bold leading-tight">{{ currentDocument.title }}</p>
+            <p class="w-full text-3xl lg:max-w-[53.3%] xl:max-w-[33.3%] leading-tight tracking-tight font-black">{{ currentDocument.title }}</p>
             <p class="text-white">{{DayJS(currentDocument.startDate, 'DD/MM/YYYY').format('MMMM DD')}} - {{DayJS(currentDocument.endDate, 'DD/MM/YYYY').format('MMMM DD')}}</p>
           </div>
 
           <div class="mx-auto md:mx-0 flex flex-col lg:flex-row gap-3">
-            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Standard Adult</router-link>
-            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: `${currentResource.name}-er`, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Easy Reading</router-link>
-            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name, segmentName: 'teacher-comments'}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Adult Teachers</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7">Standard Adult</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: `${currentResource.name}-er`, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7">Easy Reading</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name, segmentName: 'teacher-comments'}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7">Adult Teachers</router-link>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@
           </div>
         </div>
 
-        <div class="mx-auto">
+        <div class="mx-auto mb-10 lg:mb-0">
           <router-link :to="`${currentDocument.index.replace('en/ss', '/en')}/videos`" class="rounded-full px-5 py-3 bg-sspm-accent-600 text-white/80">View More</router-link>
         </div>
       </div>
