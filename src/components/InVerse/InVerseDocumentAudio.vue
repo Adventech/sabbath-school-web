@@ -55,7 +55,7 @@ export default {
   },
 
   async mounted () {
-    if (!this.audio) { return }
+    if (!this.audio || !Array.isArray(this.audio)) { return }
 
     this.selectedAudio = this.audio.find((a) => a.target.indexOf(`${this.document.index}`) === 0)
 
@@ -66,7 +66,7 @@ export default {
 
   methods: {
     hasAudio (document) {
-      if (!this.audio) return false
+      if (!this.audio || !Array.isArray(this.audio)) return false
 
       return this.audio.filter((a) => a.target.indexOf(document.index) >= 0 && /Adult/.test(a.artist))
     },

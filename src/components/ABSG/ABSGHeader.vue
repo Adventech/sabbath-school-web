@@ -68,7 +68,7 @@
                       <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
                     </MenuItem>
                     <MenuItem>
-                      <a href="https://www.inversebible.org/">Young Adult</a>
+                      <a href="https://inverse.sspmadventist.org/">Young Adult</a>
                     </MenuItem>
                     <MenuItem>
                       <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>
@@ -171,7 +171,7 @@
                         <a href="https://sspmadventist.org/sabbathschool/resources">Training Resources</a>
                       </MenuItem>
                       <MenuItem>
-                        <a href="https://www.inversebible.org/">Young Adult</a>
+                        <a href="https://inverse.sspmadventist.org/">Young Adult</a>
                       </MenuItem>
                       <MenuItem>
                         <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>

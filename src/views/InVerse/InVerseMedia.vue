@@ -1,11 +1,13 @@
 <template>
-  <p>Loading</p>
+  <LoadingDetail class="sspm-container"></LoadingDetail>
 </template>
 
 <script>
+import LoadingDetail from '@/components/Shimmer/LoadingDetail.vue'
 import DayJS from "dayjs"
 
 export default {
+  components: { LoadingDetail },
   async mounted () {
     await this.getResources()
   },
@@ -43,3 +45,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/absg.css';
+</style>

@@ -1,6 +1,6 @@
 <template>
   <template v-if="loading">
-    <LoadingDetail></LoadingDetail>
+    <LoadingDetail class="sspm-container"></LoadingDetail>
   </template>
   <div v-else-if="document && resource" class="sspm-container mx-auto">
     <div class="flex gap-5 my-10 flex-col md:flex-row">
@@ -22,7 +22,7 @@
             <div>
               <MenuButton class="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 px-3 py-2 w-full focus:outline-none text-left">
                 <div class="flex items-center justify-between">
-                  <span>{{ document.title }}</span>
+                  <span>{{ /\d+/.test(document.name) ? `${document.sequence}. ` : '' }}{{ document.title }}</span>
                   <span class="pointer-events-none flex items-center">
                   <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
@@ -42,7 +42,7 @@
                 <div v-for="(d, index) in resource.sections[0].documents" class="p-1">
                   <MenuItem v-slot="{ active }">
                     <router-link :to="{'name': 'document', params: {resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name, documentName: d.name}}" class="text-start text-gray-900 group flex w-full items-center px-2 py-2 text-sm justify-between">
-                      <span>{{ d.sequence }}. {{ d.title }}</span>
+                      <span>{{ /\d+/.test(d.name) ? `${d.sequence}. ` : '' }}{{ d.title }}</span>
                       <span>
                         <CheckIcon v-if="document.id === d.id" class="w-5" />
                       </span>

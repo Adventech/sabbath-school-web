@@ -1,6 +1,6 @@
 <template>
   <template v-if="loading">
-    <LoadingDetail></LoadingDetail>
+    <LoadingDetail class="sspm-container"></LoadingDetail>
   </template>
   <div v-else-if="document && resource" class="sspm-container mx-auto">
     <div class="flex gap-5 my-10 flex-col md:flex-row">
@@ -163,7 +163,7 @@
       </div>
 
       <template v-if="isMedia">
-        <div  class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
+        <div  class="order-0 md:order-1 md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
           <div class="flex">
             <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
             <router-link :to="`${document.index.replace('en/ss', '/en')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
@@ -176,7 +176,7 @@
         </div>
       </template>
       <template v-else-if="video && videoEnabled && document && ['hope-ss-videos', 'more-videos', 'talking-points-videos'].includes(segmentName)">
-        <ABSGDocumentVideo :selectDefault="segmentName !== 'more-videos'" :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video" class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0" />
+        <ABSGDocumentVideo :selectDefault="segmentName !== 'more-videos'" :title="document.title" :date="`${DayJS(document.startDate, 'DD/MM/YYYY').format('MMM DD')} - ${DayJS(document.endDate, 'DD/MM/YYYY').format('MMM DD')}`" :segmentName="segmentName" :video="video" class="order-0 md:order-1 md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0" />
       </template>
       <template v-else>
         <div

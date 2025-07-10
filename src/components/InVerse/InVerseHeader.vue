@@ -4,7 +4,7 @@
 
       <router-link to="/"><InVerseLogo /></router-link>
 
-      <div class="flex items-center gap-10">
+      <div class="flex items-center gap-4 lg:gap-10">
         <nav class="absg-header-inner-menu">
           <div class="absg-header-inner-menu-nav">
             <ul><router-link :to="{'name': 'study'}">Study Guides</router-link></ul>
@@ -52,7 +52,7 @@
         <div class="absg-header-inner-menu-mobile-nav">
           <Menu as="ul" class="relative">
             <MenuButton class="absg-header-inner-menu-mobile-nav-button">
-              <Bars3Icon class="w-5 md:w-8 absg-header-inner-menu-mobile-nav-button-icon" />
+              <span class="text-xs">Menu</span><Bars3Icon class="w-5 md:w-8 absg-header-inner-menu-mobile-nav-button-icon" />
             </MenuButton>
             <transition
                 enter-active-class="transition duration-100 ease-out"
@@ -72,37 +72,28 @@
                   <MenuItem>
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>
-                  <MenuItem>
-                    <Menu as="ul" class="relative my-1 pl-2">
-                      <MenuButton class="flex items-center">
-                        More
-                      </MenuButton>
-                      <transition
-                          enter-active-class="transition duration-100 ease-out"
-                          enter-from-class="transform scale-95 opacity-0"
-                          enter-to-class="transform scale-100 opacity-100"
-                          leave-active-class="transition duration-75 ease-in"
-                          leave-from-class="transform scale-100 opacity-100"
-                          leave-to-class="transform scale-95 opacity-0">
-                        <MenuItems class="absg-header-dropdown">
-                          <div>
-                            <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
-                            </MenuItem>
-                            <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
-                            </MenuItem>
-                            <MenuItem>
-                              <a href="https://absg.sspmadventist.org/">Adult</a>
-                            </MenuItem>
-                            <MenuItem>
-                              <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>
-                            </MenuItem>
-                          </div>
-                        </MenuItems>
-                      </transition>
-                    </Menu>
-                  </MenuItem>
+                  <Disclosure v-slot="{ open }">
+                    <DisclosureButton class="text-left p-2 w-full">
+                      <div class="flex justify-between">
+                        <div>More</div>
+                        <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': open}" />
+                      </div>
+                    </DisclosureButton>
+                    <DisclosurePanel class="pl-4">
+                      <MenuItem>
+                        <a href="https://sspmadventist.org/sabbathschool">Sabbath School Home</a>
+                      </MenuItem>
+                      <MenuItem>
+                        <a href="https://sspmadventist.org/sabbathschool/missionstoriesandofferings">Mission Stories and Offerings</a>
+                      </MenuItem>
+                      <MenuItem>
+                        <a href="https://absg.sspmadventist.org">Adult</a>
+                      </MenuItem>
+                      <MenuItem>
+                        <a href="https://sspmadventist.org/sabbathschool/childrenandyouth">Children and Youth</a>
+                      </MenuItem>
+                    </DisclosurePanel>
+                  </Disclosure>
                   <MenuItem>
                     <router-link :to="{'name': 'about'}">About</router-link>
                   </MenuItem>
@@ -115,7 +106,9 @@
           </Menu>
         </div>
 
-        <div class="w-[1px] h-100 bg-gray-300">&nbsp;</div>
+        <div class="relative">
+          <div class="w-[1px] h-100 bg-gray-600 absolute -top-10 -bottom-10">&nbsp;</div>
+        </div>
 
         <SDALogoAIJ class="w-8 md:w-10 mr-5 lg:mr-0" />
       </div>
@@ -129,7 +122,12 @@ import SDALogoAIJ from '@/assets/img/sda-logo-aij.svg'
 import LoginButton from '@/components/LoginButton.vue'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
-
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from '@headlessui/vue'
+import { ChevronDownIcon } from '@heroicons/vue/24/solid'
 </script>
 
 
