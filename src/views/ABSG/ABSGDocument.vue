@@ -165,8 +165,8 @@
       <template v-if="isMedia">
         <div  class="order-0 md:order-1 md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
           <div class="flex">
-            <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
-            <router-link :to="`${document.index.replace('en/ss', '/en')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
+            <router-link v-if="audioEnabled" :to="`${document.index.replace('en/ss', '/en')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
+            <router-link v-if="videoEnabled" :to="`${document.index.replace('en/ss', '/en')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
           </div>
 
           <div>
@@ -423,16 +423,22 @@ export default {
 
       // getting audio
       try {
-        this.audio = (await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/audio.json`)).data
+        let a = await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/audio.json`)
+
+        if (a.headers['content-type'] !== 'application/json') {
+          throw new Error('not found')
+        }
+        this.audio = a.data
         this.audioEnabled = true
-      } catch (e) {
-        console.error(e)
-      }
+      } catch (e) {}
 
       // getting video
       try {
-        const video = (await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/video.json`)).data
-        this.video = video
+        let v = await this.$apiResources.get(`${resourceLanguage}/${resourceType}/${resourceName}/video.json`)
+        if (v.headers['content-type'] !== 'application/json') {
+          throw new Error('not found')
+        }
+        this.video = v.data
         this.videoEnabled = true
 
         if (/\d{4}-\d{2}/.test(resourceName)) {
