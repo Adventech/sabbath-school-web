@@ -12,13 +12,13 @@
     </div>
 
     <div
-         class="w-full bg-no-repeat bg-cover flex flex-col justify-end bg-center bg-auto "
+         class="w-full bg-no-repeat bg-cover flex flex-col justify-end bg-center bg-auto rounded-t-xl"
          :class="{'h-64 md:h-ss-cover': cover}"
          :style="`background-image:url('${cover}');`"
     >
       <div class="flex flex-col"
            :class="{
-        'p-5 text-white bg-gradient-to-b from-transparent to-black/40': cover && !titleBelowCover,
+        'p-5 text-white bg-gradient-to-b from-transparent via-black/60 to-black/90': cover && !titleBelowCover,
         'p-5 text-white': cover && titleBelowCover,
         'mx-5 mb-5 mt-5': !cover,
       }"
