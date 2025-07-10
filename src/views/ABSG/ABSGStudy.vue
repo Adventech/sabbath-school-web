@@ -25,7 +25,7 @@
     <div class="sspm-container">
       <div v-if="feed && feed.resources && feed.resources.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 items-stretch items-center">
         <router-link :to="
-          $route.params.type === 'teach' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: this.document ? this.document.name : '01', segmentName: 'teacher-comments' }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }}
+          $route.params.type === 'teach' || $route.params.type === 'teacher' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: document ? document.name : '01', segmentName: 'teacher-comments' }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }}
         " v-for="r in feed.resources" class="flex flex-col gap-3">
           <div class="">
             <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
@@ -63,7 +63,11 @@ export default {
       title.value = `Easy Reading - Adult Bible Study Guides`
     } else if (resourceType === 'teach') {
       this.teach = 'Teacher Helps'
+      this.resourceType = 'Teacher Helps'
       title.value = `Teacher Helps - Adult Bible Study Guides`
+    } else if (resourceType === 'teacher') {
+      this.resourceType = 'Adult Teachers'
+      title.value = `Adult Teachers - Adult Bible Study Guides`
     } else {
       title.value = `Standard Adult - Adult Bible Study Guides`
     }
@@ -78,7 +82,7 @@ export default {
 
         this.feed = (await this.$apiResources.get(`en/ss/feeds/${correctFeed.id}/index.json`)).data
 
-        if (this.resourceType === 'teach') {
+        if (this.resourceType === 'Teacher Helps' || this.resourceType === 'Adult Teachers') {
           const today = DayJS()
           const resource = this.feed.resources.find(r => {
             const start = DayJS(r.startDate, 'DD/MM/YYYY')

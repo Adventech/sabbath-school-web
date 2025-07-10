@@ -10,8 +10,10 @@
             <p class="text-white">{{DayJS(currentDocument.startDate, 'DD/MM/YYYY').format('MMMM DD')}} - {{DayJS(currentDocument.endDate, 'DD/MM/YYYY').format('MMMM DD')}}</p>
           </div>
 
-          <div class="mx-auto md:mx-0">
-            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">View Online</router-link>
+          <div class="mx-auto md:mx-0 flex flex-row gap-3">
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Standard Adult</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: `${currentResource.name}-er`, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Easy Reading</router-link>
+            <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name, segmentName: 'teacher-comments'}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Adult Teachers</router-link>
           </div>
         </div>
       </div>
@@ -21,7 +23,7 @@
       <div class="flex flex-col gap-10 sspm-container">
         <div class="flex flex-col gap-3">
           <p class="text-sspm-accent-600 font-bold">This Week's</p>
-          <p class="text-3xl font-bold">Teacher helps</p>
+          <p class="text-3xl font-bold">Teacher Helps</p>
           <div class="flex justify-between gap-10">
             <p class="text-black/80">Prepare to lead your Sabbath School class using excellent resources and media that will equip you to teach the Bible with clarity.</p>
           </div>
@@ -29,9 +31,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch items-center">
           <div class="bg-gradient-to-b from-transparent to-white via-white rounded-b-xl">
-            <div class="bg-center rounded-t-xl bg-cover bg-[url(/assets/img/sspm-teacher-helps.jpg)] min-h-64 w-full"></div>
+            <div class="bg-center rounded-t-xl bg-left-top bg-cover min-h-64 w-full" :style="`background-image:url('${currentResource.covers.portrait}')`"></div>
             <div class="bg-white p-5 rounded-b-xl">
-              <p class="text-lg"><strong>Teacher Comments</strong></p>
+              <p class="text-lg"><strong>Adult Teacher Guide</strong></p>
               <ABSGLearnMore :to="`${currentDocument.index.replace('en/ss', '/en')}/teacher-comments`"></ABSGLearnMore>
             </div>
           </div>

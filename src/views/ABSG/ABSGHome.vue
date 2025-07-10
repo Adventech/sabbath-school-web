@@ -22,6 +22,50 @@
         <div class="flex flex-col gap-4">
           <p class="text-xl">Standard Adult</p>
 
+          <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 items-stretch items-center">
+            <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
+              <div class="">
+                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+              </div>
+              <div>
+                <div class="font-bold text-lg">{{ r.title }}</div>
+                <div class="text-gray-400 text-xs">{{ r.subtitle }}</div>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="mx-auto">
+            <router-link :to="{'name': 'study'}" class="px-5 py-3 shadow-xl rounded-full bg-sspm-accent-600 text-white">View all</router-link>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="flex flex-col gap-4">
+          <p class="text-xl">Easy Reading</p>
+
+          <div v-if="er.resources && er.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
+            <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in er.resources.slice(0, 5)" class="flex flex-col gap-3">
+              <div class="">
+                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+              </div>
+              <div>
+                <div class="font-bold text-lg">{{ r.title }}</div>
+                <div class="text-gray-400 text-xs">{{ r.subtitle }}</div>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="mx-auto">
+            <router-link :to="{'name': 'study', params: {type: 'easy-reading'}}" class="px-5 py-3 shadow-xl rounded-full bg-sspm-accent-600 text-white">View all</router-link>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="flex flex-col gap-4">
+          <p class="text-xl">Adult Teacher</p>
+
           <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
               <div class="">
@@ -33,23 +77,9 @@
               </div>
             </router-link>
           </div>
-        </div>
 
-        <hr/>
-
-        <div class="flex flex-col gap-4">
-          <p class="text-xl">Easy Reading</p>
-
-          <div v-if="er.resources && er.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
-            <div v-for="r in er.resources.slice(0, 5)" class="flex flex-col gap-3">
-              <div class="">
-                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
-              </div>
-              <div>
-                <div class="font-bold text-lg">{{ r.title }}</div>
-                <div class="text-gray-400 text-xs">{{ r.subtitle }}</div>
-              </div>
-            </div>
+          <div class="mx-auto">
+            <router-link :to="{'name': 'study', params: {type: 'teacher'}}" class="px-5 py-3 shadow-xl rounded-full bg-sspm-accent-600 text-white">View all</router-link>
           </div>
         </div>
       </div>
