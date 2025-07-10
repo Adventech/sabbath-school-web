@@ -107,7 +107,7 @@
         </div>
 
         <div class="relative">
-          <div class="w-[1px] h-100 bg-gray-600 absolute -top-10 -bottom-10">&nbsp;</div>
+          <div class="w-[1px] h-100 bg-gray-600 absolute -top-10 -bottom-9">&nbsp;</div>
         </div>
 
         <SDALogoAIJ class="w-8 md:w-10 mr-5 lg:mr-0" />
