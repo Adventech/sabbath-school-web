@@ -4,7 +4,7 @@
   </template>
   <div v-else-if="document && resource" class="sspm-container mx-auto">
     <div class="flex gap-5 my-10 flex-col md:flex-row">
-      <div class="md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right shrink-0">
+      <div class="order-1 md:order-0 md:w-3/12 lg:w-3/12 xl:w-2/12 md:text-right shrink-0">
         <div class="flex flex-col gap-5">
           <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
             <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}" class="shrink-0">
@@ -102,7 +102,7 @@
       </div>
 
       <template v-if="isMedia">
-        <div  class="md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
+        <div  class="order-0 md:order-1 md:w-9/12 lg:w-9/12 xl:w-10/12 shrink-0 grow-0">
           <div class="flex">
             <router-link :to="`${document.index.replace('en/ss', '/en')}/audio`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'audio'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Audio</router-link>
             <router-link :to="`${document.index.replace('en/ss', '/en')}/videos`" :class="{'bg-gray-100 border-b-2 border-sspm-accent-600': segmentName === 'videos'}" class="rounded-t-lg text-sspm-accent-600 font-bold py-2 px-5">Video</router-link>
@@ -117,7 +117,7 @@
       <template v-else>
         <div
           :class="selectedSegment.type === 'block' ? themeStore().getClassList() : ''"
-          class="md:w-9/12 lg:w-9/12 xl:w-10/12 bg-top bg-cover bg-no-repeat h-fit flex-grow"
+          class="order-0 md:order-1 md:w-9/12 lg:w-9/12 xl:w-10/12 bg-top bg-cover bg-no-repeat h-fit flex-grow"
           :style="documentBackground"
       >
         <Segment class="border border-gray-100 shadow-xl" v-if="segment || selectedSegment" :segment="segment || selectedSegment">
