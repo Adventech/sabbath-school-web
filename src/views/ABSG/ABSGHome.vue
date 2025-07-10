@@ -64,7 +64,7 @@
         <hr/>
 
         <div class="flex flex-col gap-4">
-          <p class="text-xl">Adult Teacher</p>
+          <p class="text-xl">Adult Teachers</p>
 
           <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
