@@ -10,7 +10,7 @@
             <p class="text-white">{{DayJS(currentDocument.startDate, 'DD/MM/YYYY').format('MMMM DD')}} - {{DayJS(currentDocument.endDate, 'DD/MM/YYYY').format('MMMM DD')}}</p>
           </div>
 
-          <div class="mx-auto md:mx-0 flex flex-row gap-3">
+          <div class="mx-auto md:mx-0 flex flex-col lg:flex-row gap-3">
             <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Standard Adult</router-link>
             <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: `${currentResource.name}-er`, documentName: currentDocument.name}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Easy Reading</router-link>
             <router-link :to="{name: 'document', params: {resourceLanguage: 'en', resourceName: currentResource.name, documentName: currentDocument.name, segmentName: 'teacher-comments'}}" class="text-black bg-white rounded-full border border-white/40 p-3 px-7 backdrop-blur">Adult Teachers</router-link>
