@@ -31,7 +31,7 @@
             <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
           </div>
           <div>
-            <div class="font-bold text-lg">{{ r.title }}</div>
+            <div class="font-bold text-lg leading-tight">{{ r.title }}</div>
             <div class="text-gray-400 text-xs">{{ r.subtitle }}</div>
           </div>
         </router-link>
