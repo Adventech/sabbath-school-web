@@ -19,7 +19,7 @@ const locales = [
     },
     {
         "native": "Português",
-        "en": "Portugese",
+        "en": "Portuguese",
         "code": "pt",
         "flag": "🇧🇷"
     },

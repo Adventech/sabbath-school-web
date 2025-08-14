@@ -50,7 +50,7 @@ export default {
         },
         {
           "native": "Português",
-          "en": "Portugese",
+          "en": "Portuguese",
           "code": "pt"
         },
         {
