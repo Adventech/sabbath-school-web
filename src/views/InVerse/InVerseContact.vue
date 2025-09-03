@@ -64,12 +64,6 @@ export default {
     script.src = "https://a22ca26954ac.us-east-1.captcha-sdk.awswaf.com/a22ca26954ac/jsapi.js"
     script.defer = true
     document.head.appendChild(script)
-
-    script.onload = () => {
-      const script2 = document.createElement("script")
-      script2.src = "/assets/js/captcha.js"
-      document.body.appendChild(script2)
-    };
   },
 
   methods: {
