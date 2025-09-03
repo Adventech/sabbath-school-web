@@ -25,9 +25,11 @@
 
         <img class="rounded-xl aspect-[16/9] object-cover my-5" src="/assets/img/sspm-inverse-teach-helps.png" />
 
-        <p class="text-sspm-accent-1000 font-semibold text-xl">Teacher Resources:</p>
+        <p class="text-sspm-accent-1000 font-semibold text-xl">Basic Teacher Tips:</p>
 
-        <p class="text-black/60">InVerse produces two weekly resources to help teachers lead their Sabbath School or Bible study group. Whether a new Bible instructor or an experienced one, these resources can help you prepare excellent lessons for your group.</p>
+        <p class="text-black/60">
+          Sabbath School can be an amazing experience that young adults look forward to and enjoy. It doesn’t have to be complex or fancy. There’s something very attractive about simplicity and authenticity. Here are a few suggestions that may bring a fresh experience into your Sabbath School.
+        </p>
 
         <div class="sspm-inverse-teach-list">
           <div class="flex flex-col gap-2">
