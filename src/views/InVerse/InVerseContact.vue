@@ -7,7 +7,7 @@
           <p class="">We welcome your feedback and will do our best to respond to your specific needs in a timely way.</p>
           <p class="">To reach us by email please complete the form below.</p>
 
-          <div>
+          <div v-if="!contacted">
             <form @submit.prevent="sendMessage()" class="flex flex-col gap-4">
               <div class="flex flex-col gap-2">
                 <label for="name">Name*</label>
@@ -35,6 +35,9 @@
               </div>
             </form>
           </div>
+          <div v-else class="p-4 rounded-xl bg-gray-100 text-center">
+            <p class="text-lg">Thank you! You message have been successfully sent.</p>
+          </div>
         </div>
         <div>
           <img class="aspect-[3/3.5] rounded shadow object-cover" src="/assets/img/sspm-absg-contact.jpg" />
@@ -55,6 +58,7 @@ export default {
       email: '',
       name: '',
       message: '',
+      contacted: false,
     }
   },
   mounted () {
@@ -73,6 +77,7 @@ export default {
           {
             apiKey: 'nKZE+LgFtIM5kq7u0ZVU3KKMqlzQz0oVpZsQVD3XRMF/NWEF8Q9Ipo6GJtC1lMUwN/0SGL5CEzNqnm7yJyq+yDukcqdClmZGqIjTHeWm5CDXQ0cWdS3Z6Ss4vwW38CLEeZwWiOB5m/R6eqCZ7tC2JYAKlSbECtyOc6DE+xRS9RahsJtL37+zqNuPagqr16ZLspeSAxcdISSIuz71RtZORNT//cdDMNQxsDCio+76N8gg7Q0cgO1mh7+Efc3FZNycCgy7xLfORv9tupaWBgz934yM2FFKojC6LM36KXpY2FRBfeeGooZXzMZaljQr0k0gFV41hMeECEa5KYJQKaZhe8cytDvH4SyGLAas9UwLFTOVDKMq2qS7mCe3xHUASUPKEEntXXH9N0PSqyNqqGtm93OfaL6TjbMq4eCu+IzBghwQhJjJ40WeZzxmGnN/x6fEnoeVTpg2ifxATTuZZolBb6rYleE6tgoLEDHcmhMGnE9wTKn04J17iA0FfGmStzCSG3FaJ1vvsYxWPrVgvovkkdvIqvK4KSMG9WXRnxCOQMcS9pWeY3TozdOBshUVos+vsYaeXPu4WjWvXETcTjecNPwDG390x1RCtizF+oOzes5lrU/63U2rmRm+Dgj/O0QN8kURW8mLBVgHbQKz2lk6wlOt1xmjgWr7dpxHJxnPxCo=_0_1',
             onSuccess: () => {
+              this.contacted = true
               this.$api.post('/misc/contact', {
                 name: this.name,
                 email: this.email,
