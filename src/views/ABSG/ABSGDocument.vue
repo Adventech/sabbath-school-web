@@ -205,7 +205,7 @@
             <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" :story="true" />
           </template>
 
-          <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" /></template>
+          <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" :showDownload="this.$route.params.resourceLanguage === 'en'" /></template>
         </Segment>
 
         <Popup :open="hiddenSegmentOpen"

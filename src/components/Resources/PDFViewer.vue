@@ -1,5 +1,5 @@
 <template>
-  <TabGroup v-if="defaultIndex >= 0" :defaultIndex="defaultIndex">
+  <TabGroup v-if="defaultIndex >= 0" :defaultIndex="defaultIndex" :selectedIndex="selectedIndex" @change="changeTab">
     <TabList v-if="pdfs.length > 1" class="border-b border-gray-200 p-4">
       <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
         <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
@@ -18,7 +18,7 @@ import { authStore } from '@/stores/auth'
 const TOOLBAR_ITEMS_ALLOWED = ['zoom-in', 'zoom-out', 'zoom-mode' ,'spacer', 'ink', 'note', 'annotate', 'text-highlighter', 'layout-mode', 'search']
 
 export default {
-  props: ['pdfs', 'selection'],
+  props: ['pdfs', 'selection', 'showDownload'],
   inject: ['getDocument'],
   components: { TabGroup, TabList, Tab, TabPanels, TabPanel },
   data () {
@@ -28,6 +28,7 @@ export default {
       annotations: {},
       eventListeners: {},
       defaultIndex: -1,
+      selectedIndex: 0,
     }
   },
   computed: {
@@ -60,6 +61,37 @@ export default {
     await this.loadPdf()
   },
   methods: {
+    changeTab (index) {
+      this.selectedIndex = index
+    },
+    downloadButton (instance) {
+      return {
+        type: "custom",
+        id: "download-pdf",
+        icon: "/assets/img/download-icon.svg",
+        title: "Download",
+        onPress: () => {
+          console.log(this.pdfs[this.selectedIndex])
+          instance.exportPDF().then((buffer) => {
+            const blob = new Blob([buffer], { type: "application/pdf" });
+            const fileName = `${this.pdfs[this.selectedIndex].title}-${this.pdfs[this.selectedIndex].id}.pdf`;
+            if (window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(blob, fileName);
+            } else {
+              const objectUrl = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = objectUrl;
+              a.style = "display: none";
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(objectUrl);
+              document.body.removeChild(a);
+            }
+          });
+        }
+      };
+    },
     async getDocumentUserInput () {
       if (!authStore().isLoggedIn) {
         this.documentUserInput = []
@@ -144,6 +176,10 @@ export default {
       }
 
       await this.instances[pdf.id].addEventListener("annotations.willSave", this.eventListeners[pdf.id]);
+
+      if (this.showDownload) {
+        await this.instances[pdf.id].setToolbarItems(toolbarItems.concat(this.downloadButton(this.instances[pdf.id])))
+      }
     },
   },
   async beforeUnmount() {
