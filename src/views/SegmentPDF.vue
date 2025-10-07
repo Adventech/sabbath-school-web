@@ -1,5 +1,5 @@
 <template>
-  <PDFViewer :pdfs="segment.pdf" />
+  <PDFViewer :pdfs="segment.pdf" :showDownload="this.$route.params.resourceLanguage === 'en'" />
 </template>
 
 <script>
