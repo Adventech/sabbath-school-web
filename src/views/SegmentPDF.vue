@@ -1,5 +1,5 @@
 <template>
-  <PDFViewer :pdfs="segment.pdf" :showDownload="this.$route.params.resourceLanguage === 'en'" />
+  <PDFViewer :pdfs="segment.pdf" :showDownload="showDownload" />
 </template>
 
 <script>
@@ -10,6 +10,9 @@ export default {
   inject: ['getDocument'],
   components: { PDFViewer },
   computed: {
+    showDownload: function () {
+      return ['en', 'af', 'ar', 'zh', 'fa', 'fj', 'fr', 'hi', 'kn', 'ml', 'lus', 'ne', 'no', 'st', 'es', 'ta', 'te', 'tr', 'xh', 'zu'].includes(this.$route.params.resourceLanguage)
+    },
     document() {
       return this.getDocument()
     },

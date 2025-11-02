@@ -205,7 +205,7 @@
             <PDFAuxiliary :resource="resource" @pdfAuxToggle="pdfAuxToggle" :target="document.index" :story="true" />
           </template>
 
-          <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" :showDownload="this.$route.params.resourceLanguage === 'en'" /></template>
+          <template v-if="pdfAuxOpen" #pdf><PDFViewer v-if="pdfAuxOpen" :pdfs="pdfs" :showDownload="showDownload" /></template>
         </Segment>
 
         <Popup :open="hiddenSegmentOpen"
@@ -314,6 +314,9 @@ export default {
     }
   },
   computed: {
+    showDownload: function () {
+      return ['en', 'af', 'ar', 'zh', 'fa', 'fj', 'fr', 'hi', 'kn', 'ml', 'lus', 'ne', 'no', 'st', 'es', 'ta', 'te', 'tr', 'xh', 'zu'].includes(this.$route.params.resourceLanguage)
+    },
     documentBackground: function () {
       if (!this.document || !this.selectedSegment) { return '' }
       if (themeStore().color === THEME_COLOR.DARK || themeStore().color === THEME_COLOR.SEPIA) {
