@@ -1,20 +1,22 @@
 <template>
-  <div class="border-b ">
-    <header class="container mx-auto px-5 lg:px-24 mt-3 md:flex w-full justify-between py-4 items-center gap-2">
-      <a href="https://www.sabbathschoolpersonalministries.org/" class="flex flex-grow justify-center md:justify-start mb-2 md:mb-0 items-center">
-        <img class="w-9 h-9 mr-3" src="/assets/logo.png" />
-        <div class="block md:hidden xl:block">
-          <p class="font-bold leading-tight">Sabbath School and</p>
-          <p class="font-bold leading-tight">Personal Ministries</p>
+  <div class="border-b">
+    <header class="container mx-auto px-3 lg:px-24 mt-3 flex w-full justify-between py-2 md:py-4 items-center gap-1 md:gap-2">
+      <a href="https://www.sabbathschoolpersonalministries.org/" class="flex items-center flex-shrink-0">
+        <img class="w-9 h-9 mr-2 md:mr-3" src="/assets/logo.png" />
+        <div>
+          <p class="text-xs md:text-sm font-bold leading-tight">Sabbath School and</p>
+          <p class="text-xs md:text-sm font-bold leading-tight">Personal Ministries</p>
         </div>
       </a>
 
-      <SabbathSchoolButton />
-      <AIJButton />
+      <div class="flex items-center gap-1 md:gap-2">
+        <SabbathSchoolButton />
+        <AIJButton />
 <!--      <PersonalMinistriesButton />-->
 <!--      <DevotionalsButton />-->
-      <LanguageButton />
-      <LoginButton />
+        <LanguageButton />
+        <LoginButton />
+      </div>
     </header>
   </div>
 </template>
