@@ -1,0 +1,37 @@
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" version="2.0">
+  <channel>
+    <itunes:type>episodic</itunes:type>
+    <language>en-us</language>
+    <title>Kindergarten - Alive in Jesus</title>
+    <link>https://kindergarten.aliveinjesus.info</link>
+    <description>The Kindergarten student guide is written with young children in mind. Parents will find engaging Bible stories, family discussion questions, activities, prayer prompts, and special Sabbath stories.</description>
+    <itunes:summary>The Kindergarten student guide is written with young children in mind. Parents will find engaging Bible stories, family discussion questions, activities, prayer prompts, and special Sabbath stories.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>Sabbath School &amp; PM</itunes:name>
+      <itunes:email>vitaliy@adventech.org</itunes:email>
+    </itunes:owner>
+    <copyright>
+      Copyright 2026 General Conference of Seventh-day Adventists
+    </copyright>
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity"/>
+    </itunes:category>
+    <itunes:author>Sabbath School &amp; PM</itunes:author>
+    <itunes:image href="https://app.beginner.aliveinjesus.info/assets/img/podcasts/aij-kindergarten-show-art.jpg" />
+    <itunes:explicit>No</itunes:explicit>
+    <item>
+      <title>Lesson 1 – A Brand-new World (December 28-January 3)</title>
+      <itunes:title>Lesson 1 – A Brand-new World (December 28-January 3)</itunes:title>
+      <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/aij/2026-01-kd/assets/aij-kindergarten-2026-01-episode-art.png" />
+      <itunes:duration>00:08:29</itunes:duration>
+      <itunes:explicit>No</itunes:explicit>
+      <itunes:subtitle><![CDATA[ Kindergarten, Year A, Quarter 4, lesson 1<br/>BIG IDEA: God is loving. He created our world.<br/>This week’s lesson is based on Genesis 1 and Patriarchs and Prophets, pp. 44-51. ]]></itunes:subtitle>
+      <itunes:summary><![CDATA[ Kindergarten, Year A, Quarter 4, lesson 1<br/>BIG IDEA: God is loving. He created our world.<br/>This week’s lesson is based on Genesis 1 and Patriarchs and Prophets, pp. 44-51. ]]></itunes:summary>
+      <description><![CDATA[ Kindergarten, Year A, Quarter 4, lesson 1<br/>BIG IDEA: God is loving. He created our world.<br/>This week’s lesson is based on Genesis 1 and Patriarchs and Prophets, pp. 44-51. ]]></description>
+      <pubDate>Sun, 28 Dec 2025 00:09:00 EDT</pubDate>
+      <guid>https://sabbath-school-resources-assets.adventech.io/en/aij/2026-01-kd/assets/KD-01.mp3</guid>
+      <enclosure url="https://sabbath-school-resources-assets.adventech.io/en/aij/2026-01-kd/assets/KD-01.mp3" length="0" type="audio/mpeg" />
+      <contentLink>https://sabbath-school-resources-assets.adventech.io/en/aij/2026-01-kd/assets/KD-01.mp3</contentLink>
+    </item>
+  </channel>
+</rss>
