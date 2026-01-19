@@ -3,8 +3,8 @@
     <div class="aij-header">
       <div class="aij-header-inner">
         <div class="aij-header-inner-logo">
-          <a href="https://aliveinjesus.info">
-            <AIJLogo class="w-16 md:w-32 fill-[#F4793B]"/>
+          <a href="https://aliveinjesus.info" aria-label="Alive in Jesus Home">
+            <AIJLogo class="w-16 md:w-32 fill-[#F4793B]" aria-hidden="true" />
           </a>
           <div class="w-0.5 h-8 bg-orange-100"></div>
           <a href="https://beginner.aliveinjesus.info" class="aij-header-inner-logo-title">Beginner</a>

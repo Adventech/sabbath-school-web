@@ -1,11 +1,11 @@
 <template>
   <div v-if="showContextMenu" class="z-10 absolute bg-white shadow drop-shadow-lg rounded p-2 items-center flex" :style="`top: ${y}px; left: ${x}px`">
     <template v-if="authStore().isLoggedIn">
-      <button @click="highlightSelection('green')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-green-500"></div></button>
-      <button @click="highlightSelection('blue')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-blue-500"></div></button>
-      <button @click="highlightSelection('yellow')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-yellow-500"></div></button>
-      <button @click="highlightSelection('orange')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2"><div class="w-4 h-4 rounded-full bg-orange-500"></div></button>
-      <button @click="unHighlightSelection()" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6"><XCircleIcon class="w-4 h-4"></XCircleIcon></button>
+      <button @click="highlightSelection('green')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2" aria-label="Highlight green"><div class="w-4 h-4 rounded-full bg-green-500" aria-hidden="true"></div></button>
+      <button @click="highlightSelection('blue')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2" aria-label="Highlight blue"><div class="w-4 h-4 rounded-full bg-blue-500" aria-hidden="true"></div></button>
+      <button @click="highlightSelection('yellow')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2" aria-label="Highlight yellow"><div class="w-4 h-4 rounded-full bg-yellow-500" aria-hidden="true"></div></button>
+      <button @click="highlightSelection('orange')" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6 mr-2" aria-label="Highlight orange"><div class="w-4 h-4 rounded-full bg-orange-500" aria-hidden="true"></div></button>
+      <button @click="unHighlightSelection()" class="cursor-pointer hover:bg-gray-200 rounded p-1 w-6 h-6" aria-label="Remove highlight"><XCircleIcon class="w-4 h-4" aria-hidden="true"></XCircleIcon></button>
     </template>
     <template v-else>
       <span class="italic text-gray-500"><button class="text-ss-primary underline" @click="emitter.emit('auth-login')">Log in</button> to save highlights</span>

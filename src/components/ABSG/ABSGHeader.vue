@@ -1,7 +1,7 @@
 <template>
   <div class="absg-header">
     <div class="absg-header-inner">
-      <router-link to="/"><ABSGLogo /></router-link>
+      <router-link to="/" aria-label="Adult Bible Study Guide Home"><ABSGLogo /></router-link>
 
       <div class="flex items-center gap-4 lg:gap-10">
         <nav class="absg-header-inner-menu">

@@ -11,11 +11,11 @@
           <div class="absolute top-0 bottom-0 right-0 left-0 z-30">
             <div class="absolute story-slide-controls top-5 right-5 flex justify-end gap-2 flex-row bg-black/20 p-2 rounded">
               <StoryAudio v-if="segment.audio" :audio="segment.audio"></StoryAudio>
-              <Bars3BottomLeftIcon @click="fullScreenCaptionsShown = !fullScreenCaptionsShown" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
-              <XMarkIcon @click="fullScreen=false" class="h-8 fill-white/80 hover:fill-white transition-all	cursor-pointer" />
+              <button @click="fullScreenCaptionsShown = !fullScreenCaptionsShown" :aria-label="fullScreenCaptionsShown ? 'Hide captions' : 'Show captions'" class="outline-none"><Bars3BottomLeftIcon class="h-8 fill-white/80 hover:fill-white transition-all cursor-pointer" aria-hidden="true" /></button>
+              <button @click="fullScreen=false" aria-label="Exit full screen" class="outline-none"><XMarkIcon class="h-8 fill-white/80 hover:fill-white transition-all cursor-pointer" aria-hidden="true" /></button>
             </div>
-            <button :class="{'invisible opacity-0': isFullScreenFirstSlide}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowLeftCircleIcon  class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
-            <button :class="{'invisible opacity-0': isFullScreenLastSlide}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none"><ArrowRightCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" /></button>
+            <button :class="{'invisible opacity-0': isFullScreenFirstSlide}" @click="prevSlide()" class="transition-all	absolute left-5 transform -translate-y-1/2 top-1/2 outline-none" aria-label="Previous slide"><ArrowLeftCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" aria-hidden="true" /></button>
+            <button :class="{'invisible opacity-0': isFullScreenLastSlide}" @click="nextSlide()" class="transition-all	absolute right-5 transform -translate-y-1/2 top-1/2 outline-none" aria-label="Next slide"><ArrowRightCircleIcon class="text-white/30 w-10 md:w-20 h-20 md:h-20 hover:text-white transition-all" aria-hidden="true" /></button>
           </div>
 
           <div ref="fullScreenPanel" class="h-screen flex justify-center relative">
@@ -93,8 +93,8 @@
       </div>
       <div class="story-slide-controls flex items-center justify-end">
         <div>
-          <button @click="prevSlide()" class="outline-none"><ArrowLeftCircleIcon :class="{'fill-gray-200': isFirstSlide}" class="story-slide-controls-arrow" /></button>
-          <button @click="nextSlide()" class="outline-none"><ArrowRightCircleIcon :class="{'fill-gray-200': isLastSlide}" class="story-slide-controls-arrow" /></button>
+          <button @click="prevSlide()" class="outline-none" aria-label="Previous slide" :aria-disabled="isFirstSlide"><ArrowLeftCircleIcon :class="{'fill-gray-200': isFirstSlide}" class="story-slide-controls-arrow" aria-hidden="true" /></button>
+          <button @click="nextSlide()" class="outline-none" aria-label="Next slide" :aria-disabled="isLastSlide"><ArrowRightCircleIcon :class="{'fill-gray-200': isLastSlide}" class="story-slide-controls-arrow" aria-hidden="true" /></button>
         </div>
       </div>
     </div>
