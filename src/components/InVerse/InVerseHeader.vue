@@ -2,8 +2,8 @@
   <div class="absg-header">
     <div class="absg-header-inner">
 
-      <router-link to="/">
-        <img class="w-32" src="/assets/img/sspm-inverse-logo.png" />
+      <router-link to="/" aria-label="InVerse Home">
+        <img class="w-32" src="/assets/img/sspm-inverse-logo.png" alt="InVerse logo" />
       </router-link>
 
       <div class="flex items-center gap-4 lg:gap-10">

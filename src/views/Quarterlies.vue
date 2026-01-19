@@ -19,8 +19,8 @@
             <p class="uppercase text-gray-400 text-xs">{{ quarterly.human_date }}</p>
           </router-link>
           <div class="hidden 2xl:flex items-center justify-center max-h-ss-cover">
-            <router-link :to="{name: 'quarterlies', params: {lang: $route.params.lang}, query: {group: slugify(group.name)}}" class="transition hover:-translate-y-1 ease-in-out rounded-full w-24 h-24 flex items-center justify-center bg-ss-primary/[.075] hover:bg-ss-primary hover:text-white text-ss-primary shadow-lg shadow-gray-250">
-              <ChevronRightIcon class="shrink-0 w-12 h-12" />
+            <router-link :to="{name: 'quarterlies', params: {lang: $route.params.lang}, query: {group: slugify(group.name)}}" class="transition hover:-translate-y-1 ease-in-out rounded-full w-24 h-24 flex items-center justify-center bg-ss-primary/[.075] hover:bg-ss-primary hover:text-white text-ss-primary shadow-lg shadow-gray-250" :aria-label="`View all quarterlies in ${group.name}`">
+              <ChevronRightIcon class="shrink-0 w-12 h-12" aria-hidden="true" />
             </router-link>
           </div>
         </div>

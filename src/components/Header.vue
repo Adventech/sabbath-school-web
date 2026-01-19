@@ -1,8 +1,8 @@
 <template>
   <div class="border-b ">
     <header class="container mx-auto px-5 lg:px-24 mt-3 md:flex w-full justify-between py-4 items-center gap-2">
-      <a href="https://www.sabbathschoolpersonalministries.org/" class="flex flex-grow justify-center md:justify-start mb-2 md:mb-0 items-center">
-        <img class="w-9 h-9 mr-3" src="/assets/logo.png" />
+      <a href="https://www.sabbathschoolpersonalministries.org/" class="flex flex-grow justify-center md:justify-start mb-2 md:mb-0 items-center" aria-label="Sabbath School and Personal Ministries Home">
+        <img class="w-9 h-9 mr-3" src="/assets/logo.png" alt="Sabbath School and Personal Ministries logo" />
         <div class="block md:hidden xl:block">
           <p class="font-bold leading-tight">Sabbath School and</p>
           <p class="font-bold leading-tight">Personal Ministries</p>

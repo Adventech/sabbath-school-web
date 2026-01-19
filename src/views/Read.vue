@@ -40,9 +40,9 @@
           <div class="flex justify-end p-2">
             <div class="pb-2 pt-3 px-5 bg-black/[.6] flex rounded-lg">
               <ReaderOptions class="mt-2"></ReaderOptions>
-              <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" /></button>
-              <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" /></button>
-              <button v-if="pdfs.length" @click="showPdf = !showPdf"><DocumentTextIcon class="w-6 h-6 mb-2 ml-4" :class="{'text-blue-300 hover:text-blue-200': showPdf, 'text-white hover:text-gray-400': !showPdf}"></DocumentTextIcon></button>
+              <button v-if="audio.length" @click="audioOpen = true" aria-label="Open audio player"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-white mr-4" aria-hidden="true" /></button>
+              <button v-if="video.length" @click="videoOpen = true" aria-label="Open video player"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-white" aria-hidden="true" /></button>
+              <button v-if="pdfs.length" @click="showPdf = !showPdf" :aria-label="showPdf ? 'Hide PDF' : 'Show PDF'"><DocumentTextIcon class="w-6 h-6 mb-2 ml-4" :class="{'text-blue-300 hover:text-blue-200': showPdf, 'text-white hover:text-gray-400': !showPdf}" aria-hidden="true"></DocumentTextIcon></button>
             </div>
           </div>
           <div class="grow"></div>
@@ -52,8 +52,8 @@
           </div>
         </div>
         <div v-else class="pt-4 px-4 flex justify-end">
-          <button v-if="audio.length" @click="audioOpen = true"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-black mr-4" /></button>
-          <button v-if="video.length" @click="videoOpen = true"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-black" /></button>
+          <button v-if="audio.length" @click="audioOpen = true" aria-label="Open audio player"><AudioIcon class="hover:fill-gray-400 w-6 h-6 fill-black mr-4" aria-hidden="true" /></button>
+          <button v-if="video.length" @click="videoOpen = true" aria-label="Open video player"><VideoIcon class="hover:fill-gray-400 w-6 h-6 fill-black" aria-hidden="true" /></button>
         </div>
         <PDF v-if="(lesson.lesson.pdfOnly || showPdf) && pdfs" :pdfs="pdfs" :lessonIndex="lesson.lesson.index"></PDF>
         <Reader ref="reader" v-if="read && !showPdf" :read="read" @mounted="readerMounted" @save-highlights="saveHighlights" @save-comments="saveComments"></Reader>
