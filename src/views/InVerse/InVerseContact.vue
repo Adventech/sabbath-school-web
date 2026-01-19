@@ -40,7 +40,7 @@
           </div>
         </div>
         <div>
-          <img class="aspect-[3/3.5] rounded shadow object-cover" src="/assets/img/sspm-absg-contact.jpg" />
+          <img class="aspect-[3/3.5] rounded shadow object-cover" src="/assets/img/sspm-absg-contact.jpg" alt="" aria-hidden="true" />
         </div>
       </div>
     </div>

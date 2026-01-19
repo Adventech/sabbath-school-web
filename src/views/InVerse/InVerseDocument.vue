@@ -8,7 +8,7 @@
         <div class="flex flex-col gap-5">
           <div class="w-3/2 md:w-full items-center md:items-end gap-2 flex md:flex-col md:text-right">
             <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}" class="shrink-0">
-              <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" />
+              <img :src="resource.covers.portrait" class="rounded w-24 md:w-full shadow-xl" :alt="`Cover image for ${resource.title}`" />
             </router-link>
             <div class="flex flex-col p-2 gap-2">
               <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}"  class="font-bold">

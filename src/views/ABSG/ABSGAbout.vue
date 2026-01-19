@@ -14,28 +14,28 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-20">
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-clifford-goldstein.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-clifford-goldstein.png" alt="Clifford Goldstein" />
             <p class="font-bold text-lg">Clifford Goldstein</p>
             <p class="text-sspm-accent-600">Editor</p>
             <p class="text-black/60">Clifford Goldstein has been editor of the Adult Sabbath School Bible Study Guide since 1999. From 1992–1997, he was editor of Liberty; and from 1984–1992, editor of Shabbat Shalom. He has an M.A. in Ancient Northwest Semitic Languages from Johns Hopkins University (1992). He has authored about 21 books, his latest are God, Godel, and Grace (Review and Herald) and Graffiti in the Holy of Holies (Pacific Press).</p>
           </div>
 
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-soraya.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-soraya.png" alt="Soraya L. Homayouni" />
             <p class="font-bold text-lg">Soraya L. Homayouni</p>
             <p class="text-sspm-accent-600">Associate Editor</p>
             <p class="text-black/60">Soraya L. Homayouni is the editor of the Easy Reading Adult Sabbath School Bible Study Guide and its abridgment and the associate editor of the Standard and Teachers Editions of the Adult Sabbath School Bible Study Guides. She is graduate from the Master of Fine Arts Program for Writers from Warren Wilson College.</p>
           </div>
 
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-lea.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-lea.png" alt="Lea A. Greve" />
             <p class="font-bold text-lg">Lea A. Greve</p>
             <p class="text-sspm-accent-600">Publications Manager</p>
             <p class="text-black/60">Lea A. Greve is the publications manager for the Adult Sabbath School Bible Study Guide. She oversees production for each of the four editions: Standard, Teachers, Easy Reading, and the Abridgment.</p>
           </div>
 
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-sharon.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-absg-sharon.png" alt="Sharon J. Crews" />
             <p class="font-bold text-lg">Sharon J. Crews</p>
             <p class="text-sspm-accent-600">Editorial Assistant</p>
             <p class="text-black/60">Sharon Crews is the editorial assistant of the Office of the Adult Bible Study Guide. She joined the ABSG editiorial team in June 2007.</p>

@@ -9,7 +9,7 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        <img class="rounded-xl aspect-[16/9] object-cover mb-5" src="/assets/img/sspm-inverse-teach-hero.png" />
+        <img class="rounded-xl aspect-[16/9] object-cover mb-5" src="/assets/img/sspm-inverse-teach-hero.png" alt="InVerse teacher resources hero image" />
         <p class="text-sspm-accent-1000 font-semibold text-xl">Teacher Resources:</p>
         <p class="text-black/60">InVerse produces two weekly resources to help teachers lead their Sabbath School or Bible study group. Whether a new Bible instructor or an experienced one, these resources can help you prepare excellent lessons for your group.</p>
 
@@ -23,7 +23,7 @@
           <div class="sspm-inverse-teach-list-text">Many teachers listen to the <strong>inVerse program</strong> on Hope Channel to gain deeper insight and practical application for their lessons. As you listen to the program, note key concepts that you want to include in your class. The inVerse program is available in multiple formats, including both video and audio.</div>
         </div>
 
-        <img class="rounded-xl aspect-[16/9] object-cover my-5" src="/assets/img/sspm-inverse-teach-helps.png" />
+        <img class="rounded-xl aspect-[16/9] object-cover my-5" src="/assets/img/sspm-inverse-teach-helps.png" alt="InVerse teacher helps illustration" />
 
         <p class="text-sspm-accent-1000 font-semibold text-xl">Basic Teacher Tips:</p>
 

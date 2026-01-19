@@ -25,7 +25,7 @@
           <div v-if="inverse.resources && inverse.resources.length > 0" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in inverse.resources.slice(0, 4)" class="flex flex-col">
               <div class="shadow-xl">
-                <img :src="r.covers.splash" class="aspect-[3/2.2] w-full h-full rounded-t-lg shadow-2xl object-cover" />
+                <img :src="r.covers.splash" class="aspect-[3/2.2] w-full h-full rounded-t-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
               </div>
               <div class="bg-white p-4 rounded-b-lg shadow-xl flex flex-col gap-3">
                 <div class="font-bold text-lg">{{ r.title }}</div>
