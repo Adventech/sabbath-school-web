@@ -6,7 +6,7 @@
     <div v-else-if="groupedQuarterlies.length">
       <div v-for="group in groupedQuarterlies" class="mb-10 last:mb-10">
         <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
-          <p class="text-sm font-bold uppercase text-ss-primary mb-4 sm:md-0">{{group.name}}</p>
+          <h2 class="text-sm font-bold uppercase text-ss-primary mb-4 sm:md-0">{{group.name}}</h2>
           <router-link :to="{name: 'quarterlies', params: {lang: $route.params.lang}, query: {group: slugify(group.name)}}" class="pl-2 pr-1 py-1.5 rounded hover:bg-ss-primary hover:text-white text-ss-primary flex items-center justify-between">
             <span class="text-sm">See All</span>
             <ChevronRightIcon class="shrink-0 w-4 h-4" />
@@ -15,7 +15,7 @@
         <div class="ss-grid">
           <router-link class="max-w-ss-cover" :to="`/${$route.params.lang}/${quarterly.id}`" v-for="quarterly in group.quarterlies.slice(0, 4)" :key="`quarterly_${quarterly.path}`">
             <div :style="`background-image:url(${quarterly.cover})`" class="min-w-ss-cover max-w-ss-cover max-h-ss-cover min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
-            <p class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</p>
+            <h3 class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</h3>
             <p class="uppercase text-gray-400 text-xs">{{ quarterly.human_date }}</p>
           </router-link>
           <div class="hidden 2xl:flex items-center justify-center max-h-ss-cover">
@@ -27,11 +27,11 @@
       </div>
     </div>
     <template v-else>
-      <p v-if="selectedGroup" class="text-sm font-bold uppercase text-ss-primary mb-8 sm:md-0">{{selectedGroup.name}}</p>
+      <h2 v-if="selectedGroup" class="text-sm font-bold uppercase text-ss-primary mb-8 sm:md-0">{{selectedGroup.name}}</h2>
       <div class="ss-grid">
         <router-link class="max-w-ss-cover" :to="`/${$route.params.lang}/${quarterly.id}`" v-for="quarterly in quarterlies" :key="`quarterly_${quarterly.path}`">
           <div :style="`background-image:url(${quarterly.cover})`" class="min-w-ss-cover max-w-ss-cover max-h-ss-cover min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
-          <p class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</p>
+          <h3 class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</h3>
           <p class="uppercase text-gray-400 text-xs">{{ quarterly.human_date }}</p>
         </router-link>
       </div>
