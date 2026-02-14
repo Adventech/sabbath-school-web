@@ -27,7 +27,7 @@
         </template>
         <template v-else>
           <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}/${slugify(i+1, day.id, day.title)}`" v-for="(day, i) in lesson.days" :key="`read_days_${i}`" class="flex flex-col hover:bg-gray-200 px-4 py-2 rounded">
-            <p class="text-sm text-gray-400">{{DayJS(day.date, 'DD/MM/YYYY').format('dddd, MMMM DD')}}</p>
+            <p class="text-sm text-gray-500">{{DayJS(day.date, 'DD/MM/YYYY').format('dddd, MMMM DD')}}</p>
             <span class="text-sm block" :class="{'text-ss-primary font-bold': read && day && (day.id === read.id)}"
             >{{day.title}}</span>
           </router-link>

@@ -32,7 +32,7 @@
           </div>
           <div>
             <div class="font-bold text-lg leading-tight">{{ r.title }}</div>
-            <div class="text-gray-400 text-xs">{{ r.subtitle }}</div>
+            <div class="text-gray-500 text-xs">{{ r.subtitle }}</div>
           </div>
         </router-link>
       </div>
