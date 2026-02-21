@@ -17,8 +17,8 @@ This document describes the API endpoints used by the Sabbath School Web applica
 
 | Environment | Main API (v2) | Resources API (v3) |
 |-------------|---------------|-------------------|
-| Production | `https://sabbath-school.adventech.io/api/v2` | Proxied via main API |
-| Staging | `https://sabbath-school-stage.adventech.io/api/v2` | Proxied via main API |
+| Production | `https://sabbath-school.adventech.io/api/v2` | `/api/v3` (Relative path on same domain) |
+| Staging | `https://sabbath-school-stage.adventech.io/api/v2` | `/api/v3` (Relative path on same domain) |
 
 ### Axios Instances
 
@@ -187,7 +187,7 @@ GET /{lang}/quarterlies/{quarter}/lessons/{lesson}/index.json
 |-----------|------|-------------|
 | `lang` | string | Language code |
 | `quarter` | string | Quarterly ID |
-| `lesson` | string | Lesson number (e.g., `01`, `02`) |
+| `lesson` | string | Lesson number (e.g., `01`, `02`) or ID (e.g., `inside-story`, `teacher-comments`) |
 
 **Response:**
 ```json
