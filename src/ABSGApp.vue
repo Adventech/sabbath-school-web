@@ -1,22 +1,26 @@
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue'
+import { watch, onMounted } from 'vue'
 import { useLanguageStore } from '@/stores/language'
 import { RouterView } from 'vue-router'
 import ABSGHeader from '@/components/ABSG/ABSGHeader.vue'
 import ABSGFooter from '@/components/ABSG/ABSGFooter.vue'
 
-let dir = ref('auto')
+const languageStore = useLanguageStore()
 
-watch(() => useLanguageStore().code, function() {
-  directionCalc()
-});
-
-const directionCalc = function () {
-  let languageCode = useLanguageStore().locale.code
-  dir = ['ar', 'fa', 'he'].includes(languageCode) ? 'rtl' : 'auto'
+/**
+ * Updates the dir attribute on the HTML element for RTL language support
+ * Required for WCAG 1.3.2 Meaningful Sequence (Level A) compliance
+ */
+const updateDocumentDirection = () => {
+  document.documentElement.setAttribute('dir', languageStore.direction)
+  document.documentElement.setAttribute('lang', languageStore.code)
 }
 
-directionCalc()
+// Watch for language changes and update document direction
+watch(() => languageStore.code, updateDocumentDirection)
+
+// Set initial direction on component setup
+updateDocumentDirection()
 
 onMounted(() => {
   let iconSource = '/assets/logo.png'
