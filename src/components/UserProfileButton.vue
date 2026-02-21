@@ -1,7 +1,8 @@
 <template>
   <Menu as="div" class="relative hover:bg-gray-200 p-2 rounded">
-    <MenuButton class="flex items-center">
-      <UserIcon class="w-5 h-5 mr-2"></UserIcon> {{ displayName }}
+    <MenuButton class="flex items-center" :title="displayName">
+      <UserIcon class="w-5 h-5 md:mr-2 flex-shrink-0"></UserIcon>
+      <span class="hidden lg:inline">{{ displayName }}</span>
     </MenuButton>
     <transition
         enter-active-class="transition duration-100 ease-out"
