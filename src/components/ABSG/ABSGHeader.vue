@@ -30,6 +30,9 @@
                     <MenuItem>
                       <router-link :to="{'name': 'study', params: {type: 'teacher'}}">Adult Teachers</router-link>
                     </MenuItem>
+                    <MenuItem>
+                      <router-link :to="{'name': 'accessibility'}">Accessibility</router-link>
+                    </MenuItem>
                   </div>
                 </MenuItems>
               </transition>
@@ -138,6 +141,9 @@
                       </MenuItem>
                       <MenuItem>
                         <router-link :to="{'name': 'study', params: {type: 'teacher'}}">Adult Teachers</router-link>
+                      </MenuItem>
+                      <MenuItem>
+                        <router-link :to="{'name': 'accessibility'}">Accessibility</router-link>
                       </MenuItem>
                     </DisclosurePanel>
                   </Disclosure>

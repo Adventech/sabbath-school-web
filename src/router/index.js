@@ -94,6 +94,12 @@ const absgroutes = [
   },
 
   {
+    path: '/accessibility',
+    name: 'accessibility',
+    component: () => import('../views/ABSG/ABSGAccessibility.vue')
+  },
+
+  {
     path: '/study/:type?',
     name: 'study',
     component: () => import('../views/ABSG/ABSGStudy.vue')
@@ -152,6 +158,12 @@ const inverseroutes = [
     path: '/study',
     name: 'study',
     component: () => import('../views/InVerse/InVerseStudy.vue')
+  },
+
+  {
+    path: '/scope-and-sequence',
+    name: 'scope',
+    component: () => import('../views/InVerse/InVerseScopeAndSequence.vue')
   },
 
   {

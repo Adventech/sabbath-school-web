@@ -11,7 +11,29 @@
           <div class="absg-header-inner-menu-nav">
             <ul><router-link :to="{'name': 'study'}">Study Guides</router-link></ul>
 
-            <ul><router-link :to="{'name': 'teach'}">Teach</router-link></ul>
+            <Menu as="ul" class="relative">
+              <MenuButton class="flex items-center">
+                Teach
+              </MenuButton>
+              <transition
+                  enter-active-class="transition duration-100 ease-out"
+                  enter-from-class="transform scale-95 opacity-0"
+                  enter-to-class="transform scale-100 opacity-100"
+                  leave-active-class="transition duration-75 ease-in"
+                  leave-from-class="transform scale-100 opacity-100"
+                  leave-to-class="transform scale-95 opacity-0">
+                <MenuItems class="absg-header-dropdown">
+                  <div>
+                    <MenuItem>
+                      <router-link :to="{'name': 'teach'}">Teacher Tips</router-link>
+                    </MenuItem>
+                    <MenuItem>
+                      <router-link :to="{'name': 'scope'}">Scope and Sequence</router-link>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </transition>
+            </Menu>
 
             <ul><router-link :to="{'name': 'media'}">Media</router-link></ul>
 
@@ -68,9 +90,22 @@
                   <MenuItem>
                     <router-link :to="{'name': 'study'}">Study Guides</router-link>
                   </MenuItem>
-                  <MenuItem>
-                    <router-link :to="{'name': 'teach'}">Teach</router-link>
-                  </MenuItem>
+                  <Disclosure v-slot="{ open }">
+                    <DisclosureButton class="text-left p-2 w-full">
+                      <div class="flex justify-between">
+                        <div>Teach</div>
+                        <ChevronDownIcon class="shrink-0 w-4" :class="{'rotate-180': open}" />
+                      </div>
+                    </DisclosureButton>
+                    <DisclosurePanel class="pl-4">
+                      <MenuItem>
+                        <router-link :to="{'name': 'teach'}">Teacher Tips</router-link>
+                      </MenuItem>
+                      <MenuItem>
+                        <router-link :to="{'name': 'scope'}">Scope and Sequence</router-link>
+                      </MenuItem>
+                    </DisclosurePanel>
+                  </Disclosure>
                   <MenuItem>
                     <router-link :to="{'name': 'media'}">Media</router-link>
                   </MenuItem>

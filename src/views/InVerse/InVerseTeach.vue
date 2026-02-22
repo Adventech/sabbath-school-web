@@ -65,7 +65,7 @@
             </div>
 
             <div>
-              <strong>Read the main passage</strong>: <span class="sspm-inverse-teach-list-text">Grab people’s attention right at the beginning with something that creates a need/desire for the topic. Use an interesting story that illustrates the relevance of the topic or a difficult question or problem. When posing tough questions, let them wrestle with it. Don’t rush to provide an answer/solution at the beginning.</span>
+              <strong>Read the main passage</strong>: <span class="sspm-inverse-teach-list-text">First share the context of the main passage. You might also review how it connects to last week’s study. This helps guests and those that don’t study the lesson. Ask each person to read one or two verses of the main passage and to tap the person next to them if they don’t want to read.</span>
             </div>
 
             <div>
