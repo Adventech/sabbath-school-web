@@ -6,16 +6,17 @@ on:
       - stage
 jobs:
   deploy:
+    if: github.repository == 'Adventech/sabbath-school-web'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
           check-latest: true
       - name: Run install
         uses: borales/actions-yarn@v4
