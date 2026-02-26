@@ -22,7 +22,7 @@
 
     <div class="sspm-container">
       <div class="rounded-xl h-20 bg-black relative mt-10 flex items-center text-white justify-between pl-24 md:pl-44 pr-4">
-        <img class="absolute -top-2 md:-top-10 w-28 md:w-40 -left-4 md:left-2" src="/assets/img/sspm-inverse-watch-this-week.png" />
+        <img class="absolute -top-2 md:-top-10 w-28 md:w-40 -left-4 md:left-2" src="/assets/img/sspm-inverse-watch-this-week.png" alt="Watch this week's InVerse episode" />
         <p class="text-xs md:text-lg uppercase font-bold">Watch this week on YouTube</p>
         <div class="shrink-0">
           <a class="rounded-full px-5 py-3 bg-white text-black" href="https://www.youtube.com/@inVerseBible" target="_blank">Watch Now</a>
@@ -38,7 +38,7 @@
             $route.params.type === 'teach' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: this.document ? this.document.name : '01', segmentName: 'teacher-comments' }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }}
           " v-for="r in feed.resources" class="flex flex-col bg-white rounded-xl shadow-2xl">
             <div class="shadow-xl">
-              <img :src="r.covers.splash ?? r.covers.portrait" class="aspect-[3/2.2] w-full h-full rounded-t-xl object-cover" />
+              <img :src="r.covers.splash ?? r.covers.portrait" class="aspect-[3/2.2] w-full h-full rounded-t-xl object-cover" :alt="`Cover image for ${r.title}`" />
             </div>
             <div class="bg-white p-4 rounded-b-lg flex flex-col gap-3">
               <div class="font-bold text-lg">{{ r.title }}</div>
