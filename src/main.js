@@ -13,6 +13,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { authStore } from '@/stores/auth'
 import { VueHeadMixin, createHead } from '@unhead/vue'
+import gtmPlugin from './plugins/GTM/gtm'
 
 DayJS.extend(customParseFormat)
 
@@ -101,6 +102,7 @@ getApp().then(({ default: App }) => {
     app.use(Highlighter)
     app.use(ContextMenu)
     app.use(Bible)
+    app.use(gtmPlugin)
 
     app.config.globalProperties.$api = { ...axiosInstance }
     app.config.globalProperties.$apiResources = { ...axiosInstanceResources }
