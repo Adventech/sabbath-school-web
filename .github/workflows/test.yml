@@ -1,0 +1,192 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [stage, master]
+  pull_request:
+    branches: [stage]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Build job - creates artifact for E2E tests
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build application
+        run: yarn build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-dist
+          path: dist/
+          retention-days: 1
+
+  # Unit and Component Tests with Vitest (runs in parallel with build)
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run unit tests with coverage
+        run: yarn test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          flags: unit-tests
+          name: unit-tests-coverage
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
+
+  # E2E Tests with Playwright - parallelized by browser
+  e2e-tests:
+    name: E2E Tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    needs: build
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-dist
+          path: dist/
+
+      - name: Run E2E tests
+        run: npx playwright test tests/e2e/ --project=${{ matrix.browser }}
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 30
+
+  # Accessibility Tests
+  a11y-tests:
+    name: Accessibility Tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-dist
+          path: dist/
+
+      - name: Run accessibility tests
+        run: npx playwright test tests/a11y/ --project=chromium --workers=4
+
+      - name: Upload a11y report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: a11y-report
+          path: playwright-report/
+          retention-days: 30
+
+  # Summary job to ensure all tests pass
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [unit-tests, e2e-tests, a11y-tests]
+    if: always()
+
+    steps:
+      - name: Check test results
+        run: |
+          if [[ "${{ needs.unit-tests.result }}" != "success" ]]; then
+            echo "Unit tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.e2e-tests.result }}" != "success" ]]; then
+            echo "E2E tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.a11y-tests.result }}" != "success" ]]; then
+            echo "Accessibility tests failed"
+            exit 1
+          fi
+          echo "All tests passed!"
