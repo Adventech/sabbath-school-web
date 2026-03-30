@@ -49,7 +49,7 @@ const changeFavicon = function (src) {
 onMounted(() => {
   let iconSource = '/assets/logo.png'
 
-  if (isAIJBabies.value || isAIJBeginner.value) {
+  if (isAIJBabies.value || isAIJBeginner.value || isAIJPrimary.value || isAIJKindergarten.value) {
     iconSource = '/assets/aij-favicon.ico'
   }
 
