@@ -7,6 +7,10 @@ import HeaderAIJBabies from '@/components/HeaderAIJBabies.vue'
 import FooterAIJBabies from '@/components/FooterAIJBabies.vue'
 import HeaderAIJBeginner from '@/components/HeaderAIJBeginner.vue'
 import FooterAIJBeginner from '@/components/FooterAIJBeginner.vue'
+import HeaderAIJPrimary from '@/components/HeaderAIJPrimary.vue'
+import FooterAIJPrimary from '@/components/FooterAIJPrimary.vue'
+import HeaderAIJKindergarten from '@/components/HeaderAIJKindergarten.vue'
+import FooterAIJKindergarten from '@/components/FooterAIJKindergarten.vue'
 
 let dir = ref('auto')
 
@@ -25,6 +29,14 @@ const isAIJBabies = computed(() => {
 
 const isAIJBeginner = computed(() => {
   return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_BEGINNER_HOST) === 0
+})
+
+const isAIJPrimary = computed(() => {
+  return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_PRIMARY_HOST) === 0
+})
+
+const isAIJKindergarten = computed(() => {
+  return window.location.hostname.indexOf(import.meta.env.VITE_APP_AIJ_KINDERGARTEN_HOST) === 0
 })
 
 const changeFavicon = function (src) {
@@ -48,10 +60,12 @@ directionCalc()
 </script>
 
 <template>
-  <div :dir="dir" :class="{'aij-theme': isAIJBabies || isAIJBeginner}">
+  <div :dir="dir" :class="{'aij-theme': isAIJBabies || isAIJBeginner || isAIJPrimary || isAIJKindergarten}">
     <div>
       <HeaderAIJBabies v-if="isAIJBabies" />
       <HeaderAIJBeginner v-else-if="isAIJBeginner" />
+      <HeaderAIJPrimary v-else-if="isAIJPrimary" />
+      <HeaderAIJKindergarten v-else-if="isAIJKindergarten" />
       <Header v-else />
     </div>
     <div class="container pt-5 mx-auto px-5 lg:px-24">
@@ -59,5 +73,7 @@ directionCalc()
     </div>
     <FooterAIJBabies  v-if="isAIJBabies" />
     <FooterAIJBeginner  v-if="isAIJBeginner" />
+    <FooterAIJPrimary  v-if="isAIJPrimary" />
+    <FooterAIJKindergarten  v-if="isAIJKindergarten" />
   </div>
 </template>
