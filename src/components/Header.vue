@@ -1,6 +1,6 @@
 <template>
   <div class="border-b">
-    <header class="container mx-auto px-3 lg:px-24 mt-3 flex w-full justify-between py-2 md:py-4 items-center gap-1 md:gap-2">
+    <header class="container mx-auto px-3 lg:px-24 mt-3 flex w-full flex-wrap justify-between py-2 md:py-4 items-center gap-2">
       <a href="https://www.sabbathschoolpersonalministries.org/" class="flex items-center flex-shrink-0">
         <img class="w-9 h-9 mr-2 md:mr-3" src="/assets/logo.png" />
         <div>
