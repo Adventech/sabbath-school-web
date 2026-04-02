@@ -3,7 +3,7 @@
     <video class="w-full rounded shadow" controls>
       <source :src="block.src" />
     </video>
-    <p v-if="block.caption" class="select-none italic text-gray-400 mt-1 text-center w-full">{{ block.caption }}</p>
+    <p v-if="block.caption" class="select-none italic text-gray-500 mt-1 text-center w-full">{{ block.caption }}</p>
   </div>
 </template>
 

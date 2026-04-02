@@ -14,7 +14,7 @@
               <router-link tag="div" :to="{'name': 'publication', params: { resourceLanguage: $route.params.resourceLanguage, resourceName: resource.name }}"  class="font-bold">
                 {{ resource.title }}
               </router-link>
-              <p v-if="resource.subtitle" class="text-gray-400 line-clamp-4">{{ resource.subtitle }}</p>
+              <p v-if="resource.subtitle" class="text-gray-500 line-clamp-4">{{ resource.subtitle }}</p>
             </div>
           </div>
 
@@ -69,9 +69,9 @@
                     }
                   }">
                 <div class="flex flex-col">
-                  <div class="text-gray-400 text-sm" v-if="s.date">{{ DayJS(s.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
+                  <div class="text-gray-500 text-sm" v-if="s.date">{{ DayJS(s.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
                   <div :class="{'text-sspm-accent-600': !segment && selectedSegmentIndex === index}">{{ s.title }}</div>
-                  <div class="text-gray-400 text-sm" v-if="s.subtitle">{{ s.subtitle }}</div>
+                  <div class="text-gray-500 text-sm" v-if="s.subtitle">{{ s.subtitle }}</div>
                 </div>
               </router-link>
             </div>
