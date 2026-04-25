@@ -160,6 +160,7 @@
 <script>
 import { authStore } from '@/stores/auth'
 import { THEME_COLOR, themeStore } from '@/plugins/Theme/ThemeStore.js'
+import { readerOptionsStore } from '@/components/Reader/ReaderOptionsStore'
 import DayJS from 'dayjs'
 import Segment from '@/views/Segment.vue'
 import Popup from '@/components/Popup.vue'
@@ -257,6 +258,12 @@ export default {
     }
   },
   async mounted () {
+    themeStore().initializeFromReader()
+
+    this.$watch(() => readerOptionsStore().theme, () => {
+      themeStore().syncFromReader()
+    })
+
     await this.getResourceFonts()
     await this.getDocument()
     await this.getDocumentUserInput()
