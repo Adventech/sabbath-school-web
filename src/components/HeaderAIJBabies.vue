@@ -3,7 +3,7 @@
     <div class="aij-header">
       <div class="aij-header-inner">
         <div class="aij-header-inner-logo">
-          <a href="https://aliveinjesus.info">
+          <a href="https://aliveinjesus.info" aria-label="Alive in Jesus home">
             <AIJLogo class="w-16 md:w-32 fill-[#F4793B]"/>
           </a>
           <div class="w-0.5 h-8 bg-orange-100"></div>
@@ -113,7 +113,7 @@
             </Menu>
           </div>
           <div class="w-0.5 h-8 bg-gray-200"></div>
-          <SDALogoAIJ class="w-8 md:w-10 fill-[#F4793B]" />
+          <SDALogoAIJ class="w-8 md:w-10 fill-[#F4793B]" aria-hidden="true" />
         </nav>
       </div>
     </div>

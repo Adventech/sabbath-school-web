@@ -22,7 +22,7 @@
           </div>
         </div>
         <div v-if="document.externalURL" >
-          <ArrowTopRightOnSquareIcon class="w-4 text-gray-400"/>
+          <ArrowTopRightOnSquareIcon class="w-4 text-gray-500"/>
         </div>
       </RouterLinkWithExternal>
     </div>
@@ -71,10 +71,10 @@ export default {
         @apply font-bold text-lg text-black/80;
       }
       &-date {
-        @apply text-gray-400 text-sm;
+        @apply text-gray-500 text-sm;
       }
       &-subtitle {
-        @apply text-gray-400 text-sm;
+        @apply text-gray-500 text-sm;
       }
       @apply border-b last:border-0 border-b border-gray-200 px-5 py-2;
     }
