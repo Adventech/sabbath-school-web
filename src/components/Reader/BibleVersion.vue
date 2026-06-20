@@ -1,8 +1,8 @@
 <template>
-  <div v-if="versions.length > 1" class="p-4">
+  <div v-if="versions.length > 1" class="p-4 bg-app">
     <button @click="$emit('bibleSelected', version)" v-for="(version, i) in versions" :key="`bible_version_${i}`"
-            :class="{'bg-gray-200': version === selectedVersion}"
-            class="py-2 px-3 hover:bg-gray-100 first:rounded-l-md last:rounded-r-md border-l border-t border-b last:border-r border-gray-200 shadow-sm">{{ version }}</button>
+            :class="{'bg-app-hover border-app': version === selectedVersion}"
+            class="py-2 px-3 hover:bg-app-hover first:rounded-l-md last:rounded-r-md border-l border-t border-b last:border-r border-app shadow-sm text-app-primary">{{ version }}</button>
   </div>
 </template>
 

@@ -84,10 +84,34 @@ module.exports = {
         ]
       },
       colors: {
-        'ss-primary': 'var(--color-primary)',
+        // Dynamic theme colors that respond to the data-theme attribute on <html>
+        'app': {
+          'bg': 'var(--app-bg)',
+          'bg-secondary': 'var(--app-bg-secondary)',
+          'bg-tertiary': 'var(--app-bg-tertiary)',
+          'bg-hover': 'var(--app-bg-hover)',
+          'bg-header': 'var(--app-bg-header)',
+          'bg-dropdown': 'var(--app-bg-dropdown)',
+          'bg-modal': 'var(--app-bg-modal)',
+          'bg-input': 'var(--app-bg-input)',
+          'bg-tooltip': 'var(--app-bg-tooltip)',
+          'bg-reader': 'var(--app-bg-reader)',
+          'bg-textarea': 'var(--app-bg-textarea)',
+          'bg-code': 'var(--app-bg-code)',
+          'text-primary': 'var(--app-text-primary)',
+          'text-secondary': 'var(--app-text-secondary)',
+          'text-tertiary': 'var(--app-text-tertiary)',
+          'text-muted': 'var(--app-text-muted)',
+          'text-link': 'var(--app-text-link)',
+          'text-inverse': 'var(--app-text-inverse)',
+          'text-reader': 'var(--app-text-reader)',
+          'border': 'var(--app-border)',
+          'border-secondary': 'var(--app-border-secondary)',
+        },
         'light': '#ffffff',
         'sepia': '#fbf0d9',
         'dark': '#000000',
+        'ss-primary': 'var(--color-primary)',
         'sspm-accent': '#00506B',
         'sspm-secondary': '#E3F3F7',
         'sspm-accent-600': '#0096B4',
@@ -95,6 +119,30 @@ module.exports = {
         'sspm-accent-900': '#002D47',
         'sspm-accent-50': '#E3F3F7',
         'sspm-accent-1000': '#2F557F',
+      },
+      backgroundColor: {
+        'app': 'var(--app-bg)',
+        'app-secondary': 'var(--app-bg-secondary)',
+        'app-tertiary': 'var(--app-bg-tertiary)',
+        'app-hover': 'var(--app-bg-hover)',
+        'app-header': 'var(--app-bg-header)',
+        'app-dropdown': 'var(--app-bg-dropdown)',
+        'app-modal': 'var(--app-bg-modal)',
+        'app-input': 'var(--app-bg-input)',
+        'app-tooltip': 'var(--app-bg-tooltip)',
+      },
+      textColor: {
+        'app': 'var(--app-text-primary)',
+        'app-primary': 'var(--app-text-primary)',
+        'app-secondary': 'var(--app-text-secondary)',
+        'app-tertiary': 'var(--app-text-tertiary)',
+        'app-muted': 'var(--app-text-muted)',
+        'app-link': 'var(--app-text-link)',
+        'app-inverse': 'var(--app-text-inverse)',
+      },
+      borderColor: {
+        'app': 'var(--app-border)',
+        'app-secondary': 'var(--app-border-secondary)',
       },
       height: {
         'ss-cover': '335px',
@@ -121,6 +169,9 @@ module.exports = {
       addVariant('theme-sepia', '.theme.theme--sepia &')
       addVariant('theme-dark', '.theme.theme--dark &')
       addVariant('theme-light', '.theme.theme--light &')
+      addVariant('data-theme-light', 'html[data-theme="light"] &')
+      addVariant('data-theme-dark', 'html[data-theme="dark"] &')
+      addVariant('data-theme-sepia', 'html[data-theme="sepia"] &')
     })
   ],
 }

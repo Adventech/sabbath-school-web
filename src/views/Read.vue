@@ -5,14 +5,14 @@
   <div v-else class="my-10 flex flex-col md:flex-row">
     <div v-if="quarterly" class="flex md:flex-col order-1 md:order-0 md:w-3/12 lg:w-3/12 xl:w-2/12">
       <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}`" class="w-4/12 mx-auto md:w-auto">
-          <img :src="quarterly.quarterly.cover" class="rounded shadow-gray-400 shadow-lg md:mr-4" />
+          <img :src="quarterly.quarterly.cover" class="rounded shadow-gray-400 shadow-lg data-theme-dark:shadow-black/40 md:mr-4" />
       </router-link>
       <div v-if="lesson" class=" md:mt-4 w-8/12 md:w-auto" :class="!lesson.lesson.pdfOnly ? 'md:text-right -mr-3 ml-4 md:ml-0' : 'ml-4 md:-ml-4'">
-        <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}`" class="hover:underline mb-4 font-bold text-lg text-gray-600 ml-4 md:mr-4 block">{{quarterly.quarterly.title}}</router-link>
+        <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}`" class="quarterly-title-link hover:underline mb-4 font-bold text-lg text-gray-600 ml-4 md:mr-4 block">{{quarterly.quarterly.title}}</router-link>
         <template v-if="lesson.lesson.pdfOnly">
           <div v-for="(quarterlyLesson, i) in quarterly.lessons" :key="`lessons_${i}`">
             <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${quarterlyLesson.id}/${slugify(1, '99', quarterlyLesson.title)}`"
-                         class="mb-1 flex items-center hover:bg-gray-200 px-4 py-2 rounded"
+                         class="mb-1 flex items-center hover:bg-app-hover px-4 py-2 rounded"
                          :class="quarterlyLesson.id === lesson.lesson.id ? 'font-bold text-ss-primary': 'text-gray-600'"
             >
               <div class="shrink-0 text-gray-100 inline-flex rounded-full w-5 h-5 justify-center items-center mr-2"
@@ -26,7 +26,7 @@
           </div>
         </template>
         <template v-else>
-          <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}/${slugify(i+1, day.id, day.title)}`" v-for="(day, i) in lesson.days" :key="`read_days_${i}`" class="flex flex-col hover:bg-gray-200 px-4 py-2 rounded">
+          <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${this.$route.params.lesson}/${slugify(i+1, day.id, day.title)}`" v-for="(day, i) in lesson.days" :key="`read_days_${i}`" class="flex flex-col hover:bg-app-hover px-4 py-2 rounded">
             <p class="text-sm text-gray-400">{{DayJS(day.date, 'DD/MM/YYYY').format('dddd, MMMM DD')}}</p>
             <span class="text-sm block" :class="{'text-ss-primary font-bold': read && day && (day.id === read.id)}"
             >{{day.title}}</span>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="mt-4 ml-0 md:ml-6 md:mt-0 mb-4 md:mb-0 grow order-0 md:order-1 md:w-3/12 lg:w-9/12 xl:w-10/12">
-      <div v-if="lesson" class="rounded border border-1 border-gray-150 h-full">
+      <div v-if="lesson" class="rounded border border-1 border-app h-full">
         <div v-if="read" :style="`background-image: url('${lesson.lesson.cover}')`" class="rounded-t min-h-ss-cover bg-center bg-cover flex flex-col">
           <div class="flex justify-end p-2">
             <div class="pb-2 pt-3 px-5 bg-black/[.6] flex rounded-lg">
@@ -289,3 +289,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+html[data-theme="dark"] .quarterly-title-link {
+  @apply text-gray-300;
+}
+</style>
