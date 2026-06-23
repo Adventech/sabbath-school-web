@@ -25,16 +25,16 @@
       >
         <div v-if="!titleBelowCover">
           <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-          <p :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></p>
-          <p :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></p>
+          <h1 :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></h1>
+          <h2 :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></h2>
         </div>
       </div>
     </div>
 
     <div class="p-5" v-if="titleBelowCover">
       <p v-if="segment.date" class="text-gray-300">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</p>
-      <p :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></p>
-      <p :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></p>
+      <h1 :style="`${segmentTitleTextStyle.style}`" :class="['segment-title', `${segmentTitleTextStyle.class}`, {'segment-title-plain': !segment.markdownTitle}]" v-html="title"></h1>
+      <h2 :style="`${segmentSubtitleTextStyle.style}`" :class="['segment-subtitle', `${segmentSubtitleTextStyle.class}`]" v-html="subtitle"></h2>
     </div>
 
     <slot v-if="$slots.pdf" name="pdf"></slot>

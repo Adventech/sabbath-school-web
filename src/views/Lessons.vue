@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="mt-4 md:ml-8 md:mt-0">
-      <p class="mb-4 text-3xl font-bold">{{quarterly.quarterly.title}}</p>
+      <h1 class="mb-4 text-3xl font-bold">{{quarterly.quarterly.title}}</h1>
       <a :href="publishingInfo.data.url" target="_blank" v-if="publishingInfo && publishingInfo.data" class="rounded p-4 bg-gray-100 hover:bg-gray-200 flex mb-4 justify-between items-center">
         <p class="text-gray-500 text-sm">{{publishingInfo.data.message}}</p>
         <ChevronRightIcon class="shrink-0 ml-3 w-5 h-5 bg-ss-primary rounded-full text-white" />
