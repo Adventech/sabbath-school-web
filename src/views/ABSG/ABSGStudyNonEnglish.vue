@@ -11,7 +11,7 @@
         <div v-if="feed && feed.resources && feed.resources.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 items-stretch items-center">
           <router-link :to="{name: 'publication', params: { resourceLanguage: language, resourceName: r.name }}" v-for="r in feed.resources" class="flex flex-col gap-3">
             <div class="">
-              <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+              <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
             </div>
             <div>
               <div class="font-bold text-lg">{{ r.title }}</div>

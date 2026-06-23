@@ -25,7 +25,7 @@
           <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
               <div class="">
-                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
               </div>
               <div>
                 <div class="font-bold text-lg leading-tight">{{ r.title }}</div>
@@ -47,7 +47,7 @@
           <div v-if="er.resources && er.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in er.resources.slice(0, 5)" class="flex flex-col gap-3">
               <div class="">
-                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
               </div>
               <div>
                 <div class="font-bold text-lg leading-tight">{{ r.title }}</div>
@@ -69,7 +69,7 @@
           <div v-if="adult.resources && adult.resources.length > 0" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 items-stretch items-center">
             <router-link :to="{'name': 'publication', params: {resourceLanguage: 'en', resourceName: r.name}}" v-for="r in adult.resources.slice(0, 5)" class="flex flex-col gap-3">
               <div class="">
-                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+                <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
               </div>
               <div>
                 <div class="font-bold text-lg leading-tight">{{ r.title }}</div>

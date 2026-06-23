@@ -20,14 +20,14 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-20">
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-inverse-joe.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-inverse-joe.png" alt="Photo of Joe Reeves, Assistant Director and Editor" />
             <p class="font-bold text-lg">Joe Reeves</p>
             <p class="text-sspm-accent-1000">Assistant Director and Editor</p>
             <p class="text-black/60">Joe entered the ministry with a special focus on teaching, evangelism, and church planting. As a pastor, he gained a decade of experience in frontline youth and young adult ministry. Currently, he oversees the production of the inVerse Young Adult Bible Study Guide and serves as host of the inVerse program on Hope Channel. His favorite hobbies include music and outdoor adventure.</p>
           </div>
 
           <div class="flex flex-col gap-2 text-center sm:text-left">
-            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-inverse-paige.png" />
+            <img class="mx-auto sm:mx-0 aspect-[1/1] max-w-44 object-cover rounded-lg shadow-lg" src="/assets/img/sspm-inverse-paige.png" alt="Photo of Paige Swanson, Senior Editorial Assistant" />
             <p class="font-bold text-lg">Paige Swanson</p>
             <p class="text-sspm-accent-1000">Senior Editorial Assistant</p>
             <p class="text-black/60">Paige utilizes her education and passion for writing to help convey Bible truth in a clear and concise way that appeals to young adults. With her creativity and attention to detail, she helps to oversee the many video, audio, and print resources that contribute to the inVerse Bible study experience. Paige is an animal lover who enjoys hands-on projects like sewing, crocheting, and drawing.</p>

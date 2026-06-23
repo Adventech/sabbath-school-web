@@ -16,6 +16,7 @@
             <div @click="currentVideo=vg" class="cursor-pointer">
               <div class="relative">
                 <img class="aspect-[16/9] rounded-lg" :src="vg.thumbnail"
+                     :alt="`Video thumbnail for ${vg.title}`"
                      :class="{'border border-4 border-sspm-accent-600': currentVideo === vg}"
                 />
                 <div v-if="currentVideo && currentVideo === vg" class="absolute top-2 right-2 rotate-180 h-5">
