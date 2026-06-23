@@ -68,9 +68,9 @@ directionCalc()
       <HeaderAIJKindergarten v-else-if="isAIJKindergarten" />
       <Header v-else />
     </div>
-    <div class="container pt-5 mx-auto px-5 lg:px-24">
+    <main id="main-content" class="container pt-5 mx-auto px-5 lg:px-24">
       <RouterView :key="$route.fullPath" />
-    </div>
+    </main>
     <FooterAIJBabies  v-if="isAIJBabies" />
     <FooterAIJBeginner  v-if="isAIJBeginner" />
     <FooterAIJPrimary  v-if="isAIJPrimary" />
