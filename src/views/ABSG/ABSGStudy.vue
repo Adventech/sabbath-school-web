@@ -28,7 +28,7 @@
           $route.params.type === 'teach' || $route.params.type === 'teacher' ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: document && document.resourceIndex === r.index ? document.name : '01', segmentName: 'teacher-comments' }} : ( document && r.index === document.resourceIndex ? {name: 'document', params: { resourceLanguage: 'en', resourceName: r.name, documentName: document.name }} : {name: 'publication', params: { resourceLanguage: 'en', resourceName: r.name }} )
         " v-for="r in feed.resources" class="flex flex-col gap-3">
           <div class="">
-            <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" />
+            <img :src="r.covers.portrait" class="aspect-[2/3] w-full h-full rounded-lg shadow-2xl object-cover" :alt="`Cover image for ${r.title}`" />
           </div>
           <div>
             <div class="font-bold text-lg leading-tight">{{ r.title }}</div>

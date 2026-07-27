@@ -75,7 +75,7 @@
               <div class="bg-sspm-accent-800 rounded-t-xl text-white p-3 lg:p-6">
                 <div class="flex items-center gap-4">
                   <div>
-                    <img class="w-12 rounded" :src="currentResource.covers.portrait" />
+                    <img class="w-12 rounded" :src="currentResource.covers.portrait" :alt="`Cover for ${currentResource.title}`" />
                   </div>
                   <div>{{ currentResource.title }}</div>
                 </div>

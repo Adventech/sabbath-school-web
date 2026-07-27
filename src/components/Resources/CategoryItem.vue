@@ -1,6 +1,6 @@
 <template>
   <router-link :to="{name:'category', params: {lang: $route.params.lang, category: category.id }}" :class="`category-item`">
-    <img :src="`https://picsum.photos/536/354?t=${Math.random()}`" class="category-item-cover" />
+    <img :src="`https://picsum.photos/536/354?t=${Math.random()}`" class="category-item-cover" alt="" aria-hidden="true" />
     <div class="category-item-title">
       {{ category.title }}
     </div>

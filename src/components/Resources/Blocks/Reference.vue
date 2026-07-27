@@ -5,7 +5,7 @@
                           :to="!block.segment ? (block.resource?.documentIndex ? `/resources/${block.resource.documentIndex}` : `/resources/${block.target}`) : ''">
     <div class="reference-block">
       <div class="flex-none" v-if="block.resource && !block.segment">
-        <img class="w-12 h-12 rounded object-cover" :src="block.resource.covers.square" />
+        <img class="w-12 h-12 rounded object-cover" :src="block.resource.covers.square" :alt="`Cover for ${block.resource.title || 'referenced resource'}`" />
       </div>
       <div class="w-full">
         <p class="reference-block-title line-clamp-2">{{ block.title }}</p>
