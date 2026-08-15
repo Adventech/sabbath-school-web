@@ -483,6 +483,11 @@ export default {
           "en": "Azerbaijani",
           "code": "az",
         },
+        {
+          "native": "Kokborok",
+          "en": "Kokborok",
+          "code": "trp",
+        },
       ]
     }
   },

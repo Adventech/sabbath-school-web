@@ -540,6 +540,12 @@ const locales = [
         "code": "az",
         "flag": "🇦🇿",
     },
+    {
+        "native": "Kokborok",
+        "en": "Kokborok",
+        "code": "trp",
+        "flag": "🇮🇳",
+    },
 ]
 
 export default locales
