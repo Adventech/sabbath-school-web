@@ -34,13 +34,13 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.SSPM_CLOUDFRONT_DISTRIBUTION_ID_STAGE }} --paths "/*" | > /dev/null
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AIJ_CLOUDFRONT_DISTRIBUTION_ID_STAGE }} --paths "/*" | > /dev/null
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.SSPM_CLOUDFRONT_DISTRIBUTION_ID_STAGE }} --paths "/*"
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AIJ_CLOUDFRONT_DISTRIBUTION_ID_STAGE }} --paths "/*"
       - name: Invalidation
         if: github.ref == 'refs/heads/master'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.SSPM_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*" | > /dev/null
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AIJ_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*" | > /dev/null
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.SSPM_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AIJ_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
