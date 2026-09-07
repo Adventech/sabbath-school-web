@@ -33,6 +33,9 @@
                     <MenuItem>
                       <router-link :to="{'name': 'accessibility'}">Accessibility</router-link>
                     </MenuItem>
+                    <MenuItem>
+                      <router-link :to="{'name': 'scope'}">Scope and Sequence</router-link>
+                    </MenuItem>
                   </div>
                 </MenuItems>
               </transition>
@@ -144,6 +147,9 @@
                       </MenuItem>
                       <MenuItem>
                         <router-link :to="{'name': 'accessibility'}">Accessibility</router-link>
+                      </MenuItem>
+                      <MenuItem>
+                        <router-link :to="{'name': 'scope'}">Scope and Sequence</router-link>
                       </MenuItem>
                     </DisclosurePanel>
                   </Disclosure>

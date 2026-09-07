@@ -40,6 +40,14 @@
               <td>Stewardship</td>
               <td>Hermeneutics</td>
             </tr>
+
+            <tr>
+              <td>2028</td>
+              <td>Creation</td>
+              <td>Health</td>
+              <td>Ezekiel</td>
+              <td>Acts</td>
+            </tr>
           </tbody>
         </table>
       </div>
