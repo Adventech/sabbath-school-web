@@ -1,5 +1,5 @@
 <template>
-  <p :class="`select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="headingText"></p>
+  <component :is="headingTag" :class="`select-none resource-block-heading resource-block-heading-${block.depth}`" v-html="headingText"></component>
 </template>
 
 <script>
@@ -8,6 +8,11 @@ import { BlockStyle } from "../Style/BlockStyle"
 export default {
   props: ['block', 'userInput', 'blockData', 'documentId'],
   computed: {
+    headingTag () {
+      // Map depth 1-6 to h1-h6, default to h2 for accessibility
+      const depth = Math.min(Math.max(parseInt(this.block.depth) || 2, 1), 6)
+      return `h${depth}`
+    },
     headingText () {
       return BlockStyle.getRenderedInlineText(this.block.markdown)
     }

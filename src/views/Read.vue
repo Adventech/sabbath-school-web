@@ -48,7 +48,7 @@
           <div class="grow"></div>
           <div class="bg-gradient-to-b from-transparent to-black w-full py-5 px-4 md:px-6 lg:px-8 xl:px-10">
             <p class="text-gray-300 uppercase font-thin">{{DayJS(read.date, 'DD/MM/YYYY').format('dddd, MMMM DD')}}</p>
-            <p class="text-white font-bold text-4xl">{{read.title}}</p>
+            <h1 class="text-white font-bold text-4xl">{{read.title}}</h1>
           </div>
         </div>
         <div v-else class="pt-4 px-4 flex justify-end">

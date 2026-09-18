@@ -13,8 +13,8 @@
 
     <div class="flex-grow flex flex-col gap-2">
       <div class="w-full flex flex-col gap-2">
-        <p :class="['resource-item-title', resourceTitleTextStyle.class, {'resource-item-title-plain': !resource.markdownTitle }]" :style="resourceTitleTextStyle.style" v-html="title"></p>
-        <p :class="['resource-item-subtitle', resourceSubtitleTextStyle.class]" :style="resourceSubtitleTextStyle.style" v-html="subtitle"></p>
+        <h1 :class="['resource-item-title', resourceTitleTextStyle.class, {'resource-item-title-plain': !resource.markdownTitle }]" :style="resourceTitleTextStyle.style" v-html="title"></h1>
+        <h2 :class="['resource-item-subtitle', resourceSubtitleTextStyle.class]" :style="resourceSubtitleTextStyle.style" v-html="subtitle"></h2>
         <p v-if="resource.description" :class="['resource-item-description', resourceDescriptionTextStyle.class]" :style="resourceDescriptionTextStyle.style" v-html="description"></p>
       </div>
       <TableOfContents :resource="resource" :progress="progress" />
