@@ -30,7 +30,9 @@ onMounted(() => {
 
 <template>
   <ABSGHeader :key="$route.fullPath" />
-  <RouterView :key="$route.fullPath" />
+  <main id="main-content">
+    <RouterView :key="$route.fullPath" />
+  </main>
   <ABSGFooter />
 </template>
 
