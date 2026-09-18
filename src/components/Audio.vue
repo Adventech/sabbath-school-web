@@ -6,7 +6,7 @@
     <li @click="selectedAudio = a" v-for="(a, i) in audio" :key="`audio_${audio.id}`" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded hover:cursor-pointer">
       <div class="grow">
         <div class="font-bold">{{ a.title }}</div>
-        <div class="text-sm text-gray-400">{{ a.artist }}</div>
+        <div class="text-sm text-gray-500">{{ a.artist }}</div>
       </div>
       <div v-if="selectedAudio && selectedAudio.src === a.src && playing" class="shrink-0 stretch-0 relative h-4 rotate-180">
         <div class="flex">
