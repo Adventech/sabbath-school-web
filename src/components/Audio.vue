@@ -3,7 +3,7 @@
   <audio class="ss-audio w-9/12" controls></audio>
 
   <ul v-if="!minimized" class="flex flex-col mt-4">
-    <li @click="selectedAudio = a" v-for="(a, i) in audio" :key="`audio_${audio.id}`" class="flex items-center justify-between p-3 hover:bg-gray-100 rounded hover:cursor-pointer">
+    <li @click="selectedAudio = a" v-for="(a, i) in audio" :key="`audio_${audio.id}`" class="flex items-center justify-between p-3 hover:bg-app-hover rounded hover:cursor-pointer">
       <div class="grow">
         <div class="font-bold">{{ a.title }}</div>
         <div class="text-sm text-gray-400">{{ a.artist }}</div>

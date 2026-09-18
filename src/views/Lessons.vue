@@ -4,12 +4,12 @@
   </template>
   <div class="my-10 md:flex" v-else-if="quarterly">
     <div class="shrink-1 flex justify-center md:justify-start md:flex-col md:items-end md:w-3/12">
-      <div :style="`background-image:url(${quarterly.quarterly.cover})`" class="shrink-0 w-32 h-48 md:min-w-ss-cover md:max-w-ss-cover md:max-h-ss-cover md:min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
+      <div :style="`background-image:url(${quarterly.quarterly.cover})`" class="shrink-0 w-32 h-48 md:min-w-ss-cover md:max-w-ss-cover md:max-h-ss-cover md:min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg data-theme-dark:shadow-black/40"></div>
       <div class="ml-4 md:m-0 md:text-right">
         <p class="md:mt-4 uppercase text-gray-400 text-xs">{{quarterly.quarterly.human_date}}</p>
         <div class="mt-4">
           <div v-for="feature in quarterly.quarterly.features" class="inline mr-3 last:mr-0" :key="`quarterly_${quarterly.quarterly.path}_feature_${feature.title}`">
-            <img :src="feature.image" class="w-4 inline" />
+            <img :src="feature.image" class="feature-icon w-4 inline" />
           </div>
         </div>
         <div class="mt-4 md:text-right">
@@ -50,7 +50,7 @@
       <div class="mb-4">
         <div v-for="feature in quarterly.quarterly.features" class="mb-4" :key="`quarterly_${quarterly.path}_feature_${feature.title}`">
           <div class="flex items-center">
-            <img :src="feature.image" class="h-3 mr-2" />
+            <img :src="feature.image" class="feature-icon h-3 mr-2" />
             <p class="font-bold">{{feature.title}}</p>
           </div>
           <p class="text-gray-500">{{feature.description}}</p>
@@ -138,3 +138,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+html[data-theme="dark"] .feature-icon {
+  filter: brightness(0) invert(1);
+}
+</style>

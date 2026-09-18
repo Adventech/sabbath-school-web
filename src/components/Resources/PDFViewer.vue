@@ -1,8 +1,8 @@
 <template>
   <TabGroup v-if="defaultIndex >= 0" :defaultIndex="defaultIndex" :selectedIndex="selectedIndex" @change="changeTab">
-    <TabList v-if="pdfs.length > 1" class="border-b border-gray-200 p-4">
+    <TabList v-if="pdfs.length > 1" class="pdf-tab-list border-b border-gray-200 p-4">
       <Tab as="template" v-slot="{ selected }" v-for="pdf in pdfs" :key="pdf.id">
-        <button :class="{'bg-black text-white': selected, 'hover:bg-blue-200': !selected}" class="rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
+        <button :class="{'bg-black text-white pdf-tab-button-selected': selected, 'hover:bg-blue-200 pdf-tab-button-unselected': !selected}" class="pdf-tab-button rounded px-4 py-2 mr-2 last:mr-0" >{{ pdf.title }}</button>
       </Tab>
     </TabList>
     <TabPanels>
@@ -200,5 +200,18 @@ export default {
 }
 .PSPDFKit-Container {
   height: 800px !important;
+}
+
+html[data-theme="dark"] .pdf-tab-button {
+  @apply text-gray-300;
+}
+html[data-theme="dark"] .pdf-tab-button-selected {
+  @apply bg-app text-white;
+}
+html[data-theme="dark"] .pdf-tab-button-unselected {
+  @apply hover:bg-gray-700;
+}
+html[data-theme="dark"] .pdf-tab-list {
+  @apply border-gray-700;
 }
 </style>

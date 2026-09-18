@@ -33,6 +33,11 @@
 
 body {
     @apply bg-gray-50;
+    transition: background-color 0.3s ease;
+}
+
+html[data-theme='dark'] body {
+    background-color: #1c1c1e;
 }
 
 @font-face {

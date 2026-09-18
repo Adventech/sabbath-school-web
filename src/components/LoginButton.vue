@@ -4,7 +4,7 @@
       <UserProfileButton :displayName="authStore().displayName || 'Anonymous'"></UserProfileButton>
     </div>
 
-    <button @click="loginWindow=true" v-if="!authStore().isLoggedIn" class="hover:bg-gray-200 p-2 rounded flex items-center gap-1" title="Login">
+    <button @click="loginWindow=true" v-if="!authStore().isLoggedIn" class="hover:bg-app-hover p-2 rounded flex items-center gap-1 text-app-primary" title="Login">
       <ArrowRightOnRectangleIcon class="w-4 h-4 flex-shrink-0"></ArrowRightOnRectangleIcon>
       <span class="hidden md:inline">Login</span>
     </button>
