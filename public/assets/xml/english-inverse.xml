@@ -1,3 +1,4 @@
+
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
     <channel>
         <atom:link href="http://www.sabbathschoolu.org/english-inverse.xml" rel="self" type="application/rss+xml"/>
@@ -18,7 +19,167 @@
         <itunes:image href="http://old.sabbathschoolpersonalministries.org/assets/sspm/images/InverseLogo-1400x1400.jpg"/>
         <itunes:category text="Religion &amp; Spirituality"/>
         <itunes:explicit>clean</itunes:explicit>
-        <lastBuildDate>Mon, 20 Jul 2026 02:28:49 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 13 Sep 2026 07:07:25 GMT</lastBuildDate>
+        <item>
+            <title>Lesson 12 – He Is Risen! (September 13-19)</title>
+            <itunes:title>Lesson 12 – He Is Risen! (September 13-19)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/12.png"/>
+            <itunes:duration>00:29:02</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 12 – He Is Risen! (September 13-19) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 12 – He Is Risen! (September 13-19) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 12 – He Is Risen! (September 13-19) ]]>
+            </description>
+            <pubDate>Sun, 13 Sep 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/87da4d32cb81e98565a08e6f71363145fb8bc454b8771d7ba6dd29a6e4c211b4/87da4d32cb81e98565a08e6f71363145fb8bc454b8771d7ba6dd29a6e4c211b4.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/12</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/87da4d32cb81e98565a08e6f71363145fb8bc454b8771d7ba6dd29a6e4c211b4/87da4d32cb81e98565a08e6f71363145fb8bc454b8771d7ba6dd29a6e4c211b4.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 11 – Death and Burial (September 6-12)</title>
+            <itunes:title>Lesson 11 – Death and Burial (September 6-12)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/11.png"/>
+            <itunes:duration>00:28:47</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 11 – Death and Burial (September 6-12) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 11 – Death and Burial (September 6-12) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 11 – Death and Burial (September 6-12) ]]>
+            </description>
+            <pubDate>Sun, 06 Sep 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/eaef77fa2ae4f6427148545c0bb87070eaa187a3e370f3e881d279d271b78d62/eaef77fa2ae4f6427148545c0bb87070eaa187a3e370f3e881d279d271b78d62.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/11</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/eaef77fa2ae4f6427148545c0bb87070eaa187a3e370f3e881d279d271b78d62/eaef77fa2ae4f6427148545c0bb87070eaa187a3e370f3e881d279d271b78d62.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 10 – The King on a Cross (August 30-September 5)</title>
+            <itunes:title>Lesson 10 – The King on a Cross (August 30-September 5)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/10.png"/>
+            <itunes:duration>00:29:03</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 10 – The King on a Cross (August 30-September 5) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 10 – The King on a Cross (August 30-September 5) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 10 – The King on a Cross (August 30-September 5) ]]>
+            </description>
+            <pubDate>Sun, 30 Aug 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/ae4b073220a66680dd85ca51df11f36437d12f17b6f4ecc83e5fbcfbf07fee52/ae4b073220a66680dd85ca51df11f36437d12f17b6f4ecc83e5fbcfbf07fee52.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/10</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/ae4b073220a66680dd85ca51df11f36437d12f17b6f4ecc83e5fbcfbf07fee52/ae4b073220a66680dd85ca51df11f36437d12f17b6f4ecc83e5fbcfbf07fee52.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 09 – Shall I Crucify Your King? (August 23-29)</title>
+            <itunes:title>Lesson 09 – Shall I Crucify Your King? (August 23-29)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/09.png"/>
+            <itunes:duration>00:29:02</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 09 – Shall I Crucify Your King? (August 23-29) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 09 – Shall I Crucify Your King? (August 23-29) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 09 – Shall I Crucify Your King? (August 23-29) ]]>
+            </description>
+            <pubDate>Sun, 23 Aug 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/9fc5a984e138f5f7ed67a995cdb61e41a3b07fda16d050d8089d5c045b81116a/9fc5a984e138f5f7ed67a995cdb61e41a3b07fda16d050d8089d5c045b81116a.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/09</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/9fc5a984e138f5f7ed67a995cdb61e41a3b07fda16d050d8089d5c045b81116a/9fc5a984e138f5f7ed67a995cdb61e41a3b07fda16d050d8089d5c045b81116a.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 08 – Reprimand, Remorse, and Repentance (August 16-22)</title>
+            <itunes:title>Lesson 08 – Reprimand, Remorse, and Repentance (August 16-22)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/08.png"/>
+            <itunes:duration>00:29:01</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 08 – Reprimand, Remorse, and Repentance (August 16-22) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 08 – Reprimand, Remorse, and Repentance (August 16-22) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 08 – Reprimand, Remorse, and Repentance (August 16-22) ]]>
+            </description>
+            <pubDate>Sun, 16 Aug 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/02418075f061611dd546ef79eb8ee5a4460ebc83c96a944a74531d2cbf06b974/02418075f061611dd546ef79eb8ee5a4460ebc83c96a944a74531d2cbf06b974.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/08</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/02418075f061611dd546ef79eb8ee5a4460ebc83c96a944a74531d2cbf06b974/02418075f061611dd546ef79eb8ee5a4460ebc83c96a944a74531d2cbf06b974.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 07 – The Garden of Gethsemane (August 9-15)</title>
+            <itunes:title>Lesson 07 – The Garden of Gethsemane (August 9-15)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/07.png"/>
+            <itunes:duration>00:28:44</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 07 – The Garden of Gethsemane (August 9-15) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 07 – The Garden of Gethsemane (August 9-15) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 07 – The Garden of Gethsemane (August 9-15) ]]>
+            </description>
+            <pubDate>Sun, 09 Aug 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/c1977857ebb084642541d798c72ad9d210f1e093cd8c77f2a1aea754e88f3950/c1977857ebb084642541d798c72ad9d210f1e093cd8c77f2a1aea754e88f3950.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/07</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/c1977857ebb084642541d798c72ad9d210f1e093cd8c77f2a1aea754e88f3950/c1977857ebb084642541d798c72ad9d210f1e093cd8c77f2a1aea754e88f3950.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 06 – Christ’s Prayer (August 2-8)</title>
+            <itunes:title>Lesson 06 – Christ’s Prayer (August 2-8)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/06.png"/>
+            <itunes:duration>00:29:04</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 06 – Christ’s Prayer (August 2-8) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 06 – Christ’s Prayer (August 2-8) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 06 – Christ’s Prayer (August 2-8) ]]>
+            </description>
+            <pubDate>Sun, 02 Aug 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/eef69b5b1fbcf03108a86e322c67f23ee7a8c17dcbe5d07a7100bcb0838fcadc/eef69b5b1fbcf03108a86e322c67f23ee7a8c17dcbe5d07a7100bcb0838fcadc.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/06</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/eef69b5b1fbcf03108a86e322c67f23ee7a8c17dcbe5d07a7100bcb0838fcadc/eef69b5b1fbcf03108a86e322c67f23ee7a8c17dcbe5d07a7100bcb0838fcadc.mp3" length="0" type="audio/mpeg"/>
+        </item>
+        <item>
+            <title>Lesson 05 – The Last Teachings (July 26-August 1)</title>
+            <itunes:title>Lesson 05 – The Last Teachings (July 26-August 1)</itunes:title>
+            <itunes:image href="https://sabbath-school-resources-assets.adventech.io/en/ss/2026-03-cq/assets/05.png"/>
+            <itunes:duration>00:29:01</itunes:duration>
+            <itunes:explicit>No</itunes:explicit>
+            <itunes:subtitle>
+                <![CDATA[ Lesson 05 – The Last Teachings (July 26-August 1) ]]>
+            </itunes:subtitle>
+            <itunes:summary>
+                <![CDATA[ Lesson 05 – The Last Teachings (July 26-August 1) ]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[ Lesson 05 – The Last Teachings (July 26-August 1) ]]>
+            </description>
+            <pubDate>Sun, 26 Jul 2026 07:06:25 GMT</pubDate>
+            <guid>https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/4fcc5b34f6a5530b2a3a2f479de025c226ad2c60616afb2ca2d61a395f3efa32/4fcc5b34f6a5530b2a3a2f479de025c226ad2c60616afb2ca2d61a395f3efa32.mp3</guid>
+            <contentLink>https://inverse.sspmadventist.org/en/2026-03-cq/05</contentLink>
+            <enclosure url="https://sabbath-school-media.adventech.io/audio/en/2026-03-cq/4fcc5b34f6a5530b2a3a2f479de025c226ad2c60616afb2ca2d61a395f3efa32/4fcc5b34f6a5530b2a3a2f479de025c226ad2c60616afb2ca2d61a395f3efa32.mp3" length="0" type="audio/mpeg"/>
+        </item>
         <item>
             <title>Lesson 04 – Abide in Me (July 19-25)</title>
             <itunes:title>Lesson 04 – Abide in Me (July 19-25)</itunes:title>
