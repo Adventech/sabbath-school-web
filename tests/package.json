@@ -1,0 +1,17 @@
+{
+  "name": "sabbath-school-web-tests",
+  "private": true,
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "test": "vitest run --config vitest.config.ts",
+    "test:coverage": "vitest run --config vitest.config.ts --coverage && node verify-coverage.cjs"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "4.1.10",
+    "pinia": "2.1.7",
+    "vitest": "4.1.10",
+    "vue": "3.3.8"
+  }
+}
