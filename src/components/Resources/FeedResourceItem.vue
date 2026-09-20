@@ -36,7 +36,7 @@ export default {
     @apply mt-2 relative z-10 line-clamp-2;
   }
   &-subtitle {
-    @apply text-gray-400 text-sm relative z-10 line-clamp-2;
+    @apply text-gray-500 text-sm relative z-10 line-clamp-2;
   }
 
   &[class*="-square-horizontal"],

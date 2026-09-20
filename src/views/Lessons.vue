@@ -6,7 +6,7 @@
     <div class="shrink-1 flex justify-center md:justify-start md:flex-col md:items-end md:w-3/12">
       <div :style="`background-image:url(${quarterly.quarterly.cover})`" class="shrink-0 w-32 h-48 md:min-w-ss-cover md:max-w-ss-cover md:max-h-ss-cover md:min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
       <div class="ml-4 md:m-0 md:text-right">
-        <p class="md:mt-4 uppercase text-gray-400 text-xs">{{quarterly.quarterly.human_date}}</p>
+        <p class="md:mt-4 uppercase text-gray-500 text-xs">{{quarterly.quarterly.human_date}}</p>
         <div class="mt-4">
           <div v-for="feature in quarterly.quarterly.features" class="inline mr-3 last:mr-0" :key="`quarterly_${quarterly.quarterly.path}_feature_${feature.title}`">
             <img :src="feature.image" class="w-4 inline" />
@@ -38,8 +38,8 @@
       </div>
       <div class="mt-6 mb-4">
         <div class="flex items-center" v-for="(lesson, i) in quarterly.lessons" :key="`quarterly_${quarterly.quarterly.path}_lessons_${i}`">
-          <span v-if="/^\d*$/.test(lesson.id)" class="text-2xl font-bold text-gray-400 mr-4">{{ parseInt(lesson.id) }}</span>
-          <span v-else class="text-5xl font-bold text-gray-400 mr-4 align-middle -mt-3">{{ 'ꞏ' }}</span>
+          <span v-if="/^\d*$/.test(lesson.id)" class="text-2xl font-bold text-gray-500 mr-4">{{ parseInt(lesson.id) }}</span>
+          <span v-else class="text-5xl font-bold text-gray-500 mr-4 align-middle -mt-3">{{ 'ꞏ' }}</span>
 
           <div class="mb-4">
             <router-link :to="`/${this.$route.params.lang}/${this.$route.params.quarter}/${lesson.id}/01`" class="text-xl font-bold text-ss-primary hover:underline">{{lesson.title}}</router-link>

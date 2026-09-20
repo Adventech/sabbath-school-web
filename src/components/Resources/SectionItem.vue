@@ -20,7 +20,7 @@
           </div>
         </div>
         <div v-if="document.externalURL" >
-          <ArrowTopRightOnSquareIcon class="w-4 text-gray-400"/>
+          <ArrowTopRightOnSquareIcon class="w-4 text-gray-500"/>
         </div>
 <!--        <div @click.prevent="saveDocumentProgress(document.id)">-->
 <!--          <CheckCircleIcon v-if="!documentCompleted(document.id)" class="text-ss-primary w-6 h-6"></CheckCircleIcon>-->
@@ -68,10 +68,10 @@ export default {
       @apply hover:bg-gray-200 first:rounded-t-lg last:rounded-b-lg cursor-pointer;
       &-title {}
       &-date {
-        @apply text-gray-400 text-sm
+        @apply text-gray-500 text-sm
       }
       &-subtitle {
-        @apply text-gray-400 text-sm;
+        @apply text-gray-500 text-sm;
       }
       @apply border-b last:border-0 border-b border-gray-200 px-5 py-2;
     }

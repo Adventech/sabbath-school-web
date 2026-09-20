@@ -16,7 +16,7 @@
           <router-link class="max-w-ss-cover" :to="`/${$route.params.lang}/${quarterly.id}`" v-for="quarterly in group.quarterlies.slice(0, 4)" :key="`quarterly_${quarterly.path}`">
             <div :style="`background-image:url(${quarterly.cover})`" class="min-w-ss-cover max-w-ss-cover max-h-ss-cover min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
             <p class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</p>
-            <p class="uppercase text-gray-400 text-xs">{{ quarterly.human_date }}</p>
+            <p class="uppercase text-gray-500 text-xs">{{ quarterly.human_date }}</p>
           </router-link>
           <div class="hidden 2xl:flex items-center justify-center max-h-ss-cover">
             <router-link :to="{name: 'quarterlies', params: {lang: $route.params.lang}, query: {group: slugify(group.name)}}" class="transition hover:-translate-y-1 ease-in-out rounded-full w-24 h-24 flex items-center justify-center bg-ss-primary/[.075] hover:bg-ss-primary hover:text-white text-ss-primary shadow-lg shadow-gray-250">
@@ -32,7 +32,7 @@
         <router-link class="max-w-ss-cover" :to="`/${$route.params.lang}/${quarterly.id}`" v-for="quarterly in quarterlies" :key="`quarterly_${quarterly.path}`">
           <div :style="`background-image:url(${quarterly.cover})`" class="min-w-ss-cover max-w-ss-cover max-h-ss-cover min-h-ss-cover bg-center bg-cover mb-4 rounded shadow-gray-400 shadow-lg"></div>
           <p class="mt-2 mb-2 text-xl font-bold">{{ quarterly.title }}</p>
-          <p class="uppercase text-gray-400 text-xs">{{ quarterly.human_date }}</p>
+          <p class="uppercase text-gray-500 text-xs">{{ quarterly.human_date }}</p>
         </router-link>
       </div>
     </template>
