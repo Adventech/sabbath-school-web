@@ -488,6 +488,26 @@ export default {
           "en": "Kokborok",
           "code": "trp",
         },
+        {
+          "native": "Кыргыз",
+          "en": "Kyrgyz",
+          "code": "ky",
+        },
+        {
+          "native": "Қазақша",
+          "en": "Kazakh",
+          "code": "kz",
+        },
+        {
+          "native": "Тоҷикӣ",
+          "en": "Tajik",
+          "code": "tg",
+        },
+        {
+          "native": "Ўзбекча",
+          "en": "Uzbek",
+          "code": "uz",
+        },
       ]
     }
   },

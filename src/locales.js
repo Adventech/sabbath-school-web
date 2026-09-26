@@ -545,6 +545,29 @@ const locales = [
         "en": "Kokborok",
         "code": "trp",
         "flag": "🇮🇳",
+    },{
+        "native": "Кыргыз",
+        "en": "Kyrgyz",
+        "code": "ky",
+        "flag": "🇰🇬",
+    },
+    {
+        "native": "Қазақша",
+        "en": "Kazakh",
+        "code": "kz",
+        "flag": "🇰🇿",
+    },
+    {
+        "native": "Тоҷикӣ",
+        "en": "Tajik",
+        "code": "tg",
+        "flag": "🇹🇯",
+    },
+    {
+        "native": "Ўзбекча",
+        "en": "Uzbek",
+        "code": "uz",
+        "flag": "🇺🇿",
     },
 ]
 
