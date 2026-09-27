@@ -18,7 +18,7 @@ export const ResourceTitleTextStyle = {
         textTypeface: true,
         textAlignment: false,
         textOffset: false,
-        textColor: true,
+        textColor: false,
         textColorThemeOverride: false,
 
         renderText: true,
