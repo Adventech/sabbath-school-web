@@ -3,7 +3,7 @@
 
     <Dialog :class="{'pointer-events-auto': minimized}" as="div" class="relative z-40 " @close="!minimized ? closed(): null">
       <TransitionChild v-if="!minimized" as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        <div class="fixed inset-0 bg-app-overlay transition-opacity" />
       </TransitionChild>
       <div :class="{'pointer-events-none': minimized}" class="fixed z-10 inset-0 overflow-y-auto">
         <div :class="{'items-end sm:items-center': !minimized, 'items-end': minimized}" class="flex justify-center min-h-full p-4 text-center sm:p-0">
@@ -26,9 +26,9 @@
                   <XMarkIcon class="h-6 w-6 text-white hover:rotate-90 transition-all" aria-hidden="true" />
                 </button>
               </div>
-              <div class="bg-white rounded-lg text-left overflow-hidden shadow-xl" :class="{'px-4 pt-5 pb-4 sm:p-6 sm:pb-4': !noPadding, 'pointer-events-auto': minimized}">
+              <div class="bg-app-modal rounded-lg text-left overflow-hidden shadow-xl" :class="{'px-4 pt-5 pb-4 sm:p-6 sm:pb-4': !noPadding, 'pointer-events-auto': minimized}">
                 <div class="text-left">
-                  <div :class="themeStore().getClassList()">
+                  <div :class="[themeStore().getClassList(), 'bg-app-modal']">
                     <slot></slot>
                   </div>
                 </div>
@@ -46,6 +46,7 @@ import Markdown from '@/components/Markdown.vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { themeStore } from '@/plugins/Theme/ThemeStore.js'
+import { readerOptionsStore } from '@/components/Reader/ReaderOptionsStore'
 
 export default {
   props: ['open', 'large', 'noPadding', 'minimizeable', 'noControls'],
@@ -57,6 +58,12 @@ export default {
   },
   components: {
     Markdown, Dialog, DialogPanel, TransitionChild, TransitionRoot, XMarkIcon, ChevronDownIcon
+  },
+  mounted () {
+    themeStore().initializeFromReader()
+    this.$watch(() => readerOptionsStore().theme, () => {
+      themeStore().syncFromReader()
+    })
   },
   methods: {
     closed () {

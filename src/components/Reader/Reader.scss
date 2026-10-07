@@ -102,8 +102,8 @@
   }
 
   .ss-wrapper-light {
-    background-color: #fdfdfd;
-    color: #222;
+    background-color: var(--app-bg-reader);
+    color: var(--app-text-reader);
   }
 
   .ss-wrapper-sepia {
@@ -116,12 +116,12 @@
   }
 
   .ss-wrapper-dark {
-    background-color: #000000;
-    color: #adadad;
+    background-color: var(--app-bg-reader);
+    color: var(--app-text-reader);
   }
 
   .ss-wrapper-dark code, .ss-wrapper-dark blockquote {
-    background-color: #000000;
+    background-color: var(--app-bg-code);
   }
 
   .ss-wrapper-sepia a {
@@ -129,22 +129,22 @@
   }
 
   .ss-wrapper-dark a {
-    border-bottom: 1px solid #ccc !important;
-    color: #adadad;
+    border-bottom: 1px solid var(--app-reader-link-underline) !important;
+    color: var(--app-text-link);
   }
 
   .ss-wrapper-dark .textarea, .ss-wrapper-dark code {
-    box-shadow: none;
+    box-shadow: var(--app-reader-shadow);
   }
 
   .ss-wrapper-dark .textarea {
-    background-color: #121212;
-    color: #adadad;
-    background-image: -webkit-linear-gradient(#434343 1px, rgba(0, 0, 0, 0) 1px);
+    background-color: var(--app-bg-textarea);
+    color: var(--app-text-reader);
+    background-image: -webkit-linear-gradient(var(--app-reader-textarea-line) 1px, rgba(0, 0, 0, 0) 1px);
   }
 
   .ss-wrapper-dark .textarea-border {
-    background: #434343;
+    background: var(--app-reader-textarea-border);
   }
 
   .ss-wrapper p {
@@ -153,7 +153,7 @@
 
   .highlight_orange {
     background-color: #F59569;
-    color: #222 !important;
+    color: var(--app-reader-highlight-text) !important;
     border-radius: 5px;
     margin: 0 -3px;
     padding: 0 3px;
@@ -161,7 +161,7 @@
 
   .highlight_yellow {
     background-color: #FFF3A0;
-    color: #222 !important;
+    color: var(--app-reader-highlight-text) !important;
     border-radius: 5px;
     margin: 0 -3px;
     padding: 0 3px;
@@ -169,7 +169,7 @@
 
   .highlight_green {
     background-color: #63D724;
-    color: #222 !important;
+    color: var(--app-reader-highlight-text) !important;
     border-radius: 5px;
     margin: 0 -3px;
     padding: 0 3px;
@@ -177,7 +177,7 @@
 
   .highlight_blue {
     background-color: #69D2F5;
-    color: #222 !important;
+    color: var(--app-reader-highlight-text) !important;
     border-radius: 5px;
     margin: 0 -3px;
     padding: 0 3px;
@@ -189,16 +189,16 @@
   }
 
   a.highlight_underline {
-    border-bottom: 2px solid #005EC7;
+    border-bottom: 2px solid var(--app-reader-link-underline);
   }
 
   a {
-    border-bottom: 1px solid #005EC7;
+    border-bottom: 1px solid var(--app-reader-link-underline);
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
     padding-bottom: 0.2em;
-    color: #222;
+    color: var(--app-text-reader);
   }
 
   a:not(.verse) {
@@ -206,8 +206,8 @@
   }
 
   blockquote {
-    background: #f9f9f9;
-    border-left: 5px solid #ccc;
+    background: var(--app-bg-code);
+    border-left: 5px solid var(--app-reader-blockquote-border);
     padding: 0.5em 10px;
   }
 
@@ -219,14 +219,14 @@
 
   code {
     font-family: inherit;
-    background: #f9f9f9;
+    background: var(--app-bg-code);
     padding: 20px;
     display: block;
     font-weight: bold;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     position: relative;
-    box-shadow: 0 3px 5px 0 rgba(202, 202, 202, 0.75);
+    box-shadow: var(--app-reader-shadow);
   }
 
   .textarea-container {
@@ -235,7 +235,7 @@
 
   .textarea {
     font-weight: normal;
-    color: #222;
+    color: var(--app-text-reader);
     resize: none;
     width: 100%;
     display: block;
@@ -245,18 +245,18 @@
     min-height: 70px;
     padding: 5px 20px 5px 60px;
     border-radius: 0 !important;
-    background-color: #faf8fa;
+    background-color: var(--app-bg-textarea);
     background-attachment: local;
-    background-image: -webkit-linear-gradient(#dedede 1px, rgba(0, 0, 0, 0) 1px);
+    background-image: -webkit-linear-gradient(var(--app-reader-textarea-line) 1px, rgba(0, 0, 0, 0) 1px);
     height: 70px;
-    box-shadow: 0 3px 5px 0 rgba(202, 202, 202, 0.75);
+    box-shadow: var(--app-reader-shadow);
   }
 
   .textarea-border {
     position: absolute;
     height: 70px;
     width: 1px;
-    background: #ffcacb;
+    background: var(--app-reader-textarea-border);
     top: 0;
     left: 40px;
   }
@@ -279,26 +279,26 @@
     margin: 15px 0;
   }
   table tr {
-    border-top: 1px solid #cccccc;
-    background-color: white;
+    border-top: 1px solid var(--app-reader-table-border);
+    background-color: var(--app-reader-table-bg);
     margin: 0;
     padding: 0;
   }
 
   table tr:nth-child(2n) {
-    background-color: #f8f8f8;
+    background-color: var(--app-reader-table-bg-alt);
   }
 
   table tr th {
     font-weight: bold;
-    border: 1px solid #cccccc;
+    border: 1px solid var(--app-reader-table-border);
     text-align: left;
     margin: 0;
     padding: 6px 13px;
   }
 
   table tr td {
-    border: 1px solid #cccccc;
+    border: 1px solid var(--app-reader-table-border);
     text-align: left;
     margin: 0;
     padding: 6px 13px;
@@ -318,7 +318,7 @@
   }
 
   .ss-donation-appeal-title {
-    background-image: linear-gradient(90deg, #8F8F8F 0%, #C8C8C8 100%);
+    background-image: linear-gradient(90deg, var(--app-reader-donation-gradient-start) 0%, var(--app-reader-donation-gradient-end) 100%);
     padding: 2px 6px;
     border-radius: 3px;
     position: relative;
@@ -326,7 +326,7 @@
   }
 
   .ss-wrapper-dark .ss-donation-appeal-title {
-    background: #505050;
+    background: var(--app-reader-donation-gradient-start);
   }
 
   .ss-donation-appeal-title.ss-donation-appeal-title-expanded {
@@ -339,14 +339,14 @@
   }
 
   .ss-donation-appeal-title p {
-    color: #ffffff;
+    color: var(--app-reader-donation-text);
     margin: 0;
     padding: 0;
   }
 
   .ss-wrapper-dark .ss-donation-appeal-title p {
-    background: #505050;
-    color: #c0c2c2;
+    background: var(--app-reader-donation-gradient-start);
+    color: var(--app-reader-donation-text);
   }
 
   .ss-donation-appeal-icon {
@@ -363,16 +363,21 @@
   .ss-donation-appeal-text {
     display: none;
     padding: 6px;
-    background-color: #F8F8F8;
+    background-color: var(--app-reader-donation-bg);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
   }
 
   .ss-wrapper-dark .ss-donation-appeal-text {
-    background-color: #38383a;
+    background-color: var(--app-reader-donation-bg);
   }
 
   .ss-wrapper-sepia .ss-donation-appeal-text {
     background-color: #ffe0a7;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--app-border);
   }
 }

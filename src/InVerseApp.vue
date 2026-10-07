@@ -4,6 +4,7 @@ import { useLanguageStore } from '@/stores/language'
 import { RouterView } from 'vue-router'
 import InVerseHeader from '@/components/InVerse/InVerseHeader.vue'
 import InVerseFooter from '@/components/InVerse/InVerseFooter.vue'
+import { READER_THEME, readerOptionsStore, applyGlobalTheme, initGlobalTheme } from '@/components/Reader/ReaderOptionsStore'
 
 let dir = ref('auto')
 
@@ -16,11 +17,17 @@ const directionCalc = function () {
   dir = ['ar', 'fa', 'he'].includes(languageCode) ? 'rtl' : 'auto'
 }
 
+// Watch for theme changes and apply globally
+watch(() => readerOptionsStore().theme, (newTheme) => {
+  applyGlobalTheme(newTheme)
+})
+
 directionCalc()
 
 onMounted(() => {
-  let iconSource = '/assets/inverse-favicon.png'
+  initGlobalTheme()
 
+  let iconSource = '/assets/inverse-favicon.png'
   let link = document.querySelector("link[rel*='icon']") || document.createElement('link')
   link.rel = 'icon'
   link.href = iconSource

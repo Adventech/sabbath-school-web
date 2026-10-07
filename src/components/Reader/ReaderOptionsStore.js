@@ -22,6 +22,28 @@ export const READER_SIZE = Object.freeze({
   XL: "5",
 })
 
+function resolveSelectedTheme(theme) {
+  if (theme === READER_THEME.AUTO) {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    return prefersDark ? 'dark' : 'light'
+  }
+
+  if (theme === READER_THEME.LIGHT || theme === READER_THEME.SEPIA) {
+    return 'light'
+  }
+
+  return 'dark'
+}
+
+export function applyGlobalTheme(theme) {
+  const html = document.querySelector('html')
+  if (!html) {
+    return
+  }
+
+  html.setAttribute('data-theme', resolveSelectedTheme(theme))
+}
+
 export const readerOptionsStore = defineStore({
   id: 'readerOptions',
   state: () => ({
@@ -32,6 +54,7 @@ export const readerOptionsStore = defineStore({
   actions: {
     setTheme(theme) {
       this.theme = theme
+      applyGlobalTheme(theme)
     },
     setFont(font) {
       this.font = font
@@ -42,3 +65,16 @@ export const readerOptionsStore = defineStore({
   },
   persist: true
 })
+
+export function initGlobalTheme() {
+  const store = readerOptionsStore()
+  applyGlobalTheme(store.theme)
+
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (store.theme === READER_THEME.AUTO) {
+        applyGlobalTheme(READER_THEME.AUTO)
+      }
+    })
+  }
+}

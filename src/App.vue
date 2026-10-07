@@ -11,6 +11,7 @@ import HeaderAIJPrimary from '@/components/HeaderAIJPrimary.vue'
 import FooterAIJPrimary from '@/components/FooterAIJPrimary.vue'
 import HeaderAIJKindergarten from '@/components/HeaderAIJKindergarten.vue'
 import FooterAIJKindergarten from '@/components/FooterAIJKindergarten.vue'
+import { READER_THEME, readerOptionsStore, applyGlobalTheme, initGlobalTheme } from '@/components/Reader/ReaderOptionsStore'
 
 let dir = ref('auto')
 
@@ -46,7 +47,14 @@ const changeFavicon = function (src) {
   document.getElementsByTagName('head')[0].appendChild(link)
 }
 
+// Watch for theme changes from the reader and apply them globally
+watch(() => readerOptionsStore().theme, (newTheme) => {
+  applyGlobalTheme(newTheme)
+})
+
 onMounted(() => {
+  initGlobalTheme()
+
   let iconSource = '/assets/logo.png'
 
   if (isAIJBabies.value || isAIJBeginner.value || isAIJPrimary.value || isAIJKindergarten.value) {

@@ -14,10 +14,12 @@ import { createPinia } from 'pinia'
 import { authStore } from '@/stores/auth'
 import { VueHeadMixin, createHead } from '@unhead/vue'
 import gtmPlugin from './plugins/GTM/gtm'
+import { initGlobalTheme } from '@/components/Reader/ReaderOptionsStore'
 
 DayJS.extend(customParseFormat)
 
 import './style.css'
+import './plugins/Theme/app-theme.scss'
 
 const getApp = async function () {
     return window.location.hostname.includes(import.meta.env.VITE_APP_SSPM_INVERSE_HOST) ? await import('@/InVerseApp.vue') :
@@ -112,7 +114,8 @@ getApp().then(({ default: App }) => {
 
     app.component('Block', Block);
 
+    initGlobalTheme()
+
     app.mount('#app')
 
 })
-
