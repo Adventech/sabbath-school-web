@@ -131,6 +131,6 @@ export default {
 }
 
 .segment-subtitle {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 </style>

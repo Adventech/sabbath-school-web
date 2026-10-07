@@ -48,7 +48,7 @@ export default {
   }
   &-subtitle {
     @apply
-    theme-sepia:text-gray-400
+    theme-sepia:text-gray-500
     text-sm text-gray-500
   }
 }
