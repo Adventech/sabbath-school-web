@@ -3,7 +3,7 @@
     <audio class="w-full" controls preload="none">
       <source :src="block.src" />
     </audio>
-    <p v-if="block.caption" class="select-none italic text-gray-400 mt-1 text-center w-full">{{ block.caption }}</p>
+    <p v-if="block.caption" class="select-none italic text-gray-500 mt-1 text-center w-full">{{ block.caption }}</p>
     <div class="flex justify-center text-sm">
       <Popover v-if="block.credits" class="relative">
         <PopoverButton class="outline-none text-gray-600 underline flex items-center gap-1">
@@ -28,7 +28,7 @@
           </div>
           <template v-if="copyright">
             <hr>
-            <div v-html="copyright" class="text-xs text-gray-400"></div>
+            <div v-html="copyright" class="text-xs text-gray-500"></div>
           </template>
 
         </PopoverPanel>

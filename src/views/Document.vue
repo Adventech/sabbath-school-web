@@ -13,7 +13,7 @@
             <router-link tag="div" :to="`/resources/${resource.index}`" class="font-bold">
               ‹ {{ resource.title }}
             </router-link>
-            <p v-if="resource.subtitle" class="text-gray-400 line-clamp-4">{{ resource.subtitle }}</p>
+            <p v-if="resource.subtitle" class="text-gray-500 line-clamp-4">{{ resource.subtitle }}</p>
           </div>
         </div>
 
@@ -36,9 +36,9 @@
                 v-for="(segment, index) in document.segments" :to="`/resources/${segment.index}`"
                 class="md:w-full hover:bg-gray-100 p-2 rounded">
               <div class="flex flex-col">
-                <div class="text-gray-400 text-sm" v-if="segment.date">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
+                <div class="text-gray-500 text-sm" v-if="segment.date">{{ DayJS(segment.date, 'DD/MM/YYYY').format('dddd, MMMM DD') }}</div>
                 <div :class="{'text-ss-primary': selectedSegmentIndex === index}">{{ segment.title }}</div>
-                <div class="text-gray-400 text-sm" v-if="segment.subtitle">{{ segment.subtitle }}</div>
+                <div class="text-gray-500 text-sm" v-if="segment.subtitle">{{ segment.subtitle }}</div>
               </div>
             </router-link>
           </div>
