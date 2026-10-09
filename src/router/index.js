@@ -193,6 +193,23 @@ const router = createRouter({
 })
 
 /**
+ * Three of the language codes the API uses are not valid BCP 47 language subtags,
+ * so they cannot be used verbatim in `<html lang>`:
+ *
+ *   in  -> id   Indonesian  (deprecated in the IANA registry since 1989-01-01)
+ *   kin -> rw   Kinyarwanda (ISO 639-3; not a registered BCP 47 subtag, `rw` is)
+ *   run -> rn   Rundi       (ISO 639-3; not a registered BCP 47 subtag, `rn` is)
+ *
+ * This map applies to the `lang` attribute only. Route params and API calls are
+ * unchanged, so URLs keep working exactly as before.
+ */
+const BCP47_LANG_OVERRIDES = {
+  in: 'id',
+  kin: 'rw',
+  run: 'rn',
+}
+
+/**
  * TODO: refactor to use the store that fetches the languages from API instead of using locales
  */
 router.beforeEach(async (to, from, next) => {
@@ -202,6 +219,7 @@ router.beforeEach(async (to, from, next) => {
       next('/')
     } else {
       useLanguageStore().locale = found
+      document.documentElement.lang = BCP47_LANG_OVERRIDES[found.code] ?? found.code
     }
   }
   next()
